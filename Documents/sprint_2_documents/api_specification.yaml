@@ -1,0 +1,678 @@
+openapi: 3.0.0
+info:
+  title: Blinders Vault
+  description: API for a banking application with account holder and teller operations
+  version: 1.0.0
+  
+servers:
+  - url: https://api.blindres_vault.example.com/v1
+    description: Production server
+  - url: https://localhost:8080.com/v1
+    description: Local server
+    
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      
+  schemas:
+    Error:
+      type: object
+      properties:
+        error_message:
+          type: string
+          description: Description of the error
+        error_code:
+          type: string
+          description: Error code
+        timestamp:
+          type: string
+          format: date-time
+          description: Time when the error occurred
+      required:
+        - error_message
+
+    AccountRegistration:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: First name of the user
+        middle_initial:
+          type: string
+          description: Middle initial of the user (use "N/A" if none)
+        last_name:
+          type: string
+          description: Last name of the user
+        password:
+          type: string
+          format: password
+          description: Strong password for account security
+        email_address:
+          type: string
+          format: email
+          description: Email for communications and transaction notifications
+        mobile_number:
+          type: integer
+          description: Mobile number for OTP and PIN delivery
+      required:
+        - first_name
+        - middle_initial
+        - last_name
+        - password
+        - email_address
+        - mobile_number
+
+    LoginRequest:
+      type: object
+      properties:
+        account_number:
+          type: integer
+          description: Unique account number
+        password:
+          type: string
+          format: password
+          description: Account password
+      required:
+        - account_number
+        - password
+        
+    InternalTransferRequest:
+      type: object
+      properties:
+        transaction_amount:
+          type: integer
+          description: Amount to be transferred
+        source_account_no:
+          type: integer
+          description: Sender's account number
+        recipient_account_no:
+          type: integer
+          description: Recipient's account number (same bank)
+        redirect_url:
+          type: string
+          description: URL to redirect after completion
+      required:
+        - transaction_amount
+        - source_account_no
+        - recipient_account_no
+        - redirect_url
+        
+    ExternalTransferRequest:
+      type: object
+      properties:
+        transaction_amount:
+          type: integer
+          description: Amount to be transferred
+        source_account_no:
+          type: integer
+          description: Sender's account number
+        recipient_account_no:
+          type: integer
+          description: Recipient's account number
+        recipient_bank_code:
+          type: integer
+          description: Code identifying recipient's bank
+        redirect_url:
+          type: string
+          description: URL to redirect after completion
+      required:
+        - transaction_amount
+        - source_account_no
+        - recipient_account_no
+        - recipient_bank_code
+        - redirect_url
+        
+    InternalWithdrawalRequest:
+      type: object
+      properties:
+        transaction_amount:
+          type: integer
+          description: Amount to withdraw
+        account_no:
+          type: integer
+          description: Account to withdraw from
+      required:
+        - transaction_amount
+        - account_no
+        
+    ExternalWithdrawalRequest:
+      type: object
+      properties:
+        transaction_amount:
+          type: integer
+          description: Amount to withdraw
+        source_account_no:
+          type: integer
+          description: Account to withdraw from
+        recipient_bank_code:
+          type: integer
+          description: External bank or wallet code
+        recipient_account_no:
+          type: integer
+          description: Recipient account number
+        redirect_url:
+          type: string
+          description: URL to redirect after processing
+      required:
+        - transaction_amount
+        - source_account_no
+        - recipient_bank_code
+        - recipient_account_no
+        - redirect_url
+        
+    TellerTransactionRequest:
+      type: object
+      properties:
+        teller_id:
+          type: integer
+          description: Unique ID of the teller
+        account_no:
+          type: integer
+          description: Account number to modify
+        transaction_type:
+          type: string
+          enum: [deposit, withdrawal]
+          description: Type of transaction
+        transaction_amount:
+          type: integer
+          description: Amount to deposit or withdraw
+      required:
+        - teller_id
+        - account_no
+        - transaction_type
+        - transaction_amount
+        
+    CloseAccountRequest:
+      type: object
+      properties:
+        teller_id:
+          type: integer
+          description: ID of the teller performing the action
+        account_no:
+          type: integer
+          description: Account number to be closed
+        reason:
+          type: string
+          description: Reason for account closure
+      required:
+        - teller_id
+        - account_no
+        - reason
+
+    RegistrationResponse:
+      type: object
+      properties:
+        account_successfully_created:
+          type: boolean
+          description: Indicates if the account was created successfully
+        bearer_token:
+          type: string
+          description: JWT token for authentication
+        account_number:
+          type: integer
+          description: Unique account number
+      required:
+        - account_successfully_created
+        - bearer_token
+        - account_number
+        
+    LoginResponse:
+      type: object
+      properties:
+        login_successful:
+          type: boolean
+          description: Indicates if login was successful
+        bearer_token:
+          type: string
+          description: JWT token for authentication
+        user_id:
+          type: string
+          description: User identifier
+      required:
+        - login_successful
+        - bearer_token
+        - user_id
+        
+    BalanceResponse:
+      type: object
+      properties:
+        validation:
+          type: boolean
+          description: Indicates if the request was validated
+        account_number:
+          type: integer
+          description: Account number
+        balance:
+          type: number
+          format: float
+          description: Current account balance
+        currency:
+          type: string
+          description: Currency code
+      required:
+        - validation
+        - account_number
+        - balance
+        
+    InternalTransferResponse:
+      type: object
+      properties:
+        sent_successfully:
+          type: boolean
+          description: Indicates if transfer was successful
+        transaction_id:
+          type: string
+          description: Unique ID for the transaction
+        source_account_no:
+          type: integer
+          description: Sender's account number
+        recipient_account_no:
+          type: integer
+          description: Recipient's account number
+        transaction_amount:
+          type: integer
+          description: Amount transferred
+        transaction_date:
+          type: string
+          format: date-time
+          description: Date and time of the transaction
+      required:
+        - sent_successfully
+        - transaction_id
+        
+    ExternalTransferResponse:
+      type: object
+      properties:
+        sent_successfully:
+          type: boolean
+          description: Indicates if transfer was successful
+        transaction_id:
+          type: string
+          description: Unique ID for the transaction
+        source_account_no:
+          type: integer
+          description: Sender's account number
+        recipient_account_no:
+          type: integer
+          description: Recipient's account number
+        recipient_bank_code:
+          type: integer
+          description: Recipient's bank code
+        transaction_amount:
+          type: integer
+          description: Amount transferred
+        transaction_date:
+          type: string
+          format: date-time
+          description: Date and time of the transaction
+      required:
+        - sent_successfully
+        - transaction_id
+        
+    InternalWithdrawalResponse:
+      type: object
+      properties:
+        withdraw_successfully:
+          type: boolean
+          description: Indicates if withdrawal was successful
+        transaction_id:
+          type: string
+          description: Unique ID for the transaction
+        account_no:
+          type: integer
+          description: Account number
+        transaction_amount:
+          type: integer
+          description: Amount withdrawn
+        transaction_date:
+          type: string
+          format: date-time
+          description: Date and time of the transaction
+        remaining_balance:
+          type: number
+          format: float
+          description: Remaining account balance
+      required:
+        - withdraw_successfully
+        - transaction_id
+        
+    ExternalWithdrawalResponse:
+      type: object
+      properties:
+        withdrawal_success:
+          type: boolean
+          description: Indicates if withdrawal was successful
+        transaction_id:
+          type: string
+          description: Unique ID for the transaction
+        source_account_no:
+          type: integer
+          description: Source account number
+        recipient_account_no:
+          type: integer
+          description: Recipient account number
+        recipient_bank_code:
+          type: integer
+          description: Recipient's bank code
+        transaction_amount:
+          type: integer
+          description: Amount withdrawn
+        transaction_date:
+          type: string
+          format: date-time
+          description: Date and time of the transaction
+        remaining_balance:
+          type: number
+          format: float
+          description: Remaining account balance
+      required:
+        - withdrawal_success
+        - transaction_id
+        
+    TellerTransactionResponse:
+      type: object
+      properties:
+        account_no_correct:
+          type: boolean
+          description: Indicates if account number is correct
+        transaction_success:
+          type: boolean
+          description: Indicates if transaction was successful
+        transaction_id:
+          type: string
+          description: Unique ID for the transaction
+        account_no:
+          type: integer
+          description: Account number
+        transaction_type:
+          type: string
+          enum: [deposit, withdrawal]
+          description: Type of transaction
+        transaction_amount:
+          type: integer
+          description: Amount of transaction
+        transaction_date:
+          type: string
+          format: date-time
+          description: Date and time of the transaction
+        new_balance:
+          type: number
+          format: float
+          description: New account balance
+      required:
+        - account_no_correct
+        - transaction_success
+        - transaction_id
+        
+    CloseAccountResponse:
+      type: object
+      properties:
+        account_deleted:
+          type: boolean
+          description: Indicates if account was deleted
+        account_no:
+          type: integer
+          description: Account number
+        closure_date:
+          type: string
+          format: date-time
+          description: Date and time of closure
+        reason:
+          type: string
+          description: Reason for closure
+      required:
+        - account_deleted
+        - account_no
+
+paths:
+  /register:
+    post:
+      summary: Register a new bank account
+      description: Create a new bank account with the provided personal information
+      tags:
+        - Account Holder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountRegistration'
+      responses:
+        '200':
+          description: Account successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrationResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+  /login:
+    post:
+      summary: Log in to an existing account
+      description: Authenticate an account holder
+      tags:
+        - Account Holder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+  /account/balance:
+    get:
+      summary: Get account balance
+      description: Retrieve the current balance of an account
+      tags:
+        - Account Holder
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: account_number
+          schema:
+            type: integer
+          required: false
+          description: Account number (optional if tied to auth token)
+      responses:
+        '200':
+          description: Balance retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalanceResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+  /fund-transfer-internal:
+    post:
+      summary: Internal fund transfer
+      description: Transfer funds between accounts within the same bank
+      tags:
+        - Account Holder
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InternalTransferRequest'
+      responses:
+        '200':
+          description: Transfer successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalTransferResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+  /fund-transfer-external:
+    post:
+      summary: External fund transfer
+      description: Transfer funds to an account at a different bank
+      tags:
+        - Account Holder
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalTransferRequest'
+      responses:
+        '200':
+          description: Transfer successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalTransferResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+  /fund-withdraw-internal:
+    post:
+      summary: Internal withdrawal
+      description: Withdraw funds from an account within the same bank
+      tags:
+        - Account Holder
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InternalWithdrawalRequest'
+      responses:
+        '200':
+          description: Withdrawal successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalWithdrawalResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+  /fund-withdraw-external:
+    post:
+      summary: External withdrawal
+      description: Withdraw funds to an external bank or wallet
+      tags:
+        - Account Holder
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalWithdrawalRequest'
+      responses:
+        '200':
+          description: Withdrawal successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalWithdrawalResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+  /teller-transaction:
+    post:
+      summary: Teller transaction
+      description: Allow tellers to deposit or withdraw funds from a customer account
+      tags:
+        - Bank Teller
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TellerTransactionRequest'
+      responses:
+        '200':
+          description: Transaction successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TellerTransactionResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+  /teller-close-account:
+    delete:
+      summary: Close account
+      description: Allow tellers to permanently close a customer account
+      tags:
+        - Bank Teller
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CloseAccountRequest'
+      responses:
+        '200':
+          description: Account closed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloseAccountResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'

@@ -1,0 +1,193 @@
+* {
+    margin: 0;
+    padding: 0px;
+}
+
+
+.top-nav-bar {
+    background-color: #1A1E29;
+    overflow: hidden;
+    font-style: "sans-serif";
+}
+
+.top-nav-bar a {
+    float: right;
+    color: rgb(69, 68, 68);
+    text-align: center;
+    padding: 20px 20px;
+    text-decoration: none;
+    font-family: "Lexend Tera", sans-serif;
+    font-size: 20px;
+    margin-right: 0;
+    color: white;
+}
+
+.icon img {
+    margin-top: 5px;
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    margin-left: 2%;
+}
+
+.icon h4 {
+    position: absolute;
+    margin-top: 2%;
+    margin-left: 7%;
+    font-family: "Lexend Tera", sans-serif;
+    color: white;
+
+}
+
+a {
+    text-decoration: none;
+}
+
+#back_button {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 15px;
+    padding: 7px;
+    width: 100px;
+    border: solid 0px;
+    background-color: #01C38E;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+body {
+    background-color: #1A2235;
+}
+
+.form-external-container {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-external-border {
+    margin-top: 7%;
+    border: solid 0px;
+    width: 507px;
+    height: 480px;
+    background-color: #132D46;
+    border-radius: 20px;
+    box-shadow: 0 0 50px #01C38E;
+}
+
+.transfer-funds-external {
+  color: white;
+    font-family: "Lexend Tera", sans-serif;
+    font-size: 30px;
+    margin-top: 5%;
+}
+
+.balance {
+    color: white;
+    font-family: "Lexend Tera", sans-serif;
+    margin-top: 3%;
+    font-size: 20px;
+}
+
+.total-balance-external {
+    color: white;
+    font-size: 40px;
+    font-family: "IBM Plex Mono", monospace;
+}
+
+.total-balance-external-border {
+    margin-top: 3%;
+    border: solid 0px;
+    width: 70%;
+    margin-left: 13%;
+    padding: 10px;
+    background-color: #102436;
+    border-radius: 15px;
+}
+
+.transfer-amount-external {
+    margin-top: 1%;
+}
+
+#transfer_amount-external {
+    width: 70%;
+    height: 25px;
+    padding: 5px;
+    border: solid 0px;
+    border-radius: 5px;
+}
+
+.transfer-label-external {
+    color: white;
+    margin-bottom: 2%;
+    font-family: "Lexend Tera", sans-serif;
+
+}
+
+.recipient-account-id-external {
+    margin-top: 1%;
+}
+
+#recipient_id_external {
+    width: 70%;
+    height: 25px;
+    padding: 5px;
+    border: solid 0px;
+    border-radius: 5px;
+}
+
+.recipient-account-id-label-external {
+    color: white;
+    margin-bottom: 2%;
+    font-family: "Lexend Tera", sans-serif;
+}
+
+.select-other-bank-label {
+    margin-top: 1%;
+    color: white;
+    margin-bottom: 1%;
+    font-family: "Lexend Tera", sans-serif;
+}
+
+.select-external-option {
+    margin-top: 1%;
+    text-align: center;
+    width: 70%;
+    height: 30px;
+    padding: 5px;
+    color: rgb(19, 18, 18);
+    font-family: "Lexend Tera", sans-serif;
+}
+
+.button-container {
+    margin-top: 5%;
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
+
+#cancel {
+    border: solid 0px;
+    padding: 10px;
+    width: 25%;
+    background-color: #E73115;
+    color: white;
+    font-family: "Lexend Tera", sans-serif;
+    font-family: "Lexend Tera", sans-serif;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
+}
+
+#submit {
+    border: solid 0px;
+    padding: 10px;
+    width: 25%;
+    background-color: #01C38E;
+    color: white;
+    font-family: "Lexend Tera", sans-serif;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
+}

@@ -10,6 +10,7 @@
         <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     </head>
     <body>
+    <div class="account-holder-container"></div>
          <div class="container">
             <div class="top-nav-bar">
                 <div class="icon">
@@ -23,6 +24,62 @@
                 <a class="contact" href="">About us</a>
                 <a class="about" href="">Contact us</a>
             </div>
+        </div>
+
+        <div class="acoount-details-container">
+            <div class="account-details-border">
+                <div class="account-details">
+                    <h1>Account Details</h1>
+                    <h4>Name: </h4>
+                    <h4>Account ID: </h4>
+                </div>
+                
+                <div class="balance-details">
+                    <h1>Account Balance</h1>
+                    <h3>₱20,000</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="recent-transaction-container">
+        <div class="bottom-boxes">
+            <div class="recent-transaction-border">
+                <div class="recent-transaction-details">
+                    <h1>Recent Transactions</h1>
+                    
+                    <div class="transaction-item">
+                        <div class="transaction-label">Deposit</div>
+                        <div class="transaction-amount">+₱200.00</div>
+                    </div>
+
+                    <div class="transaction-item">
+                        <div class="transaction-label">Transfer</div>
+                        <div class="transaction-amount">-₱200.00</div>
+                    </div>
+
+                    <div class="transaction-item">
+                        <div class="transaction-label">Payment</div>
+                        <div class="transaction-amount">-₱200.00</div>
+                    </div>
+                </div>
+            </div>
+            <div class="bank-services-border">
+                <div class="bank-service-details">
+                    <div class="bank-service">Bank Service</div>
+                    <div class="transfer-funds-internal">
+                        <a href="/transaction_forms/transfer_fund_internal.html">
+                            <button type="button">Transfer Fund Internal</button>
+                        </a>
+                    </div>
+
+                    <div class="transfer-funds-external">
+                        <a href="/transaction_forms/transfer_fund_external.html">
+                            <button type="button">Transfer Fund External</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
     </body>
 </html>

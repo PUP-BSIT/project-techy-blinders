@@ -1,8 +1,12 @@
 * {
     margin: 0;
     padding: 0px;
+    box-sizing: border-box;
 }
 
+body {
+    background-color: #1A2235;
+}
 
 .top-nav-bar {
     background-color: #1A1E29;
@@ -57,4 +61,154 @@ a {
     background-color: #01C38E;
     color: white;
     border-radius: 50px;
+}
+
+.account-details-border {
+    margin-left: 3%;
+    margin-top: 1%;
+    border: solid 0px;
+    border-radius: 15px;
+    background-color: #132D46;
+    width: 94%;
+    height: 400px;
+}
+
+.recent-transaction-container {
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-top: 1%;
+}
+
+.bottom-boxes {
+    display: flex;
+    justify-content: space-between;
+}
+
+.recent-transaction-border,
+.bank-services-border {
+    border: solid 0px;
+    border-radius: 15px;
+    background-color: #132D46;
+    width: 49%;
+    height: 280px;
+}
+
+.account-details {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    height: 100%;
+    margin-left: 3%;
+}
+
+.account-details h4 {
+    font-family: "Lexend Tera", sans-serif;
+    color: white;
+    margin: 0;
+    padding: 0 10px;
+    font-weight: normal;
+    font-size: 20px;
+}
+
+.account-details h1 {
+    font-family: "Lexend Tera", sans-serif;
+    color: white;
+    padding: 0 10px;
+    margin-top: 7%; 
+    font-size: 40px;
+}
+
+.balance-details {
+    position: absolute;
+    margin-top: -20%;
+    margin-left: 65%;
+}
+
+.balance-details h1 {
+    font-family: "IBM Plex Mono", monospace;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.balance-details h3 {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: normal;
+    color: white;
+    font-size: 80px;
+}
+
+.recent-transaction-details {
+    padding: 20px 30px;
+    font-family: "Lexend Tera", sans-serif;
+    color: white;
+}
+
+.recent-transaction-details h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.transaction-label {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.transaction-amount {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.bank-service {
+    font-size: 1.8rem;
+    text-align: center;
+    font-family: "Lexend Tera", sans-serif;
+    margin-top: 2%;
+    color: white;
+}
+
+.transfer-funds-internal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.transfer-funds-external {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.transfer-funds-internal button {
+    font-family: "Lexend Tera", sans-serif;
+    background-color: #01C38E;
+    margin-top: 5%;
+    padding: 15px;
+    width: 400px;
+    color: white;
+    font-size: 20px;
+    border: solid 0px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.transfer-funds-external button {
+    font-family: "Lexend Tera", sans-serif;
+    background-color: #01C38E;
+    margin-top: 5%;
+    padding: 15px;
+    width: 400px;
+    color: white;
+    font-size: 20px;
+    border: solid 0px;
+    border-radius: 10px;
+    cursor: pointer;
 }

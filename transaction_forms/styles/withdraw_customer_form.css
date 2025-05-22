@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0px;
+}
+
+body {
+    background-color: #1A2235;
+}
+
+.top-nav-bar {
+    background-color: #1A1E29;
+    overflow: hidden;
+    font-style: "sans-serif";
+}
+
+.top-nav-bar a {
+    float: right;
+    color: rgb(69, 68, 68);
+    text-align: center;
+    padding: 20px 20px;
+    text-decoration: none;
+    font-family: "Lexend Tera", sans-serif;
+    font-size: 20px;
+    margin-right: 0;
+    color: white;
+}
+
+.icon img {
+    margin-top: 5px;
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    margin-left: 2%;
+}
+
+.icon h4 {
+    position: absolute;
+    margin-top: 2%;
+    margin-left: 7%;
+    font-family: "Lexend Tera", sans-serif;
+    color: white;
+
+}
+
+a {
+    text-decoration: none;
+}
+
+#back_button {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 15px;
+    padding: 7px;
+    width: 100px;
+    border: solid 0px;
+    background-color: #01C38E;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.withdraw-customer-container {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.withdraw-customer-border {
+    margin-top: 7%;
+    border: solid 0px;
+    width: 507px;
+    height: 380px;
+    background-color: #132D46;
+    border-radius: 20px;
+    box-shadow: 0 0 50px #01C38E;
+}
+
+.withdraw-customer-label {
+    margin-top: 5%;
+    font-family: "Lexend Tera", sans-serif;
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+}
+
+.account-id, .withdraw-ammount {
+    margin-top: 5%;
+}
+
+.account-id-label {
+    color: white;
+    font-family: "Lexend Tera", sans-serif;
+    margin-left: -36%;
+}
+
+#account_id {
+    margin-top: 1%;
+    width: 60%;
+    height: 15px;
+    padding: 5px;
+}
+
+.withdraw-ammount-label {
+    color: white;
+    font-family: "Lexend Tera", sans-serif;
+    margin-left: -27%;
+}
+
+#withdraw_ammount {
+    margin-top: 1%;
+    width: 60%;
+    height: 15px;
+    padding: 5px;
+}
+
+.button-container {
+    margin-top: 5%;
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
+
+#cancel {
+    border: solid 0px;
+    padding: 10px;
+    width: 25%;
+    background-color: #E73115;
+    color: white;
+    font-family: "Lexend Tera", sans-serif;
+    font-family: "Lexend Tera", sans-serif;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
+}
+
+#withdraw {
+    border: solid 0px;
+    padding: 10px;
+    width: 25%;
+    background-color: #01C38E;
+    color: white;
+    font-family: "Lexend Tera", sans-serif;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
+}

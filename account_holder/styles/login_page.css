@@ -1,0 +1,150 @@
+:root {
+    --container: #141B2A;
+    --bg-color: #1A1E29;
+    --text: #FFF;
+    --accent: #01C38E;
+    --container2: #132D46;
+    --shadow: 0 0 20px rgba(0, 223, 154, 0.3),
+              0 0 80px rgba(0, 223, 154, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.line-container {
+    padding: 0.2%;
+    background-color: var(--text);
+    margin-right: 30%;
+    margin-left: 10%;
+}
+
+.bank-name {
+    color: var(--text);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 450%;
+    text-align: center;
+    font-weight: bolder;
+    padding-right: 20%;
+}
+
+.slogan-container {
+    margin-top: 2%;
+    color: var(--text);
+}
+
+.slogan {
+    text-align: center;
+    font-size: large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding-right: 20%;
+}
+
+.logo-container {
+    margin-top: -20%;
+    margin-left: -15%;
+}
+
+.logo-display {
+    width: 120%;
+    height: auto;
+}
+
+.content-container {
+    margin-top: -35%;
+    margin-left: 24%;
+}
+
+.login-form-container {
+    margin-top: 13%;
+    margin-left: 10%;
+    margin-bottom: -10%;
+    width: 65%;
+    height: 100%;
+    background-color: var(--container2);
+    border-radius: 30px;
+    box-shadow: var(--shadow);
+}
+
+.welcome-message {
+    color: var(--text);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-top: 2%;
+    margin-left: 22%;
+    font-size: 400%;
+}
+
+.text-content-container {
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 3%;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.text-content, .account-id-label, .password-label {
+    color: var(--text);
+}
+
+.account-id-container {
+    margin-top: 10%;
+    margin-left: 19%;
+}
+
+.account-id-input, .password-input {
+    border-radius: 5px;
+    width: 75%;
+    height: 40px;
+}
+
+.password-container {
+    margin-top: 8%;
+    margin-left: 19%;
+}
+
+.button-container {
+    margin-top: 7%;
+    margin-left: 40%;
+}
+
+.button-container :hover {
+    cursor: pointer;
+}
+
+.button {
+    font-size: 125%;
+    width: 35%;
+    height: 40px;
+    border-radius: 20px;
+    background-color: var(--accent);
+    color: var(--text);
+}
+
+.signup-container {
+    margin-top: 6%;
+    margin-left: 30%;
+}
+
+.signup-link {
+    color: var(--text);
+}
+
+.hyper-link {
+    text-decoration: none;
+    color: lightskyblue;
+}
+
+.hyper-link:hover {
+    color: red;
+}

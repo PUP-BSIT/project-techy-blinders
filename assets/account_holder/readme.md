@@ -1,0 +1,1 @@
+Place all assets related to the account holder in this directory. Make sure to choose the specific folder corresponding to the web page.

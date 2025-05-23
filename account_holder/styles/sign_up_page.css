@@ -1,0 +1,165 @@
+:root {
+  --container: #141B2A;
+  --bg-color: #1A1E29;
+  --text: #FFF;
+  --form-bg: #0F2138;
+  --accent: #01C38E;
+  --danger: #F65354;
+  --shadows: 0 0 20px rgba(0, 223, 154, 0.3),
+             0 0 80px rgba(0, 223, 154, 0.4);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  font-family: "IBM Plex Mono", monospace;
+  color: var(--text);
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+}
+
+.top-nav-bar {
+    background-color: var(--container);
+    overflow: hidden;
+    font-style: "sans-serif";
+}
+
+.top-nav-bar a {
+    float: right;
+    color: rgb(69, 68, 68);
+    text-align: center;
+    padding: 20px 20px;
+    text-decoration: none;
+    font-family: "Lexend Tera", sans-serif;
+    font-size: 20px;
+    margin-right: 0;
+    color: var(--text);
+}
+
+.top-nav-bar a:hover {
+    background-color: var(--bg-color);
+    color: var(--text);
+}
+
+.icon img {
+  margin-top: -2.4%;
+  position: absolute;
+  width: 13%;
+  height: 150px;
+  margin-left: -2%;
+}
+
+.icon h4 {
+    position: absolute;
+    margin-top: 2%;
+    margin-left: 7%;
+    font-family: "Lexend Tera", sans-serif;
+    color: var(--text);
+}
+
+a {
+    text-decoration: none;
+}
+
+#logout_button {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 15px;
+    padding: 7px;
+    width: 100px;
+    border: solid 0px;
+    background-color: #01C38E;
+    color: var(--text);
+    border-radius: 50px;
+}
+
+.main {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: calc(100vh - 70px);
+  padding: 40px;
+}
+
+.form-container {
+  background-color: var(--form-bg);
+  padding: 30px;
+  border-radius: 20px;
+  width: 400px;
+  box-shadow: var(--shadows);
+}
+
+.form-container h1 {
+  font-size: 36px;
+  font-family: "Lexend Tera", sans-serif;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 14px;
+  border-radius: 5px;
+  border: none;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.row input {
+  flex: 1;
+}
+
+.buttons {
+  display: flex;
+  margin-top: 20px;
+}
+
+.cancel, .create {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: "IBM Plex Mono", monospace;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.cancel {
+  background-color: var(--danger);
+  color: white;
+  margin-right: 5%;
+  margin-left: 20%;
+}
+
+.create {
+  background-color: var(--accent);
+  color: white;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.login-link a {
+  color: #6FC5FF;
+  text-decoration: none;
+}
+
+.visual img {
+  max-width: 500px;
+  height: auto;
+  border-radius: 20px;
+}

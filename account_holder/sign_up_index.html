@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up | Blinders Vault</title>
+    <link rel="stylesheet" href="./styles/sign_up_page.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Tera:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="top-nav-bar">
+            <div class="icon">
+                <img src="../asset/navigation_bar/logo.png" alt="Logo">
+                <h4>Blinders Vault</h4>
+            </div>
+            <a href="#">
+                <button type="button" id="logout_button">Login</button>
+            </a>
+            <a href="#" class="contact">Contact us</a>
+            <a href="#" class="about">About us</a>
+        </div>
+
+        <div class="main">
+            <div class="form-container">
+                <h1>Sign up</h1>
+                <form>
+                    <div class="row">
+                        <input type="text" placeholder="First Name" required>
+                        <input type="text" placeholder="Last Name" required>
+                        <input type="text" placeholder="Middle Initial">
+                    </div>
+                    <input type="tel" placeholder="Phone Number" required>
+                    <input type="email" placeholder="Email" required>
+                    <input type="password" placeholder="Password" required>
+                    <input type="password" 
+                            placeholder="Confirm Password" 
+                            required>
+
+                    <div class="buttons">
+                        <button type="reset" class="cancel">Cancel</button>
+                        <button type="submit" class="create">Create</button>
+                    </div>
+                </form>
+                <p class="login-link">
+                    Already have an account?<a href="#">Login</a>
+                </p>
+            </div>
+
+            <div class="visual">
+                <img src="../assets/account_holder/sign_up_page/black_card.png" 
+                        alt="Visual"/>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

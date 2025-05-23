@@ -1,0 +1,173 @@
+:root {
+  --container: #132D46;
+  --bg-color: #1A1E29;
+  --text: #FFF;
+  --accent: #01C38E;
+  --shadows: 0 0 20px rgba(0, 223, 154, 0.3),
+             0 0 80px rgba(0, 223, 154, 0.4);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  font-family: "IBM Plex Mono", monospace;
+  color: var(--text);
+}
+
+.top-nav-bar {
+  background-color: var(--container);
+  overflow: hidden;
+}
+
+.top-nav-bar a {
+  float: right;
+  padding: 20px 20px;
+  text-decoration: none;
+  font-family: "Lexend Tera", sans-serif;
+  font-size: 20px;
+  color: var(--text);
+}
+
+.top-nav-bar a:hover {
+  background-color: var(--bg-color);
+  color: var(--text);
+}
+
+.icon img {
+  margin-top: -2.4%;
+  position: absolute;
+  width: 13%;
+  height: 150px;
+  margin-left: -2%;
+}
+
+.icon h4 {
+  position: absolute;
+  margin-top: 2%;
+  margin-left: 7%;
+  font-family: "Lexend Tera", sans-serif;
+  color: var(--text);
+}
+
+#logout_button {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 15px;
+  padding: 7px;
+  width: 100px;
+  border: none;
+  background-color: var(--accent);
+  color: var(--text);
+  border-radius: 50px;
+}
+
+.contact-form-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.contact-form {
+    background-color: var(--container);
+    box-shadow: var(--shadows);
+    width: 60%;
+    height: 550px;
+    border-radius: 20px;
+    margin-top: 8%;
+    margin-left: 20%;
+}
+
+.heading-form {
+    margin-top: 4%;
+    margin-left: 30%;
+}
+
+.name-div {
+    margin-top: 10%;
+    margin-left: 15%;
+}
+
+#name_input, #email_input, #number_input {
+  width: 80%;
+  height: 30px;
+  border-bottom: 3px solid var(--text);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background-color: transparent;
+  outline: none;
+  color: var(--text);
+}
+
+#name_input::placeholder, #email_input::placeholder, 
+#number_input::placeholder, #comment_input::placeholder {
+  color: var(--text);
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.email-div, .phone-number-div, .comment-div {
+  margin-top: 8%;
+  margin-left: 15%;
+}
+
+#comment_input {
+  height: 150px;
+  background-color: transparent;
+  outline: none;
+  border: 2px solid var(--text);
+  color: var(--text);
+}
+
+#submit_button {
+  border-radius: 20px;
+  padding: 1%;
+  padding-left: 3%;
+  padding-right: 3%;
+  font-size: large;
+  background-color: var(--accent);
+  color: var(--text);
+  margin-left: 68%;
+  margin-top: 3%;
+}
+
+.line-container {
+    padding: 0.2%;
+    background-color: var(--text);
+    margin-right: 30%;
+    margin-left: 10%;
+}
+
+.bank-name {
+    color: var(--text);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 450%;
+    text-align: center;
+    font-weight: bolder;
+    padding-right: 20%;
+}
+
+.slogan-container {
+    margin-top: 2%;
+    color: var(--text);
+}
+
+.slogan {
+    text-align: center;
+    font-size: large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding-right: 20%;
+}
+
+.logo-display {
+    width: 120%;
+    height: 700px;
+    margin-top: -10%;
+    margin-left: -20%;
+}
+
+.content-container {
+  margin-top: -30%;
+}

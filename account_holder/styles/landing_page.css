@@ -1,0 +1,125 @@
+:root {
+  --container: #141B2A;
+  --bg-color: #1A1E29;
+  --text: #FFF;
+  --shadows: 0 0 20px rgba(0, 223, 154, 0.3),
+             0 0 80px rgba(0, 223, 154, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0px;
+}
+
+body {
+  background-color: var(--bg-color);
+}
+
+.top-nav-bar {
+    background-color: var(--container);
+    overflow: hidden;
+    font-style: "sans-serif";
+}
+
+.top-nav-bar a {
+    float: right;
+    color: rgb(69, 68, 68);
+    text-align: center;
+    padding: 20px 20px;
+    text-decoration: none;
+    font-family: "Lexend Tera", sans-serif;
+    font-size: 20px;
+    margin-right: 0;
+    color: var(--text);
+}
+
+.top-nav-bar a:hover {
+    color: var(--text);
+}
+
+.icon img {
+  margin-top: -2.4%;
+  position: absolute;
+  width: 13%;
+  height: 150px;
+  margin-left: -2%;
+}
+
+.icon h4 {
+    position: absolute;
+    margin-top: 2%;
+    margin-left: 7%;
+    font-family: "Lexend Tera", sans-serif;
+    color: var(--text);
+}
+
+a {
+    text-decoration: none;
+}
+
+#logout_button {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 15px;
+    padding: 7px;
+    width: 100px;
+    border: solid 0px;
+    background-color: #01C38E;
+    color: var(--text);
+    border-radius: 50px;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 50px;
+  margin-left: 3%;
+}
+
+.text-content {
+  flex: 1;
+  min-width: 300px;
+  color: var(--text);
+  font-family: "Lexend Tera", sans-serif;
+}
+
+.text-content h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.text-content p {
+  font-size: 13px;
+  margin-bottom: 20px;
+  color: #ccc;
+  max-width: 400px;
+}
+
+.get-started {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 16px;
+  padding: 10px 25px;
+  background-color: #00df9a;
+  color: var(--text);
+  margin-left: 20%;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.dashboard-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 300px;
+  box-shadow: var(--shadows);
+}
+
+.dashboard-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 16px;
+}

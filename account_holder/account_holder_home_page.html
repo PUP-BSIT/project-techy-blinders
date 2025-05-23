@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Home Page | Blinders Vault</title>
         <link rel="stylesheet" href="./styles/account_holder_home_page.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,15 +15,26 @@
          <div class="container">
             <div class="top-nav-bar">
                 <div class="icon">
-                    <img src="/assets/logo-removebg-preview.png">
+                    <img src="../assets/logo-removebg-preview.png">
                     <h4>Blinders Vault</h4>
                 </div>
                 
-                <a href=""><button type="button" id="logout_button">
-                    Logout
-                </button></a>
-                <a class="contact" href="">About us</a>
-                <a class="about" href="">Contact us</a>
+                <a href="./landing_page.html">
+                    <button type="button" 
+                            id="logout_button">
+                        Logout
+                    </button>
+                </a>
+                <a class="contact" 
+                        href="./contact_us_page.html"
+                        target="_blank">
+                    About us
+                </a>
+                <a class="about" 
+                        href="./about_us_page.html"
+                        target="_blank">
+                    Contact us
+                </a>
             </div>
         </div>
 
@@ -67,14 +79,20 @@
                 <div class="bank-service-details">
                     <div class="bank-service">Bank Service</div>
                     <div class="transfer-funds-internal">
-                        <a href="/transaction_forms/transfer_fund_internal.html">
-                            <button type="button">Transfer Fund Internal</button>
+                        <a href="/transaction_forms/transfer_fund_internal.html"
+                                target="_blank">
+                            <button type="button">
+                                Transfer Fund Internal
+                            </button>
                         </a>
                     </div>
 
                     <div class="transfer-funds-external">
-                        <a href="/transaction_forms/transfer_fund_external.html">
-                            <button type="button">Transfer Fund External</button>
+                        <a href="/transaction_forms/transfer_fund_external.html"
+                                target="_blank">
+                            <button type="button">
+                                Transfer Fund External
+                            </button>
                         </a>
                     </div>
                 </div>

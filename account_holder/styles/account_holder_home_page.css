@@ -1,3 +1,16 @@
+:root {
+  --container: #141B2A;
+  --bg-color: #1A1E29;
+  --text: #FFF;
+  --form-bg: #0F2138;
+  --accent: #01C38E;
+  --danger: #F65354;
+  --shadows: 0 0 20px rgba(0, 223, 154, 0.3),
+             0 0 80px rgba(0, 223, 154, 0.4);
+  --dark-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  --highlight: #007bff;
+}
+
 * {
     margin: 0;
     padding: 0px;
@@ -27,8 +40,8 @@ body {
 }
 
 .top-nav-bar a:hover {
-    background-color: #474e62;
-    color: white;
+    transform: translateY(-3px);
+    color: var(--highlight);
 }
 
 .icon img {
@@ -61,6 +74,12 @@ a {
     background-color: #01C38E;
     color: white;
     border-radius: 50px;
+}
+
+#logout_button:hover {
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #017A5E;
 }
 
 .account-details-border {
@@ -198,6 +217,12 @@ a {
     border: solid 0px;
     border-radius: 10px;
     cursor: pointer;
+}
+
+.transfer-funds-internal button:hover, .transfer-funds-external button:hover {
+    transform: translateY(-3px);
+    background-color: #017A5E;
+    font-weight: bold;
 }
 
 .transfer-funds-external button {

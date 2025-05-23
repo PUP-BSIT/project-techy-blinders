@@ -4,11 +4,13 @@
   --text: #FFF;
   --shadows: 0 0 20px rgba(0, 223, 154, 0.3),
              0 0 80px rgba(0, 223, 154, 0.4);
+  --dark-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  --highlight: #007bff;
 }
 
 * {
-    margin: 0;
-    padding: 0px;
+  margin: 0;
+  padding: 0px;
 }
 
 body {
@@ -16,25 +18,28 @@ body {
 }
 
 .top-nav-bar {
-    background-color: var(--container);
-    overflow: hidden;
-    font-style: "sans-serif";
+  background-color: var(--container);
+  overflow: hidden;
+  font-style: "sans-serif";
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .top-nav-bar a {
-    float: right;
-    color: rgb(69, 68, 68);
-    text-align: center;
-    padding: 20px 20px;
-    text-decoration: none;
-    font-family: "Lexend Tera", sans-serif;
-    font-size: 20px;
-    margin-right: 0;
-    color: var(--text);
+  float: right;
+  color: rgb(69, 68, 68);
+  text-align: center;
+  padding: 20px 20px;
+  text-decoration: none;
+  font-family: "Lexend Tera", sans-serif;
+  font-size: 120%;
+  margin-right: 0;
+  color: var(--text);
 }
 
 .top-nav-bar a:hover {
-    color: var(--text);
+  color: var(--highlight);
+  transform: translateY(-3px);
+  font-weight: bolder;
 }
 
 .icon img {
@@ -46,26 +51,30 @@ body {
 }
 
 .icon h4 {
-    position: absolute;
-    margin-top: 2%;
-    margin-left: 7%;
-    font-family: "Lexend Tera", sans-serif;
-    color: var(--text);
+  position: absolute;
+  margin-top: 2%;
+  margin-left: 7%;
+  font-family: "Lexend Tera", sans-serif;
+  color: var(--text);
 }
 
-a {
-    text-decoration: none;
+#login_button {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 15px;
+  padding: 7px;
+  width: 100px;
+  border: solid 0px;
+  background-color: #01C38E;
+  color: var(--text);
+  border-radius: 50px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-#logout_button {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 15px;
-    padding: 7px;
-    width: 100px;
-    border: solid 0px;
-    background-color: #01C38E;
-    color: var(--text);
-    border-radius: 50px;
+#login_button:hover {
+  cursor: pointer;
+  transform: translateY(-2px);
+  font-weight: bolder;
+  background-color: #017A5E;
 }
 
 .content {
@@ -96,7 +105,7 @@ a {
   max-width: 400px;
 }
 
-.get-started {
+#get_started {
   font-family: "IBM Plex Mono", monospace;
   font-size: 16px;
   padding: 10px 25px;
@@ -106,7 +115,13 @@ a {
   border: none;
   border-radius: 30px;
   cursor: pointer;
-  font-weight: bold;
+  transition: transform 0.2 ease, box-shadow 0.2 ease;
+}
+
+#get_started:hover {
+  transform: translateY(-3px);
+  font-weight: bolder;
+  background-color: #017A5E;
 }
 
 .dashboard-image {

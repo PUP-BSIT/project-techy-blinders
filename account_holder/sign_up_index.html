@@ -13,29 +13,57 @@
     <div class="container">
         <div class="top-nav-bar">
             <div class="icon">
-                <img src="../asset/navigation_bar/logo.png" alt="Logo">
+                <img src="../assets/logo.png" alt="Logo">
                 <h4>Blinders Vault</h4>
             </div>
-            <a href="#">
-                <button type="button" id="logout_button">Login</button>
+            
+            <a href="./login_page_index.html" target="_blank">
+                <button type="button" id="login_button">Login</button>
             </a>
-            <a href="#" class="contact">Contact us</a>
-            <a href="#" class="about">About us</a>
+            <a href="./contact_us_page.html" 
+                    class="contact"
+                    target="_blank">
+                Contact us
+            </a>
+            <a href="./about_us_page.html"
+                     class="about"
+                     target="_blank">
+                About us
+            </a>
         </div>
 
         <div class="main">
             <div class="form-container">
                 <h1>Sign up</h1>
-                <form>
+                <form id="signupForm">
                     <div class="row">
-                        <input type="text" placeholder="First Name" required>
-                        <input type="text" placeholder="Last Name" required>
-                        <input type="text" placeholder="Middle Initial">
+                        <input type="text" 
+                                id="firstName" 
+                                placeholder="First Name" 
+                                required>
+                        <input type="text" 
+                                id="lastName" 
+                                placeholder="Last Name" 
+                                required>
+                        <input type="text" 
+                                id="middleInitial" 
+                                placeholder="Middle Initial">
                     </div>
-                    <input type="tel" placeholder="Phone Number" required>
-                    <input type="email" placeholder="Email" required>
-                    <input type="password" placeholder="Password" required>
+
+                    <input type="tel" 
+                            id="phoneNumber" 
+                            placeholder="Phone Number" 
+                            required>
+                    <input type="email" 
+                            id="email" 
+                            placeholder="Email" 
+                            required>
                     <input type="password" 
+                            id="password" 
+                            placeholder="Password" 
+                            required>
+                    <input type="password" 
+                            id="confirmPassword" 
                             placeholder="Confirm Password" 
                             required>
 
@@ -44,8 +72,10 @@
                         <button type="submit" class="create">Create</button>
                     </div>
                 </form>
+
                 <p class="login-link">
-                    Already have an account?<a href="#">Login</a>
+                    Already have an account?
+                    <a href="./login_page_index.html" target="_blank">Login</a>
                 </p>
             </div>
 
@@ -55,5 +85,6 @@
             </div>
         </div>
     </div>
+    <script src="./scripts/sign_up_page.js"></script>
 </body>
 </html>

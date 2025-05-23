@@ -7,6 +7,8 @@
   --danger: #F65354;
   --shadows: 0 0 20px rgba(0, 223, 154, 0.3),
              0 0 80px rgba(0, 223, 154, 0.4);
+  --dark-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  --highlight: #007bff;
 }
 
 * {
@@ -30,6 +32,7 @@ body {
     background-color: var(--container);
     overflow: hidden;
     font-style: "sans-serif";
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .top-nav-bar a {
@@ -45,8 +48,9 @@ body {
 }
 
 .top-nav-bar a:hover {
-    background-color: var(--bg-color);
-    color: var(--text);
+  color: var(--highlight);
+  transform: translateY(-3px);
+  font-weight: bolder;
 }
 
 .icon img {
@@ -69,7 +73,7 @@ a {
     text-decoration: none;
 }
 
-#logout_button {
+#login_button {
     font-family: "IBM Plex Mono", monospace;
     font-size: 15px;
     padding: 7px;
@@ -78,6 +82,14 @@ a {
     background-color: #01C38E;
     color: var(--text);
     border-radius: 50px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#login_button:hover {
+  cursor: pointer;
+  transform: translateY(-2px);
+  font-weight: bolder;
+  background-color: #017A5E;
 }
 
 .main {
@@ -146,6 +158,18 @@ a {
 .create {
   background-color: var(--accent);
   color: white;
+}
+
+.create:hover {
+  font-weight: bold;
+  transform: translateY(-3px);
+  background-color: #017A5E;
+}
+
+.cancel:hover {
+  font-weight: bold;
+  transform: translateY(-3px);
+  background-color: #B23838;
 }
 
 .login-link {

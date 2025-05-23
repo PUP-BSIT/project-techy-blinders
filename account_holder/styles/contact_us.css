@@ -5,6 +5,8 @@
   --accent: #01C38E;
   --shadows: 0 0 20px rgba(0, 223, 154, 0.3),
              0 0 80px rgba(0, 223, 154, 0.4);
+  --dark-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  --highlight: #007bff;
 }
 
 * {
@@ -21,153 +23,194 @@ body {
 
 .top-nav-bar {
   background-color: var(--container);
-  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  position: relative;
+  z-index: 10;
+  flex-wrap: wrap;
 }
 
-.top-nav-bar a {
-  float: right;
-  padding: 20px 20px;
-  text-decoration: none;
-  font-family: "Lexend Tera", sans-serif;
-  font-size: 20px;
-  color: var(--text);
-}
-
-.top-nav-bar a:hover {
-  background-color: var(--bg-color);
-  color: var(--text);
+.icon {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .icon img {
-  margin-top: -2.4%;
+  margin-top: 0.4%;
   position: absolute;
   width: 13%;
   height: 150px;
-  margin-left: -2%;
+  margin-left: -5%;
 }
 
 .icon h4 {
-  position: absolute;
-  margin-top: 2%;
-  margin-left: 7%;
-  font-family: "Lexend Tera", sans-serif;
-  color: var(--text);
+    position: absolute;
+    margin-top: 0.4%;
+    margin-left: 5%;
+    font-family: "Lexend Tera", sans-serif;
+    font-size: x-large;
+    color: var(--text);
 }
 
-#logout_button {
+.top-nav-bar a {
+  color: var(--text);
+  text-align: center;
+  padding: 10px 15px;
+  text-decoration: none;
+  font-family: "Lexend Tera", sans-serif;
+  font-size: 18px;
+  transition: transform 0.2s ease;
+}
+
+.top-nav-bar a:hover {
+  color: var(--highlight);
+  transform: translateY(-3px);
+  font-weight: bolder;
+}
+
+#login_button {
   font-family: "IBM Plex Mono", monospace;
   font-size: 15px;
-  padding: 7px;
-  width: 100px;
+  padding: 7px 20px;
   border: none;
   background-color: var(--accent);
   color: var(--text);
   border-radius: 50px;
+  transition: transform 0.2s ease;
+}
+
+#login_button:hover {
+  transform: translateY(-3px);
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #017A5E;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
 }
 
 .contact-form-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 60px;
+  padding: 40px;
 }
 
 .contact-form {
-    background-color: var(--container);
-    box-shadow: var(--shadows);
-    width: 60%;
-    height: 550px;
-    border-radius: 20px;
-    margin-top: 8%;
-    margin-left: 20%;
+  background-color: var(--container);
+  box-shadow: var(--shadows);
+  border-radius: 20px;
+  padding: 40px 40px;
+  height: 550px;
+  width: 70%;
+  max-width: 600px;
+  margin-top: -6%;
+  margin-left: 14%;
 }
 
 .heading-form {
-    margin-top: 4%;
-    margin-left: 30%;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-.name-div {
-    margin-top: 10%;
-    margin-left: 15%;
+.name-div, .email-div, .phone-number-div, .comment-div {
+  margin-bottom: 20px;
 }
 
-#name_input, #email_input, #number_input {
-  width: 80%;
-  height: 30px;
+#name_input, #email_input, #number_input, #comment_input {
+  width: 100%;
+  padding: 10px;
+  border: none;
   border-bottom: 3px solid var(--text);
-  border-top: none;
-  border-left: none;
-  border-right: none;
   background-color: transparent;
+  color: var(--text);
   outline: none;
-  color: var(--text);
-}
-
-#name_input::placeholder, #email_input::placeholder, 
-#number_input::placeholder, #comment_input::placeholder {
-  color: var(--text);
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
-}
-
-.email-div, .phone-number-div, .comment-div {
-  margin-top: 8%;
-  margin-left: 15%;
+  font-size: 16px;
 }
 
 #comment_input {
   height: 150px;
-  background-color: transparent;
-  outline: none;
   border: 2px solid var(--text);
+  resize: none;
+}
+
+::placeholder {
   color: var(--text);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 #submit_button {
   border-radius: 20px;
-  padding: 1%;
-  padding-left: 3%;
-  padding-right: 3%;
+  padding: 10px 25px;
   font-size: large;
   background-color: var(--accent);
   color: var(--text);
-  margin-left: 68%;
-  margin-top: 3%;
+  display: block;
+  margin: 20px auto 0;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s ease;
+  margin-left: 75%;
 }
 
-.line-container {
-    padding: 0.2%;
-    background-color: var(--text);
-    margin-right: 30%;
-    margin-left: 10%;
+#submit_button:hover {
+  font-weight: bold;
+  transform: translateY(-3px);
+  background-color: #017A5E;
 }
 
-.bank-name {
-    color: var(--text);
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 450%;
-    text-align: center;
-    font-weight: bolder;
-    padding-right: 20%;
+.logo-design-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  margin-top: -28%;
+  margin-left: -5%;
 }
 
-.slogan-container {
-    margin-top: 2%;
-    color: var(--text);
-}
-
-.slogan {
-    text-align: center;
-    font-size: large;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    padding-right: 20%;
-}
-
-.logo-display {
-    width: 120%;
-    height: 700px;
-    margin-top: -10%;
-    margin-left: -20%;
+.logo-container img {
+  width: 120%;
+  height: 700px;
+  margin-top: -10%;
+  margin-left: -10%;
 }
 
 .content-container {
-  margin-top: -30%;
+  text-align: center;
+  margin-top: -35%;
+}
+
+.bank-name {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 70px;
+  font-weight: bold;
+}
+
+.line-container {
+  height: 2px;
+  width: 120%;
+  margin: 10px auto;
+  background-color: var(--text);
+  margin-left: -10%;
+}
+
+.slogan {
+  font-size: 16px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-top: 10px;
 }

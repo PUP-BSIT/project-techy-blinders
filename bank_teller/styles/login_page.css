@@ -1,0 +1,197 @@
+:root {
+    --container: #141B2A;
+    --bg-color: #1A1E29;
+    --text: #FFF;
+    --accent: #01C38E;
+    --container2: #132D46;
+    --shadow: 0 0 20px rgba(0, 223, 154, 0.3),
+              0 0 80px rgba(0, 223, 154, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #1A2235 0%, #2A3F5F 50%, #01C38E 100%);
+    min-height: 100vh;
+}
+
+.page-header {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+}
+
+.page-title {
+    color: #888;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+    align-items: center;
+    padding: 2rem;
+}
+
+.logo-design-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-container {
+    margin-bottom: 2rem;
+}
+
+.logo-display {
+    width: 300px;
+    height: auto;
+    max-width: 100%;
+}
+
+.content-container {
+    text-align: center;
+}
+
+.bank-name {
+    color: var(--text);
+    font-family: "Inter", sans-serif;
+    font-size: 4rem;
+    text-align: center;
+    font-weight: bolder;
+    margin-bottom: 1rem;
+}
+
+.line-container {
+    padding: 0.2%;
+    background-color: var(--text);
+    margin: 0 auto 2rem auto;
+    width: 80%;
+}
+
+.slogan-container {
+    color: var(--text);
+}
+
+.slogan {
+    text-align: center;
+    font-size: large;
+    font-family: "Inter", monospace;
+}
+
+.login-form-container {
+    width: 90%;
+    max-width: 500px;
+    background-color: var(--container2);
+    border-radius: 30px;
+    box-shadow: var(--shadow);
+    padding: 3rem 2rem;
+    margin: 0 auto;
+}
+
+.heading {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.welcome-message {
+    color: var(--text);
+    font-family: "Lexend Tera", sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 1%;
+}
+
+.role-message {
+    color: var(--text);
+    font-family: "Lexend Tera", sans-serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.text-content-container {
+    text-align: center;
+    font-family: "Inter", monospace;
+    margin-bottom: 2rem;
+}
+
+.text-content, .account-id-label, .password-label {
+    color: var(--text);
+    font-family: "Inter", monospace;
+}
+
+.account-id-container, .password-container {
+    margin-bottom: 2rem;
+}
+
+.account-id-label, .password-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.account-id-input, .password-input {
+    border-radius: 8px;
+    width: 100%;
+    height: 45px;
+    border: none;
+    padding: 0 15px;
+    font-size: 16px;
+    background-color: #f0f0f0;
+}
+
+.button-container {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.button-container:hover .button {
+    cursor: pointer;
+    background-color: #00a876;
+    transform: translateY(-2px);
+}
+
+.button {
+    font-size: 125%;
+    width: 40%;
+    min-width: 120px;
+    height: 45px;
+    border-radius: 25px;
+    background-color: var(--accent);
+    color: var(--text);
+    border: none;
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.signup-container {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.signup-link {
+    color: var(--text);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 14px;
+}
+
+.hyper-link {
+    text-decoration: none;
+    color: var(--accent);
+}
+
+.hyper-link:hover {
+    color: #00a876;
+    text-decoration: underline;
+}

@@ -146,3 +146,9 @@ a {
     border-radius: 50px;
     box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
 }
+
+#back_button:hover {
+    transform: translateY(-3px);
+    font-weight: bold;
+    background-color: #017A5E;
+}

@@ -26,11 +26,6 @@ body {
     color: white;
 }
 
-.top-nav-bar a:hover {
-    background-color: #474e62;
-    color: white;
-}
-
 .icon img {
     margin-top: 5px;
     position: absolute;
@@ -62,25 +57,37 @@ a {
     border-radius: 50px;
 }
 
+#logout_button:hover {
+    transform: translateY(-3px);
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #017A5E;
+}
+
 .search-icon {
     position: absolute;
     color: white;
-    margin-left: 85%;
+    margin-left: 88%;
     margin-top: 1.3%;
     font-size: 2em;
+}
+
+.search-icon:hover, .history-icon:hover {
+    transform: translateY(-3px);
+    cursor: pointer;
 }
 
 .history-icon {
     position: absolute;
     color: white;
-    margin-left: 80%;
+    margin-left: 84%;
     margin-top: 1.3%;
     font-size: 2em;
 }
 
 .bank-teller-container {
     text-align: center;
-    margin-top: 5%;
+    margin-top: 2%;
     font-family: "Lexend Tera", sans-serif;
     color: white;
     font-size: 3em;

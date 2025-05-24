@@ -58,6 +58,12 @@ a {
     cursor: pointer;
 }
 
+#back_button:hover {
+    transform: translateY(-3px);
+    font-weight: bold;
+    background-color: #017A5E;
+}
+
 .deposit-customer-container {
     display: flex;
     text-align: center;

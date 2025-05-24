@@ -71,7 +71,7 @@ body {
   font-weight: bolder;
 }
 
-#login_button {
+#login_button, #logout_button {
   font-family: "IBM Plex Mono", monospace;
   font-size: 15px;
   padding: 7px 20px;
@@ -82,7 +82,7 @@ body {
   transition: transform 0.2s ease;
 }
 
-#login_button:hover {
+#login_button:hover, #logout_button:hover {
   transform: translateY(-3px);
   cursor: pointer;
   font-weight: bold;

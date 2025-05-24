@@ -55,6 +55,11 @@ a {
     cursor: pointer;
 }
 
+#back_button:hover {
+    transform: translateY(-3px);
+    background-color: #017A5E;
+}
+
 body {
     background-color: #1A2235;
 }

@@ -40,32 +40,29 @@
                     <p class="text-content">Securely access your account to manage your finances, check balances, transfer funds, and more.</p>
                 </div>
                 
-                <form action="#">
+                <form action="#" onsubmit="event.preventDefault();">
                     <div class="account-id-container">
-                        <label class="account-id-label">Account ID</label>
+                        <label for="teller_id" class="account-id-label">Teller ID</label>
                         <div>
-                            <input type="text" class="account-id-input" required>
+                            <input type="text" id="teller_id" class="account-id-input" required>
                         </div>
                     </div>
                     
                     <div class="password-container">
-                        <label class="password-label">Password</label>
+                        <label for="password" class="password-label">Password</label>
                         <div>
-                            <input type="password" class="password-input" required>
+                            <input type="password" id="password" class="password-input" required>
                         </div>
                     </div>
                     
                     <div class="button-container">
-                        <button type="button" class="button">Log in</button>
-                    </div>
-                    
-                    <div class="signup-container">
-                        <p class="signup-link">Don't have an account? 
-                            <a href="#" class="hyper-link">Sign up</a>
-                        </p>
+                        <button type="submit" class="button"onclick="tellerUser()">Log in</button>
                     </div>
                 </form>
             </div>
         </div>
+
+        
+        <script src="./scripts/login_page.js"></script>
     </body>
 </html>

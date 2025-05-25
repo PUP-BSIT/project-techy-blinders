@@ -14,85 +14,94 @@
     <body>
         <div class="container">
             <div class="top-nav-bar">
-                <div class="icon">
-                    <img src="../assets/logo-removebg-preview.png">
-                    <h4>Blinders Vault</h4>
+                <div class="nav-left">
+                    <div class="icon">
+                        <img src="../assets/logo-removebg-preview.png">
+                        <h4>Blinders Vault</h4>
+                    </div>
                 </div>
                 
-                <a href="./login_page.html">
-                    <button type="button" id="logout_button">
-                        Logout
-                    </button></a>
-                
-                <div class="search-icon">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                <div class="nav-center">
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="Search...">
+                        <button class="search-button">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
                 </div>
-
-                <div class="history-icon">
-                    <i class="fa-regular fa-clock"></i>
+                
+                <div class="nav-right">
+                    <div class="history-icon">
+                        <i class="fa-regular fa-clock"></i>
+                    </div>
+                    
+                    <a href="./login_page.html">
+                        <button type="button" id="logout_button">
+                            Logout
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>
-
-        <div class="bank-teller-container">
+         <div class="bank-teller-container">
             <div class="bank-teller-label">
                 Hello, Bank Teller 
             </div>
         </div>
-
         <div class="actions-container">
             <a href="../transaction_forms/deposit_customer_form.html">
                 <div class="deposit-customer-container">
                     <div class="deposit-customer-border">
                         <img class="deposit-img" src="../assets/withdraw.png">
-                        <div class="deposit-label">
-                            Deposit on Customer's Account
-                        </div>
-
-                        <div class="deposit-paragraph">
-                            <p>
-                                a transaction where the teller 
-                                receives funds from a customer
-                                and credits them to the 
-                                customer’s designated account.
-                            </p>
+                        <div class="card-content-section">
+                            <div class="deposit-label">
+                                Deposit on Customer's Account
+                            </div>
+                            <div class="deposit-paragraph">
+                                <p>
+                                    a transaction where the teller 
+                                    receives funds from a customer
+                                    and credits them to the 
+                                    customer's designated account.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </a>
-
             <a href="../transaction_forms/withdraw_customer_form.html">
                 <div class="withdraw-container">
                     <div class="withdraw-customer-border">
                         <img class="withdraw-img" src="../assets/consult.png">
-                        <div class="withdraw-label">
-                            Withdrawal on Customer's Account
-                        </div>
-
-                        <div class="withdraw-paragraph">
-                            <p>
-                            a transaction where the teller disburses 
-                            funds from the customer’s account upon their request.
-                            </p>
+                        <div class="card-content-section">
+                            <div class="withdraw-label">
+                                Withdrawal on Customer's Account
+                            </div>
+                            <div class="withdraw-paragraph">
+                                <p>
+                                a transaction where the teller disburses 
+                                funds from the customer's account upon their request.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </a>
-
             <div class="shake-hands-container">
                 <a href="../transaction_forms/close_account_form.html">
                     <div class="shake-hands-border">
                         <img class="shake-hands-img" src="../assets/shake_hands.png">
-                        <div class="withdraw-label">
-                            Close customer account
-                        </div>
-
-                        <div class="shake-hand-paragraph">
-                            <p>
-                                a transaction is when the teller finalizes and 
-                                terminates a customer’s account, disbursing any 
-                                remaining balance to the customer.
-                            </p>
+                        <div class="card-content-section">
+                            <div class="withdraw-label">
+                                Close Customer Account
+                            </div>
+                            <div class="shake-hand-paragraph">
+                                <p>
+                                    a transaction is when the teller finalizes and 
+                                    terminates a customer's account, disbursing any 
+                                    remaining balance to the customer.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </a>

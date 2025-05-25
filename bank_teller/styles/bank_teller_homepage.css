@@ -2,44 +2,101 @@
     margin: 0;
     padding: 0px;
 }
-
 body {
     background: linear-gradient(135deg, #1A2235 0%, #2D4A4A 50%, #1A2235 100%);
     min-height: 100vh;
 }
-
 .top-nav-bar {
     background-color: #1A1E29;
     overflow: hidden;
     font-style: "sans-serif";
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
 }
 
-.top-nav-bar a {
-    float: right;
-    color: rgb(69, 68, 68);
-    text-align: center;
-    padding: 20px 20px;
-    text-decoration: none;
-    font-family: "Lexend Tera", sans-serif;
-    font-size: 20px;
-    margin-right: 0;
-    color: white;
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.nav-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin: 0 40px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .icon img {
-    margin-top: 5px;
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    margin-left: 2%;
+    width: 50px;
+    height: 50px;
 }
 
 .icon h4 {
-    position: absolute;
-    margin-top: 2%;
-    margin-left: 7%;
     font-family: "Lexend Tera", sans-serif;
     color: white;
+    margin: 0;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #2A2F3A;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease;
+    max-width: 500px;
+    width: 100%;
+}
+
+.search-container:focus-within {
+    box-shadow: 0 4px 20px rgba(1, 195, 142, 0.3);
+}
+
+.search-input {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    background: transparent;
+    color: white;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 14px;
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.search-button {
+    padding: 12px 15px;
+    border: none;
+    background-color: #01C38E;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #017A5E;
+}
+
+.search-button i {
+    font-size: 16px;
 }
 
 a {
@@ -49,12 +106,12 @@ a {
 #logout_button {
     font-family: "IBM Plex Mono", monospace;
     font-size: 15px;
-    padding: 7px;
-    width: 100px;
+    padding: 10px 20px;
     border: solid 0px;
     background-color: #01C38E;
     color: white;
     border-radius: 50px;
+    transition: all 0.3s ease;
 }
 
 #logout_button:hover {
@@ -64,25 +121,15 @@ a {
     background-color: #017A5E;
 }
 
-.search-icon {
-    position: absolute;
-    color: white;
-    margin-left: 88%;
-    margin-top: 1.3%;
-    font-size: 2em;
-}
-
-.search-icon:hover, .history-icon:hover {
-    transform: translateY(-3px);
-    cursor: pointer;
-}
-
 .history-icon {
-    position: absolute;
     color: white;
-    margin-left: 84%;
-    margin-top: 1.3%;
-    font-size: 2em;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.history-icon:hover {
+    transform: translateY(-3px);
 }
 
 .bank-teller-container {
@@ -111,37 +158,36 @@ a {
 .deposit-customer-border,
 .withdraw-customer-border,
 .shake-hands-border {
-    border: solid 0px;
+    border: none;
     width: 350px;
     height: 450px;
     border-radius: 20px;
-    background: linear-gradient(135deg, #FF8C42 0%, #FF6B1A 100%);
+    background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
-                0 0 40px rgba(255, 140, 66, 0.2);
+                0 0 20px rgba(1, 195, 142, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
     overflow: hidden;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .withdraw-customer-border {
     background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
-                0 0 40px rgba(74, 144, 226, 0.2);
 }
 
 .shake-hands-border {
-    background: linear-gradient(135deg, #7F8C8D 0%, #95A5A6 100%);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
-                0 0 40px rgba(127, 140, 141, 0.2);
+    background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
 }
 
 .deposit-customer-border:hover,
 .withdraw-customer-border:hover,
 .shake-hands-border:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
-                0 0 60px rgba(1, 195, 142, 0.3);
+    transform: translateY(-15px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5),
+                0 0 80px rgba(1, 195, 142, 0.8),
+                0 0 120px rgba(0, 229, 163, 0.4);
 }
 
 .deposit-img,
@@ -149,33 +195,20 @@ a {
 .shake-hands-img {
     object-fit: cover;
     width: 100%;
-    height: 60%;
-    border-radius: 20px 20px 0 0;
+    height: 250px;
+    border-radius: 20px 20px 20px 20px;
+    background: linear-gradient(135deg, #FF8C42 0%, #FFB84D 100%);
+    flex-shrink: 0;
 }
 
-.card-content {
+.card-content-section {
+    flex: 1;
     padding: 20px;
-    height: 40%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-}
-
-.card-title {
-    color: white;
-    font-family: "Lexend Tera", sans-serif;
-    font-weight: bold;
-    font-size: 18px;
-    margin-bottom: 10px;
-    line-height: 1.2;
-}
-
-.card-description {
-    color: rgba(255, 255, 255, 0.9);
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 12px;
-    line-height: 1.4;
-    text-align: left;
+    justify-content: center;
+    background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+    border-radius: 20px 20px 20px 20px;
 }
 
 .deposit-label,
@@ -183,30 +216,24 @@ a {
     color: white;
     font-family: "Lexend Tera", sans-serif;
     font-weight: bold;
-    font-size: 15px;
-    padding: 5px;
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
-.deposit-paragraph {
-    color: white;
-    margin-left: 5px;
-    font-size: 13px;
-    font-family: "Lexend Tera", sans-serif;
-    margin-top: 2px;
-}
-
-.withdraw-paragraph {
-    color: white;
-    margin-left: 5px;
-    font-size: 13px;
-    font-family: "Lexend Tera", sans-serif;
-    margin-top: 2px;
-}
-
+.deposit-paragraph,
+.withdraw-paragraph,
 .shake-hand-paragraph {
-    color: white;
-    margin-left: 5px;
+    color: rgba(255, 255, 255, 0.9);
     font-size: 13px;
-    font-family: "Lexend Tera", sans-serif;
-    margin-top: 2px;
+    font-family: "IBM Plex Mono", monospace;
+    line-height: 1.5;
+    text-align: center;
+    margin: 0;
+}
+
+.deposit-paragraph p,
+.withdraw-paragraph p,
+.shake-hand-paragraph p {
+    margin: 0;
 }

@@ -34,8 +34,12 @@ function tellerUser() {
             console.log("Parsed JSON:", data);
             
             if (data.success) {
-                localStorage.setItem("loggedInId", tellerId);
+                localStorage.setItem("loggedInId", data.teller_id);
+                localStorage.setItem("tellerName", data.teller_name);
+                
                 alert('Login successful!');
+                
+                window.location.href = './bank_teller_homepage.html';
             } else {
                 alert('Login failed: ' + (data.error || data.message || 'Unknown error'));
             }

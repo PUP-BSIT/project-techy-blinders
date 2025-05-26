@@ -5,14 +5,14 @@ function loginUser() {
     
     let accountId = document.getElementById('account_id').value;
     let password = document.getElementById('password').value;
-
+    
     console.log("Account ID:", accountId, "Password length:", password.length);
-
+    
     if (!accountId || !password) {
         alert('Please enter both account ID and password.');
         return;
     }
-
+    
     fetch(API_URL, {
         method: 'POST',
         headers: {
@@ -25,18 +25,20 @@ function loginUser() {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.text();  
+        return response.text();
     })
     .then(text => {
         console.log("Raw response:", text);
         try {
             const data = JSON.parse(text);
             console.log("Parsed JSON:", data);
-
+            
             if (data.success) {
                 localStorage.setItem("loggedInId", accountId);
                 alert('Login successful!');
-        
+                
+                window.location.href = "account_holder_home_page.html";
+                
             } else {
                 alert('Login failed: ' + (data.error || data.message || 'Unknown error'));
             }

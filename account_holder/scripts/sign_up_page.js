@@ -8,7 +8,8 @@ function submitUser() {
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     let confirmationPassword = document.getElementById("confirm_password").value;
-     const phonePattern = /^[0-9]{10,15}$/;
+    
+    const phonePattern = /^[0-9]{10,15}$/;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!firstName || !lastName || !middleInitial) {
@@ -50,13 +51,66 @@ function submitUser() {
     })
     .then((response) => response.text())
     .then((responseText) => {
-        alert(responseText);
-        clearForm();
+        console.log("Server response:", responseText);
+        
+        if (responseText.toLowerCase().includes("success") || 
+            responseText.toLowerCase().includes("created") ||
+            responseText.toLowerCase().includes("registered")) {
+            
+            let accountId = extractAccountId(responseText);
+            
+            responseText.toLocaleLowerCase().includes()
+            if (accountId) {
+                alert(`Account successfully created! Your Account ID is: ${accountId}\n\nPlease save this ID as you will need it to log in.`);
+            } else {
+                alert("Account successfully created! Please check the server response for your Account ID.");
+            }
+            
+            clearForm();
+            
+            setTimeout(() => {
+                window.location.href = "login_page_index.html";
+            }, 3000);
+            
+        } else {
+            alert(responseText);
+        }
     })
     .catch((error) => {
         console.error("Error submitting user:", error);
         alert("An error occurred. Please try again.");
     });
+}
+
+function extractAccountId(responseText) {
+    try {
+        const jsonData = JSON.parse(responseText);
+        if (jsonData.account_id || jsonData.accountId || jsonData.id) {
+            return jsonData.account_id || jsonData.accountId || jsonData.id;
+        }
+    } catch (e) {
+    }
+    
+    
+    const numberMatches = responseText.match(/\b\d{6,}\b/g);
+    if (numberMatches && numberMatches.length > 0) {
+        return numberMatches[0]; 
+    }
+    
+    const patterns = [
+        /account\s*id[:\s]*(\d+)/i,
+        /id[:\s]*(\d+)/i,
+        /account[:\s]*(\d+)/i
+    ];
+    
+    for (let pattern of patterns) {
+        const match = responseText.match(pattern);
+        if (match && match[1]) {
+            return match[1];
+        }
+    }
+    
+    return null; 
 }
 
 function clearForm() {

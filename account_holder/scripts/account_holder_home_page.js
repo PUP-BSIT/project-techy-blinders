@@ -1,5 +1,10 @@
-const accountHolderId = 2075637800; // temp lng to 
-const API_URL = `https://darkorange-cormorant-406076.hostingersite.com/php/account_holder_home_page.php?id=${accountHolderId}`;
+const loggedInId = localStorage.getItem("loggedInId");
+
+if (!loggedInId) {
+alert("Please log in first.");
+window.location.href = "login_page.html"; 
+} else {
+const API_URL = `https://darkorange-cormorant-406076.hostingersite.com/php/account_holder_home_page.php?id=${loggedInId}`;
 
 fetch(API_URL)
     .then(response => response.json())
@@ -17,4 +22,11 @@ fetch(API_URL)
     })
     .catch(error => {
         console.error("Error fetching data:", error);
+        alert("Error loading account details. Please try again.");
     });
+}
+
+function logout() {
+localStorage.removeItem("loggedInId");
+window.location.href = "login_page.html";
+}

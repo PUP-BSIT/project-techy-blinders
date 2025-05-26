@@ -89,7 +89,7 @@ a {
     font-weight: bold;
 }
 
-.account-id, .deposit-ammount {
+.account-id, .deposit-amount {
     margin-top: 5%;
 }
 
@@ -106,13 +106,13 @@ a {
     padding: 5px;
 }
 
-.deposit-ammount-label {
+.deposit-amount-label {
     color: white;
     font-family: "Lexend Tera", sans-serif;
     margin-left: -27%;
 }
 
-#deposit_ammount {
+#deposit_amount {
     margin-top: 1%;
     width: 60%;
     height: 15px;

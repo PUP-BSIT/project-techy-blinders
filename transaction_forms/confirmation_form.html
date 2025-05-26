@@ -31,18 +31,30 @@
 
                 <div class="confirmation-receipt-border">
                     <div class="receipt-labels">
-                        <div class="account-id">Account ID</div>
-                        <div class="account-name">Account Name</div>
-                        <div class="account-amount">Amount</div> 
+                        <div class="detail-row">
+                            <div class="detail-label">Account Holder ID:</div>
+                            <div class="detail-value" id="display_account_holder_id"> </div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Account Name:</div>
+                            <div class="detail-value" id="display_account_name"> </div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Deposit Amount:</div>
+                            <div class="detail-value amount-highlight" id="display_deposit_amount"> </div>
+                        </div>
                     </div>
                 </div>
 
             <div class="button-container">
                 <button type="button" id="cancel">Cancel</button>
-                <button type="button" id="confirm">Confirm</button>
+                <button type="button" id="confirm" onclick="submitDeposit()">Confirm</button>
             </div>
 
             </div>
         </div>
+        <input type="hidden" id="account_holder_id" name="account_holder_id">
+        <input type="hidden" id="deposit_amount" name="deposit_amount">
+        <script src="./scripts/confirmation_form.js"></script>
     </body>
 </html>

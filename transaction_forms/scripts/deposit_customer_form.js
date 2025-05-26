@@ -14,7 +14,6 @@ function submitUser() {
         return;
     }
 
-    // First, fetch the account name from the database
     fetch(API_URL, {
         method: 'POST',
         headers: {
@@ -27,7 +26,6 @@ function submitUser() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            // Store data in URL parameters to pass to confirmation page
             const params = new URLSearchParams({
                 accountHolderId: accountHolderId,
                 accountName: data.account_name,

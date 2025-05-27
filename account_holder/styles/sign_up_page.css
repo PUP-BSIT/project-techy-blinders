@@ -178,8 +178,14 @@ a {
 }
 
 .login-link a {
-  color: #6FC5FF;
+  color: white;
   text-decoration: none;
+}
+
+.login-link a:hover {
+    color: #01C38E;
+    text-shadow: 0 0 30px #065b44;
+    transition: all 0.3s ease;
 }
 
 .visual img {

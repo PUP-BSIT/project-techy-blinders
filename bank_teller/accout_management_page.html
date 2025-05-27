@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Home Page | Bank Teller</title>
-        <link rel="stylesheet" href="./styles/bank_teller_homepage.css">
+        <link rel="stylesheet" href="./styles/account_management_page.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Lexend+Tera:wght@100..900&display=swap" rel="stylesheet">
@@ -31,73 +31,73 @@
                 </div>
                 
                 <div class="nav-right">
+                    <a href="bank_teller_homepage.html">
+                        <button type="button" id="back_button">
+                            Back
+                        </button>
+                    </a>
+
                     <a href="./login_page.html">
                         <button type="button" id="logout_button">
-                            Logout
+                            Log out
                         </button>
                     </a>
                 </div>
             </div>
         </div>
-         <div class="bank-teller-container">
-            <div class="bank-teller-label">
-                Hello, Bank Teller 
-            </div>
-        </div>
+
         <div class="actions-container">
-            <a href="../transaction_forms/deposit_customer_form.html">
-                <div class="deposit-customer-container">
-                    <div class="deposit-customer-border">
-                        <img class="deposit-img" src="../assets/withdraw.png">
+            <a href="search_account_page.html">
+                <div class="search-customer-container">
+                    <div class="search-customer-border">
+                        <img class="search-img">
                         <div class="card-content-section">
-                            <div class="deposit-label">
-                                Deposit on Customer's Account
+                            <div class="search-label">
+                                Search User Account
                             </div>
-                            <div class="deposit-paragraph">
+                            <div class="search-paragraph">
                                 <p>
-                                    a transaction where the teller 
-                                    receives funds from a customer
-                                    and credits them to the 
-                                    customer's designated account.
+                                 Quickly find user accounts using details like 
+                                 username, email, or user ID for easy access 
+                                 and management.
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </a>
-            <a href="../transaction_forms/withdraw_customer_form.html">
-                <div class="withdraw-container">
-                    <div class="withdraw-customer-border">
-                        <img class="withdraw-img" src="../assets/consult.png">
+            <a href="edit_account_page.html">
+                <div class="edit-container">
+                    <div class="edit-customer-border">
+                        <img class="edit-img">
                         <div class="card-content-section">
-                            <div class="withdraw-label">
-                                Withdrawal on Customer's Account
+                            <div class="edit-label">
+                                Edit Customer Details
                             </div>
-                            <div class="withdraw-paragraph">
+                            <div class="edit-paragraph">
                                 <p>
-                                a transaction where the teller disburses 
-                                funds from the customer's account upon their request.
+                                    Update user information such as name,
+                                    contact details, or role to keep records 
+                                    accurate and up to date.
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </a>
-            <div class="shake-hands-container">
-                <a href="accout_management_page.html">
-                    <div class="shake-hands-border">
-                        <img class="shake-hands-img" src="../assets/shake_hands.png">
+            <div class="close-account-container">
+                <a href="close_account_form.html">
+                    <div class="close-account-border">
+                        <img class="close-account-img">
                         <div class="card-content-section">
-                            <div class="withdraw-label">
-                                Account Management
+                            <div class="close-label">
+                                Close Account
                             </div>
-                            <div class="shake-hand-paragraph">
+                            <div class="close-account-paragraph">
                                 <p>
-                                    feature lets users edit account details, 
-                                    close accounts, and search for specific 
-                                    accounts quickly using information like 
-                                    account number or name, ensuring easy 
-                                    and efficient account handling.
+                                   Securely deactivate or remove user 
+                                   accounts when no longer needed, 
+                                   ensuring proper system maintenance.
                                 </p>
                             </div>
                         </div>
@@ -105,6 +105,6 @@
                 </a>
             </div>
         </div>
-        <script src="./scripts/bank_teller_homepage.js"></script>
+
     </body>
 </html>

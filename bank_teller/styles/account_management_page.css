@@ -1,0 +1,242 @@
+* {
+    margin: 0;
+    padding: 0px;
+}
+body {
+    background: linear-gradient(135deg, #1A2235 0%, #2D4A4A 50%, #1A2235 100%);
+    min-height: 100vh;
+}
+.top-nav-bar {
+    background-color: #1A1E29;
+    overflow: hidden;
+    font-style: "sans-serif";
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.nav-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin: 0 40px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.icon img {
+    width: 50px;
+    height: 50px;
+}
+
+.icon h4 {
+    font-family: "Lexend Tera", sans-serif;
+    color: white;
+    margin: 0;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #2A2F3A;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease;
+    max-width: 500px;
+    width: 100%;
+}
+
+.search-container:focus-within {
+    box-shadow: 0 4px 20px rgba(1, 195, 142, 0.3);
+}
+
+.search-input {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    background: transparent;
+    color: white;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 14px;
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.search-button {
+    padding: 12px 15px;
+    border: none;
+    background-color: #01C38E;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #017A5E;
+}
+
+.search-button i {
+    font-size: 16px;
+}
+
+a {
+    text-decoration: none;
+}
+
+#back_button {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 15px;
+    padding: 10px 20px;
+    border: solid 0px;
+    background-color: #861010;
+    color: white;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+#back_button:hover {
+    transform: translateY(-3px);
+    cursor: pointer;
+    font-weight: bold;
+    background-color:  #cb2121;
+}
+
+#logout_button {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 15px;
+    padding: 10px 20px;
+    border: solid 0px;
+    background-color: #01C38E;
+    color: white;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+#logout_button:hover {
+    transform: translateY(-3px);
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #017A5E;
+}
+
+.history-icon {
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.history-icon:hover {
+    transform: translateY(-3px);
+}
+
+.actions-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 60px 20px;
+    flex-wrap: wrap;
+    margin-top: 5%;
+}
+
+.search-customer-container,
+.edit-container,
+.close-account-container {
+    flex: 0 0 auto;
+}
+
+.search-customer-border,
+.edit-customer-border,
+.close-account-border {
+    border: none;
+    width: 350px;
+    height: 450px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(1, 195, 142, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-customer-border:hover,
+.edit-customer-border:hover,
+.close-account-border:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5),
+                0 0 80px rgba(1, 195, 142, 0.8),
+                0 0 120px rgba(0, 229, 163, 0.4);
+}
+
+.search-img,
+.edit-img,
+.close-account-img {
+    object-fit: cover;
+    width: 100%;
+    height: 250px;
+    border-radius: 20px 20px 20px 20px;
+    background: linear-gradient(135deg, #FF8C42 0%, #FFB84D 100%);
+    flex-shrink: 0;
+}
+
+.card-content-section {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+    border-radius: 20px 20px 20px 20px;
+}
+
+.search-label,
+.edit-label,
+.close-label {
+    color: white;
+    font-family: "Lexend Tera", sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.search-paragraph,
+.edit-paragraph,
+.close-account-paragraph {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 13px;
+    font-family: "IBM Plex Mono", monospace;
+    line-height: 1.5;
+    text-align: center;
+    margin: 0;
+}
+
+.search-paragraph p,
+.withdraw-paragraph p,
+.close-account-paragraph p {
+    margin: 0;
+}

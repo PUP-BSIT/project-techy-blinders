@@ -42,3 +42,11 @@ function submitUser() {
         alert('Error fetching account information');
     });
 }
+
+function cancelButton() {
+    window.location.href = "../account_holder/account_holder_home_page.html";
+}
+
+function backButton() {
+    window.location.href = "../account_holder/account_holder_home_page.html";
+}

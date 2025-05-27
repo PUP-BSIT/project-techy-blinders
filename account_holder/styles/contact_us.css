@@ -125,6 +125,8 @@ body {
 .heading-form {
   margin-bottom: 20px;
   text-align: center;
+  font-family: "Lexend Tera", sans-serif;
+
 }
 
 .name-div, .email-div, .phone-number-div, .comment-div {
@@ -150,10 +152,12 @@ body {
 
 ::placeholder {
   color: var(--text);
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: "Inter", monospace;
 }
 
 #submit_button {
+  text-align: center;
+  font-family: "Inter", monospace;
   border-radius: 20px;
   padding: 10px 25px;
   font-size: large;
@@ -164,11 +168,10 @@ body {
   cursor: pointer;
   border: none;
   transition: transform 0.2s ease;
-  margin-left: 75%;
 }
 
 #submit_button:hover {
-  font-weight: bold;
+  font-family: "Inter", monospace;
   transform: translateY(-3px);
   background-color: #017A5E;
 }
@@ -184,10 +187,10 @@ body {
 }
 
 .logo-container img {
-  width: 120%;
+  width: 130%;
   height: 700px;
   margin-top: -10%;
-  margin-left: -10%;
+  margin-left: -15%;
 }
 
 .content-container {
@@ -196,7 +199,7 @@ body {
 }
 
 .bank-name {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 70px;
   font-weight: bold;
 }
@@ -211,6 +214,6 @@ body {
 
 .slogan {
   font-size: 16px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: "Inter", monospace;
   margin-top: 10px;
 }

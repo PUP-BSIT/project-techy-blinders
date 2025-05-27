@@ -44,20 +44,13 @@
                 <div class="recent-transaction-border">
                     <div class="recent-transaction-details">
                         <h1>Recent Transactions</h1>
-
-                        <div class="transaction-item">
-                            <div class="transaction-label">Deposit</div>
-                            <div class="transaction-amount">+₱200.00</div>
-                        </div>
-
-                        <div class="transaction-item">
-                            <div class="transaction-label">Transfer</div>
-                            <div class="transaction-amount">-₱200.00</div>
-                        </div>
-
-                        <div class="transaction-item">
-                            <div class="transaction-label">Payment</div>
-                            <div class="transaction-amount">-₱200.00</div>
+                        
+                        <div class="view-button-container">
+                            <a href="../transaction_forms/history_page.html">
+                                <button id="history_button">
+                                    View Transactions
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -82,8 +75,8 @@
                         </div>
 
                         <div class="transfer-funds-external">
-                            <a href="../transaction_forms/transfer_fund_external.html">
-                                <button type="button">
+                            <a href="">
+                                <button type="button" id="history_button" onclick="loadTransactions()">
                                     Transfer Fund External
                                 </button>
                             </a>

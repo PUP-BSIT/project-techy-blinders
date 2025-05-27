@@ -1,0 +1,119 @@
+:root {
+    --container: #141B2A;
+    --bg-color: #1A1E29;
+    --text: #FFF;
+    --font-family: Verdana, Geneva, Tahoma, sans-serif;
+    --yellow-design: #FFCE53;
+    --highlight: #007bff;
+    --container2: #132D46;
+    --shadow: 0 0 20px rgba(0, 223, 154, 0.3),
+              0 0 80px rgba(0, 223, 154, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0px;
+}
+
+body {
+  background-color: var(--bg-color);
+}
+
+.top-nav-bar {
+    background-color: var(--container);
+    overflow: hidden;
+    font-style: "sans-serif";
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.icon img {
+  margin-top: -3.8%;
+  position: absolute;
+  width: 13%;
+  height: 150px;
+  margin-left: -3%;
+}
+
+.icon h4 {
+    position: absolute;
+    margin-top: 0.5%;
+    margin-left: 6%;
+    font-family: "Lexend Tera", sans-serif;
+    color: var(--text);
+}
+
+a {
+    text-decoration: none;
+}
+
+#back_button {
+    float: right;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 15px;
+    padding: 7px;
+    width: 100px;
+    border: solid 0px;
+    background-color: #01C38E;
+    color: var(--text);
+    border-radius: 50px;
+    margin-right: 1%;
+}
+
+#back_button:hover {
+    transform: translateY(-3px);
+    background-color: #017A5E;
+    font-weight: bold;
+}
+
+.container .container-content {
+    margin: auto;
+    margin-top: 4%;
+}
+
+.container-content {
+    width: 30%;
+    height: 550px;
+    background-color: var(--container2);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+}
+
+.title-history h1 {
+    color: var(--text);
+    font-family: var(--font-family);
+    font-size: x-large;
+}
+
+.title-history {
+    margin-left: 22%;
+    padding-top: 2%;
+}
+
+#transactions-list {
+    margin-top: 3%;
+    color: var(--text);
+    margin-left: 10%;
+    margin-right: 11%;
+    font-family: Arial, sans-serif;
+    font-size: larger;
+}
+
+.transaction-entry {
+    margin-top: 2%;
+}
+
+.transaction-type.deposit {
+  color: green;
+}
+
+.transaction-type.withdrawal {
+  color: red;
+}
+
+.transaction-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-weight: bold;
+}

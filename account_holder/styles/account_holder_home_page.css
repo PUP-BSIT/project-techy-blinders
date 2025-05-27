@@ -166,14 +166,9 @@ a {
 .recent-transaction-details h1 {
     font-size: 1.8rem;
     font-weight: bold;
-    margin-bottom: 30px;
-}
-
-.transaction-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10%;
+    margin-top: 5%;
+    margin-left: 13%;
 }
 
 .transaction-label {
@@ -239,7 +234,7 @@ a {
 }
 
 .transfer-funds-internal button:hover, .transfer-funds-external button:hover, 
-.deposit-funds button:hover{
+.deposit-funds button:hover, #history_button:hover {
     transform: translateY(-3px);
     background-color: #017A5E;
     font-weight: bold;
@@ -257,3 +252,18 @@ a {
     border-radius: 10px;
     cursor: pointer;
 }
+
+#history_button {
+    margin-left: 8%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    padding-left: 20%;
+    padding-right: 20%;
+    border-radius: 15px;
+    background-color: var(--accent);
+    font-family: "Lexend Tera", sans-serif;
+    color: var(--text);
+    font-size: 20px;
+    border: solid 0px;
+    cursor: pointer;
+}   

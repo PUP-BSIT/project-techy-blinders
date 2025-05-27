@@ -30,3 +30,21 @@ function logout() {
 localStorage.removeItem("loggedInId");
 window.location.href = "login_page.html";
 }
+
+function goToHistoryPage() {
+    const userId = getCurrentUserId();
+    
+    if (userId) {
+        window.location.href = `..//history_page.html?user_id=${userId}`;
+    } else {
+        alert('Please log in to view transaction history.');
+    }
+}
+
+function getCurrentUserId() {
+    return 'loggedInId';
+}
+
+function getCurrentUserId() {
+    return localStorage.getItem("loggedInId");
+}

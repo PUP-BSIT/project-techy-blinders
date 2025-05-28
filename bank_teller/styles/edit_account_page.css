@@ -63,3 +63,95 @@ a {
     font-weight: bold;
     background-color:  #cb2121;
 }
+
+.form-container {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.form-border {
+    padding: 5px;
+    margin-top: 7%;
+    border: solid 0px;
+    width: 607px;
+    height: 480px;
+    background-color: #132D46;
+    border-radius: 20px;
+    box-shadow: 0 0 50px #01C38E;
+}
+
+.form-border h1 {
+    color: white;
+    font-family: "Lexend Tera", sans-serif;
+
+}
+
+#edit_form {
+    margin-top: 5%;
+}
+
+.class-container {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.information-label {
+    margin-top: 3%;
+    text-align: center;
+    color: white;
+    font-family: "Lexend Tera", sans-serif;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.top-border {
+    padding: 20px;
+    margin-top: 3%;
+    border: solid 0px;
+    width: 90%;
+    min-height: 480px;
+    height: auto;
+    background-color: #132D46;
+    border-radius: 20px;
+    box-shadow: 0 0 50px #01C38E;
+}
+
+.information-table {
+    font-size: 20px;
+    border: solid 0px;
+}
+
+.information-table thead th {
+    color: #01C38E;
+    font-family: "Lexend Tera", sans-serif;
+    padding: 10px;
+}
+
+
+.information-table-body td {
+    padding: 10px;
+    color: white;
+    font-family: "IBM Plex Mono", monospace;
+
+}
+
+.edit-button {
+    border: solid 0;
+    width: 60px;
+    border-radius: 5px;
+    background-color: #054e3b;
+    padding: 5px;
+    color: white;
+    font-family: "IBM Plex Mono", monospace;
+}
+
+.edit-button:hover {
+    cursor: pointer;
+    box-shadow: 0 0 20px #01C38E;
+    background-color: #076b51;
+}

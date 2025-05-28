@@ -9,7 +9,6 @@
         <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     </head>
     <body>
-        <div class="account-holder-container"></div>
         <div class="container">
             <div class="top-nav-bar">
                 <div class="icon">
@@ -24,7 +23,7 @@
             </div>
         </div>
 
-        <div class="acoount-details-container">
+        <div class="account-details-container">
             <div class="account-details-border">
                 <div class="account-details">
                     <h1>Account Details</h1>
@@ -59,13 +58,6 @@
                     <div class="bank-service-details">
                         <div class="bank-service">Bank Service</div>
 
-                        <div class="deposit-funds">
-                            <a href="../transaction_forms/deposit_customer_form.html">
-                                <button type="button">
-                                    Deposit
-                                </button>
-                            </a>
-                        </div>
                         <div class="transfer-funds-internal">
                             <a href="../transaction_forms/transfer_fund_internal.html">
                                 <button type="button">
@@ -76,7 +68,7 @@
 
                         <div class="transfer-funds-external">
                             <a href="">
-                                <button type="button" id="history_button" onclick="loadTransactions()">
+                                <button type="button" id="transfer_external_button" onclick="loadTransactions()">
                                     Transfer Fund External
                                 </button>
                             </a>

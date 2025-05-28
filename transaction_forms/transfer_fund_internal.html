@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Internal Transfer | Blinders Vault</title>
+        <title>Deposit | Bank Teller</title>
         <link rel="stylesheet" href="./styles/transfer_fund_interl.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,28 +26,23 @@
             </div>
         </div>
 
-        <div class="form-container">
-            <div class="form-border">
-                <div class="transfer-funds">Transfer Funds</div>
-                <div class="balance">Balance</div>
+        <div class="transfer-customer-container">
+            <div class="transfer-customer-border">
+                <div class="transfer-label">Transfer Funds</div>
 
-                <div class="total-balance-border">
-                    <div class="total-balance">₱20,000</div>
+                <div class="account-id">
+                    <div class="account-id-label">Account ID</div>
+                    <input type="text" id="account_id">
                 </div>
 
                 <div class="transfer-amount">
-                    <div class="transfer-label">Transfer amount</div>
+                    <div class="transfer-amount-label">Transfer Amount</div>
                     <input type="text" id="transfer_amount">
                 </div>
-
-                <div class="recipient-account-id">
-                    <div class="recipient-account-id-label">Recipient ID</div>
-                    <input type="text" id="recipient_id">
-                </div>
-
+                
                 <div class="button-container">
-                    <button type="button" id="cancel">Cancel</button>
-                    <button type="button" id="submit">Submit</button>
+                    <button type="button" id="cancel" onclick="cancelButton()">Cancel</button>
+                    <button type="button" id="transfer" onclick="submitUser()">Transfer</button>
                 </div>
             </div>
         </div>

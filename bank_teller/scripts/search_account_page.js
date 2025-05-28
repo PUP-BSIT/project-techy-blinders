@@ -1,9 +1,8 @@
 const API_URL = `https://darkorange-cormorant-406076.hostingersite.com/php/search_account.php`;
 
-// Update placeholder text when search type changes
 document.addEventListener('DOMContentLoaded', function() {
-    const searchTypeSelect = document.getElementById('searchType');
-    const searchInput = document.getElementById('searchInput');
+    const searchTypeSelect = document.getElementById('search_type');
+    const searchInput = document.getElementById('search_input');
     
     searchTypeSelect.addEventListener('change', function() {
         if (this.value === 'account') {
@@ -14,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Handle Enter key press in search input
 function handleKeyPress(event) {
     if (event.key === 'Enter') {
         performSearch();
@@ -23,19 +21,18 @@ function handleKeyPress(event) {
 
 function performSearch() {
     const searchInput = document.querySelector('.search-input');
-    const searchType = document.getElementById('searchType').value;
+    const searchType = document.getElementById('search_type').value;
     const searchValue = searchInput.value.trim();
     
     if (!searchValue) {
-        const searchTypeText = searchType === 'account' ? 'Account Holder ID' : 'Teller ID';
+        const searchTypeText = searchType === 'account' ? 'Account Holder ID' : 
+            'Teller ID';
         alert(`Please enter a ${searchTypeText}`);
         return;
     }
     
-    // Show loading state
     showLoading();
     
-    // Prepare request data based on search type
     const requestData = {};
     if (searchType === 'account') {
         requestData.account_holder_id = searchValue;
@@ -43,7 +40,6 @@ function performSearch() {
         requestData.teller_id = searchValue;
     }
     
-    // Make API call
     fetch(API_URL, {
         method: 'POST',
         headers: {
@@ -68,16 +64,13 @@ function performSearch() {
 }
 
 function displayResults(data, searchType) {
-    // Remove any existing results
     removeExistingResults();
     
-    // Create results container
     const resultsContainer = document.createElement('div');
     resultsContainer.className = 'results-container';
     
     let resultsHTML = '<h2 class="results-title">Search Results</h2>';
     
-    // Display Bank Teller Information (if searching by teller_id or if teller data exists)
     if (data.bank_teller) {
         resultsHTML += `
             <div class="result-section">
@@ -116,7 +109,6 @@ function displayResults(data, searchType) {
         `;
     }
     
-    // Display Bank Account Information
     if (data.bank_account) {
         resultsHTML += `
             <div class="result-section">
@@ -157,7 +149,6 @@ function displayResults(data, searchType) {
         `;
     }
     
-    // Display Account Holder Information
     if (data.account_holder) {
         resultsHTML += `
             <div class="result-section">
@@ -199,7 +190,6 @@ function displayResults(data, searchType) {
     resultsContainer.innerHTML = resultsHTML;
     document.body.appendChild(resultsContainer);
     
-    // Smooth scroll to results
     resultsContainer.scrollIntoView({ behavior: 'smooth' });
 }
 

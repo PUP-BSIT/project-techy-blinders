@@ -247,7 +247,6 @@ a {
     font-weight: bold;
 }
 
-/* Error Container */
 .error-container {
     max-width: 600px;
     margin: 50px auto;
@@ -276,7 +275,6 @@ a {
     margin: 0;
 }
 
-/* Loading spinner animation */
 .fa-spinner {
     animation: spin 1s linear infinite;
 }

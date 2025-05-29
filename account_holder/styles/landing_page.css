@@ -6,6 +6,10 @@
              0 0 80px rgba(0, 223, 154, 0.4);
   --dark-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
   --highlight: #007bff;
+  --button-shadow: 0 0 8px rgba(0, 223, 154, 0.5),
+          0 0 16px rgba(0, 223, 154, 0.6),
+          0 0 24px rgba(0, 223, 154, 0.7);
+  --hover-button: #0b3f34;
 }
 
 * {
@@ -71,10 +75,13 @@ body {
 }
 
 #login_button:hover {
-  cursor: pointer;
-  transform: translateY(-2px);
-  font-weight: bolder;
-  background-color: #017A5E;
+    transform: translateY(-3px);
+    background-color: #0b3f34;
+    font-weight: bold;
+    box-shadow: var(--button-shadow);
+    outline: #017A5E;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .content {
@@ -120,8 +127,12 @@ body {
 
 #get_started:hover {
   transform: translateY(-3px);
-  font-weight: bolder;
-  background-color: #017A5E;
+  background-color: #0b3f34;
+  font-weight: bold;
+  box-shadow: var(--button-shadow);
+  outline: #017A5E;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .dashboard-image {

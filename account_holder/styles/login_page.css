@@ -6,6 +6,10 @@
     --container2: #132D46;
     --shadow: 0 0 20px rgba(0, 223, 154, 0.3),
               0 0 80px rgba(0, 223, 154, 0.4);
+    --button-shadow: 0 0 8px rgba(0, 223, 154, 0.5),
+            0 0 16px rgba(0, 223, 154, 0.6),
+            0 0 24px rgba(0, 223, 154, 0.7);
+    --hover-button: #0b3f34;
 }
 
 * {
@@ -125,25 +129,37 @@ body {
     text-align: center;
 }
 
-.button-container :hover {
-    cursor: pointer;
-}
-
 .button {
-    font-size: 125%;
+    font-size: 15px;
     border: solid 0px;
     width: 40%;
     height: 40px;
+    padding: 7px;
     border-radius: 20px;
     background-color: var(--accent);
     color: var(--text);
     font-family: "Inter", monospace;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .button:hover {
-    transform: translateY(-3px);
-    font-weight: bold;
-    background-color: #017A5E;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 15px;
+    padding: 7px;
+    width: 150px;
+    height: 40px; 
+    border: solid 0px;
+    color: var(--text);
+    border-radius: 20px; 
+    background-color: var(--hover-button); 
+    box-shadow: var(--button-shadow);
+    transform: translateY(-2px); 
 }
 
 .signup-container {

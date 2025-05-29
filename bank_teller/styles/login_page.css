@@ -6,6 +6,10 @@
     --container2: #132D46;
     --shadow: 0 0 20px rgba(0, 223, 154, 0.3),
               0 0 80px rgba(0, 223, 154, 0.4);
+    --button-shadow: 0 0 8px rgba(0, 223, 154, 0.5),
+            0 0 16px rgba(0, 223, 154, 0.6),
+            0 0 24px rgba(0, 223, 154, 0.7);
+    --hover-button: #0b3f34;
 }
 
 * {
@@ -157,8 +161,11 @@ body {
 
 .button-container:hover .button {
     cursor: pointer;
-    background-color: #00a876;
     transform: translateY(-2px);
+    font-weight: bold;
+    background-color: var(--hover-button); 
+    box-shadow: var(--button-shadow);
+    transform: translateY(-2px); 
 }
 
 .button {

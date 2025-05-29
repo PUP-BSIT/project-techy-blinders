@@ -1,3 +1,24 @@
+:root {
+    --container: #141B2A;
+    --bg-color: #1A1E29;
+    --text: #FFF;
+    --accent: #01C38E;
+    --container2: #132D46;
+    --shadow: 0 0 20px rgba(0, 223, 154, 0.3),
+              0 0 80px rgba(0, 223, 154, 0.4);
+    --button-shadow: 0 0 8px rgba(0, 223, 154, 0.5),
+            0 0 16px rgba(0, 223, 154, 0.6),
+            0 0 24px rgba(0, 223, 154, 0.7);
+    --hover-button: #0b3f34;
+
+    --back-button-shadow:
+    0 0 8px rgba(134, 16, 16, 0.5),
+    0 0 16px rgba(134, 16, 16, 0.6),
+    0 0 24px rgba(134, 16, 16, 0.7);
+
+    --hover-back-button:#520a0a;
+}
+
 * {
     margin: 0;
     padding: 0px;
@@ -61,7 +82,8 @@ a {
     transform: translateY(-3px);
     cursor: pointer;
     font-weight: bold;
-    background-color:  #cb2121;
+    background-color: var(--hover-back-button);
+    box-shadow: var(--back-button-shadow);
 }
 
 .form-container {

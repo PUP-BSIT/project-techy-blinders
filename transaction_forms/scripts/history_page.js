@@ -47,9 +47,9 @@ function loadTransactions() {
                     minute: '2-digit'
                 });
 
-                const amountDisplay = tx.transaction_type.toLowerCase() === 'deposit'
-                    ? `+₱${parseFloat(tx.amount).toFixed(2)}`
-                    : `-₱${parseFloat(tx.amount).toFixed(2)}`;
+                const amountDisplay = tx.transaction_type.toLowerCase() === 'Transfer_internal'
+                    ? `-₱${parseFloat(tx.amount).toFixed(2)}`
+                    : `+₱${parseFloat(tx.amount).toFixed(2)}`;
 
                 div.innerHTML = `
                     <div class="transaction-header">

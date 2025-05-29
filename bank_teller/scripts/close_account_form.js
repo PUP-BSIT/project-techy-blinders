@@ -1,9 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const accountIdHolderId = document.getElementById("account_id");
+    const reasonInput = document.getElementById("reason");
+    
+    accountIdHolderId.addEventListener('input', validateForm);
+    reasonInput.addEventListener('input', validateForm);
+    
+    validateForm();
+});
+
+function validateForm() {
+    let accountHolderId = document.getElementById("account_id").value;
+    let reasonInput = document.getElementById("reason").value;
+    let submitButton = document.getElementById("submit");
+
+    if(accountHolderId.length && reasonInput.length){
+        submitButton.disabled = false;
+        submitButton.style.cursor = 'pointer';
+    } else {
+        submitButton.disabled = true;
+        submitButton.style.cursor = "not-allowed";
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
     const accountIdInput = document.getElementById('account_id');
     const reasonTextarea = document.getElementById('reason');
     const cancelButton = document.getElementById('cancel');
     const submitButton = document.getElementById('submit');
-
+    validateForm();
+    
     cancelButton.addEventListener('click', function() {
         if (confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
             accountIdInput.value = '';

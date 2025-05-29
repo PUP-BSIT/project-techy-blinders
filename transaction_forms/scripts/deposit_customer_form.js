@@ -1,8 +1,33 @@
 const API_URL = `https://darkorange-cormorant-406076.hostingersite.com/php/get_account_info.php`;
 
+document.addEventListener('DOMContentLoaded', function() {
+    const accountIdInput = document.getElementById("account_id");
+    const depositAmountInput = document.getElementById("deposit_amount");
+    
+    accountIdInput.addEventListener('input', validateForm);
+    depositAmountInput.addEventListener('input', validateForm);
+    
+    validateForm();
+});
+
+function validateForm() {
+    let accountHolderId = document.getElementById("account_id").value;
+    let depositAmount = document.getElementById("deposit_amount").value;
+    let depositButton = document.getElementById("deposit");
+
+    if(accountHolderId.length && depositAmount.length){
+        depositButton.disabled = false;
+        depositButton.style.cursor = 'pointer';
+    } else {
+        depositButton.disabled = true;
+        depositButton.style.cursor = "not-allowed";
+    }
+}
+
 function submitUser() {
     let accountHolderId = document.getElementById("account_id").value;
     let depositAmount = document.getElementById("deposit_amount").value;
+    validateForm();
 
     if (!accountHolderId || !depositAmount) {
         alert("Please complete the form");
@@ -44,9 +69,9 @@ function submitUser() {
 }
 
 function cancelButton() {
-    window.location.href = "../account_holder/account_holder_home_page.html";
+    window.location.href = "../bank_teller/bank_teller_homepage.html";
 }
 
 function backButton() {
-    window.location.href = "../account_holder/account_holder_home_page.html";
+    window.location.href = "../bank_teller/bank_teller_homepage.html";
 }

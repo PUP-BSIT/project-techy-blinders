@@ -1,11 +1,36 @@
 const API_URL = `https://darkorange-cormorant-406076.hostingersite.com/php/transfer_internal.php`;
 
+document.addEventListener('DOMContentLoaded', function() {
+    const accountIdInput = document.getElementById("account_id");
+    const depositAmountInput = document.getElementById("transfer_amount");
+    
+    accountIdInput.addEventListener('input', validateForm);
+    depositAmountInput.addEventListener('input', validateForm);
+    
+    validateForm();
+});
+
+function validateForm() {
+    let accountHolderId = document.getElementById("account_id").value;
+    let depositAmount = document.getElementById("transfer_amount").value;
+    let transferButton = document.getElementById("transfer");
+    
+    if(accountHolderId.length && depositAmount.length){
+        transferButton.disabled = false;
+        transferButton.style.cursor = 'pointer';
+    } else {
+        transferButton.disabled = true;
+        transferButton.style.cursor = "not-allowed";
+    }
+}
+
 function submitUser() {
     let accountHolderId = document.getElementById("account_id").value;
     let transferAmount = document.getElementById("transfer_amount").value;
     let loggedInUserId = localStorage.getItem("loggedInId");
     let currentBalance = parseFloat(localStorage.getItem("currentBalance"));
-
+    validateForm();
+    
     if (!accountHolderId || !transferAmount) {
         alert("Please complete the form");
         return;

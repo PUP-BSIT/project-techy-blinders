@@ -21,13 +21,6 @@ body {
     align-items: center;
 }
 
-.nav-center {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    margin: 0 40px;
-}
-
 .nav-right {
     display: flex;
     align-items: center;

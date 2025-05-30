@@ -105,12 +105,14 @@ a {
     position: relative;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 0 40px rgba(1, 195, 142, 0.6), 0 0 80px rgba(1, 195, 142, 0.4), 0 0 120px rgba(1, 195, 142, 0.2);
+    box-shadow: 0 0 40px rgba(1, 195, 142, 0.6), 0 0 80px 
+              rgba(1, 195, 142, 0.4), 0 0 120px rgba(1, 195, 142, 0.2);
 }
 
 .transfer-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 0 50px rgba(1, 195, 142, 0.8), 0 0 100px rgba(1, 195, 142, 0.6), 0 0 150px rgba(1, 195, 142, 0.3);
+    box-shadow: 0 0 50px rgba(1, 195, 142, 0.8), 0 0 100px 
+              rgba(1, 195, 142, 0.6), 0 0 150px rgba(1, 195, 142, 0.3);
 }
 
 .card-image {

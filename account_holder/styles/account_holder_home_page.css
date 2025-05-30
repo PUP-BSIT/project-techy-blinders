@@ -245,8 +245,10 @@ a {
     cursor: pointer;
 }
 
-.transfer-funds-internal button:hover, .transfer-funds-external button:hover, 
-.deposit-funds button:hover, #history_button:hover {
+.transfer-funds-internal button:hover, 
+.transfer-funds-external button:hover, 
+.deposit-funds button:hover, 
+#history_button:hover {
     transform: translateY(-3px);
     background-color: #0b3f34;
     font-weight: bold;

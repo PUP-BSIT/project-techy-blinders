@@ -159,11 +159,12 @@ a {
     font-size: 30px;
 }
 
-.balance-details {
-    position: absolute;
-    margin-top: -17.5%;
-    margin-left: 63%;
-    font-size: 38%;
+.account-details-border {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 70px;
+    flex-wrap: wrap;
 }
 
 .balance-details h1 {

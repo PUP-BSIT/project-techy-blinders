@@ -76,8 +76,8 @@ body {
     margin-top: 13%;
     margin-left: 10%;
     margin-bottom: -10%;
-    width: 65%;
-    height: 90%;
+    width: 50%;
+    height: 80%;
     background-color: var(--container2);
     border-radius: 30px;
     box-shadow: var(--shadow);
@@ -87,8 +87,8 @@ body {
 .welcome-message {
     color: var(--text);
     font-family: "Lexend Tera", sans-serif;
-    margin-top: 2%;
-    margin-left: 22%;
+    margin-top: 5%;
+    margin-left: 20%;
     font-size: 250%;
 }
 
@@ -120,7 +120,7 @@ body {
 }
 
 .password-container {
-    margin-top: 8%;
+    margin-top: 5%;
     margin-left: 10%;
 }
 
@@ -174,7 +174,7 @@ body {
 
 .hyper-link {
     text-decoration: none;
-    color: white;
+    color: green;
 }
 
 .hyper-link:hover {

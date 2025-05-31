@@ -5,9 +5,9 @@
   --form-bg: #0F2138;
   --accent: #01C38E;
   --danger: #F65354;
-  --shadows: 0 0 20px rgba(0, 223, 154, 0.3),
-             0 0 80px rgba(0, 223, 154, 0.4);
-  --dark-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  --shadows: 0 0 1.25rem rgba(0, 223, 154, 0.3),
+              0 0 5rem rgba(0, 223, 154, 0.4);
+  --dark-shadow: 0 0.5rem 0.9375rem rgba(0, 0, 0, 0.2);
   --highlight: #007bff;
 }
 
@@ -21,35 +21,41 @@ body {
   background-color: var(--bg-color);
   font-family: "IBM Plex Mono", monospace;
   color: var(--text);
+  height: 100vh;
+  overflow: hidden;
 }
 
 .container {
   width: 100%;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .top-nav-bar {
-    background-color: var(--container);
-    overflow: hidden;
-    font-style: "sans-serif";
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background-color: var(--container);
+  overflow: hidden;
+  font-style: "sans-serif";
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  flex-shrink: 0;
+  height: 80px;
 }
 
 .top-nav-bar a {
-    float: right;
-    color: rgb(69, 68, 68);
-    text-align: center;
-    padding: 20px 20px;
-    text-decoration: none;
-    font-family: "Lexend Tera", sans-serif;
-    font-size: 20px;
-    margin-right: 0;
-    color: var(--text);
+  float: right;
+  color: rgb(69, 68, 68);
+  text-align: center;
+  padding: 1.25rem 1.25rem;
+  text-decoration: none;
+  font-family: "Lexend Tera", sans-serif;
+  font-size: 1.25rem;
+  margin-right: 0;
+  color: var(--text);
 }
 
 .top-nav-bar a:hover {
   color: var(--highlight);
-  transform: translateY(-3px);
+  transform: translateY(-0.1875rem);
   font-weight: bolder;
 }
 
@@ -57,37 +63,37 @@ body {
   margin-top: -2.4%;
   position: absolute;
   width: 13%;
-  height: 150px;
+  height: 9.375rem;
   margin-left: -2%;
 }
 
 .icon h4 {
-    position: absolute;
-    margin-top: 2%;
-    margin-left: 7%;
-    font-family: "Lexend Tera", sans-serif;
-    color: var(--text);
+  position: absolute;
+  margin-top: 2%;
+  margin-left: 7%;
+  font-family: "Lexend Tera", sans-serif;
+  color: var(--text);
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 #login_button {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 15px;
-    padding: 7px;
-    width: 100px;
-    border: solid 0px;
-    background-color: #01C38E;
-    color: var(--text);
-    border-radius: 50px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.9375rem;
+  padding: 0.4375rem;
+  width: 6.25rem;
+  border: solid 0px;
+  background-color: #01C38E;
+  color: var(--text);
+  border-radius: 3.125rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #login_button:hover {
   cursor: pointer;
-  transform: translateY(-2px);
+  transform: translateY(-0.125rem);
   font-weight: bolder;
   background-color: #017A5E;
 }
@@ -96,38 +102,46 @@ a {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: calc(100vh - 70px);
-  padding: 40px;
+  flex: 1;
+  height: calc(100vh - 80px);
+  padding: 1rem;
+  overflow-y: auto;
 }
 
 .form-container {
   background-color: var(--form-bg);
-  padding: 50px;
-  border-radius: 20px;
-  width: 500px;
+  padding: 2rem;
+  border-radius: 1.25rem;
+  width: min(90vw, 31.25rem);
+  max-width: 31.25rem;
+  min-width: 20rem;
   box-shadow: var(--shadows);
+  flex-shrink: 0;
+  height: fit-content;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
 }
 
 .form-container h1 {
-  font-size: 36px;
+  font-size: 1.8rem;
   font-family: "Lexend Tera", sans-serif;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
   text-align: center;
 }
 
 .form-container input {
   width: 100%;
-  padding: 10px;
-  margin: 10px 0;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
   font-family: "IBM Plex Mono", monospace;
-  font-size: 14px;
-  border-radius: 5px;
+  font-size: 0.875rem;
+  border-radius: 0.3125rem;
   border: none;
 }
 
 .row {
   display: flex;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .row input {
@@ -136,23 +150,25 @@ a {
 
 .buttons {
   display: flex;
-  margin-top: 20px;
+  margin-top: 1rem;
+  gap: 1rem;
+  justify-content: center;
 }
 
 .cancel, .create {
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
   font-family: "IBM Plex Mono", monospace;
   border: none;
-  border-radius: 30px;
+  border-radius: 1.875rem;
   cursor: pointer;
+  flex: 1;
+  max-width: 7.5rem;
 }
 
 .cancel {
   background-color: var(--danger);
   color: white;
-  margin-right: 5%;
-  margin-left: 20%;
 }
 
 .create {
@@ -162,23 +178,20 @@ a {
 
 .create:hover {
   font-weight: bold;
-  transform: translateY(-3px);
+  transform: translateY(-0.1875rem);
   background-color: #017A5E;
 }
 
 .cancel:hover {
   font-weight: bold;
-  transform: translateY(-3px);
+  transform: translateY(-0.1875rem);
   background-color: #B23838;
-}
-
-#password, #phone_number {
-  margin-top: 30px;
 }
 
 .login-link {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 1rem;
+  font-size: 0.9rem;
 }
 
 .login-link a {
@@ -191,13 +204,16 @@ a {
 }
 
 .login-link a:hover {
-    color: #01C38E;
-    text-shadow: 0 0 30px #065b44;
-    transition: all 0.3s ease;
+  color: #01C38E;
+  text-shadow: 0 0 1.875rem #065b44;
+  transition: all 0.3s ease;
 }
 
 .visual img {
-  max-width: 500px;
+  max-width: min(90vw, 31.25rem);
   height: auto;
-  border-radius: 20px;
+  border-radius: 1.25rem;
+  flex-shrink: 0;
+  max-height: calc(100vh - 120px);
+  object-fit: contain;
 }

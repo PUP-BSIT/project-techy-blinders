@@ -1,5 +1,46 @@
 let API_URL = "https://darkorange-cormorant-406076.hostingersite.com/php/process_registration.php";
 
+document.addEventListener('DOMContentLoaded', function() {
+    const firstName = document.getElementById("first_name");
+    const lastName = document.getElementById("last_name");
+    const middleName = document.getElementById("middle_name");
+    const phoneNumber = document.getElementById("phone_number");
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirm_password");
+
+    firstName.addEventListener('input', validateForm);
+    lastName.addEventListener('input', validateForm);
+    middleName.addEventListener('input', validateForm);
+    phoneNumber.addEventListener('input', validateForm);
+    email.addEventListener('input', validateForm);
+    password.addEventListener('input', validateForm);
+    confirmPassword.addEventListener('input', validateForm);
+
+    validateForm();
+});
+
+function validateForm() {
+    const firstName = document.getElementById("first_name").value;
+    const lastName = document.getElementById("last_name").value;
+    const middleName = document.getElementById("middle_name").value;
+    const phoneNumber = document.getElementById("phone_number").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirm_password").value;
+    let createAccount = document.querySelector('.create');
+    
+    if(firstName.length && lastName.length && middleName.length &&
+        phoneNumber.length && email.length && password.length
+        && confirmPassword.length ){
+        createAccount.disabled = false;
+        createAccount.style.cursor = 'pointer';
+    } else {
+        createAccount.disabled = true;
+        createAccount.style.cursor = "not-allowed";
+    }
+}
+
 function submitUser() {
     let firstName = document.getElementById("first_name").value;
     let lastName = document.getElementById("last_name").value;
@@ -11,7 +52,7 @@ function submitUser() {
     
     const phonePattern = /^[0-9]{10,15}$/;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+    validateForm();
     if (!firstName || !lastName || !middleInitial) {
         alert("Please complete the form.");
         return;

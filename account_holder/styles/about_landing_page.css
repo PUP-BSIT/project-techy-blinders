@@ -3,10 +3,15 @@
     --container: #141B2A;
     --bg-color: #1A1E29;
     --bg-container: #D9D9D9;
+    --accent: #01C38E;
     --text: #FFF;
     --font-family: Verdana, Geneva, Tahoma, sans-serif;
     --yellow-design: #FFCE53;
     --highlight: #007bff;
+    --button-shadow: 0 0 8px rgba(0, 223, 154, 0.5),
+                0 0 16px rgba(0, 223, 154, 0.6),
+                0 0 24px rgba(0, 223, 154, 0.7);
+    --hover-button: #0b3f34;
 }
 
 * {
@@ -37,7 +42,6 @@ body {
 }
 
 .top-nav-bar a:hover {
-    background-color: var(--bg-color);
     color: var(--highlight);
     transform: translateY(-3px);
 }
@@ -62,21 +66,24 @@ a {
     text-decoration: none;
 }
 
-#login_button, #logout_button {
+#login_button {
     font-family: "IBM Plex Mono", monospace;
     font-size: 15px;
-    padding: 7px;
-    width: 100px;
-    border: solid 0px;
-    background-color: #01C38E;
+    padding: 7px 20px;
+    border: none;
+    background-color: var(--accent);
     color: var(--text);
     border-radius: 50px;
+    transition: transform 0.2s ease;
 }
 
-#login_button:hover, #logout_button:hover {
+#login_button:hover {
     transform: translateY(-3px);
-    background-color: #017A5E;
+    cursor: pointer;
     font-weight: bold;
+    background-color: #017A5E;
+    background-color: var(--hover-button); 
+    box-shadow: var(--button-shadow);
 }
 
 .container-content {

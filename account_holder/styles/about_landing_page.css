@@ -24,7 +24,7 @@ body {
 }
 
 .top-nav-bar {
-    background-color: var(--container);
+    background-color: #1A1E29;
     overflow: hidden;
     font-style: "sans-serif";
 }
@@ -33,17 +33,19 @@ body {
     float: right;
     color: rgb(69, 68, 68);
     text-align: center;
-    padding: 20px 20px;
+    padding: 20px 10px;
     text-decoration: none;
     font-family: "Lexend Tera", sans-serif;
-    font-size: 20px;
+    font-size: 15px;
     margin-right: 0;
-    color: var(--text);
+    color: white;
+    transition: all 0.3s ease;
 }
 
-.top-nav-bar a:hover {
-    color: var(--highlight);
+.contact:hover, .about:hover, .home:hover {
     transform: translateY(-3px);
+    color: var(--accent);
+    border-bottom: 2px solid;
 }
 
 .icon img {
@@ -56,10 +58,10 @@ body {
 
 .icon h4 {
     position: absolute;
-    margin-top: 2%;
+    margin-top: 1.5%;
     margin-left: 7%;
     font-family: "Lexend Tera", sans-serif;
-    color: var(--text);
+    color: white;
 }
 
 a {
@@ -69,21 +71,22 @@ a {
 #login_button {
     font-family: "IBM Plex Mono", monospace;
     font-size: 15px;
-    padding: 7px 20px;
-    border: none;
-    background-color: var(--accent);
-    color: var(--text);
+    padding: 7px;
+    width: 100px;
+    border: solid 0px;
+    background-color: #01C38E;
+    color: white;
     border-radius: 50px;
-    transition: transform 0.2s ease;
+    margin-top: -10%;
 }
 
 #login_button:hover {
-    transform: translateY(-3px);
-    cursor: pointer;
     font-weight: bold;
-    background-color: #017A5E;
-    background-color: var(--hover-button); 
+    cursor: pointer;
+    background-color: var(--hover-button);
     box-shadow: var(--button-shadow);
+    outline: #017A5E;
+    transition: all 0.3s ease;
 }
 
 .container-content {

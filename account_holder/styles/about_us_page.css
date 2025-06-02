@@ -7,12 +7,12 @@
     --font-family: Verdana, Geneva, Tahoma, sans-serif;
     --yellow-design: #FFCE53;
     --highlight: #007bff;
-  --back-button-shadow:
+    --back-button-shadow:
     0 0 8px rgba(134, 16, 16, 0.5),
     0 0 16px rgba(134, 16, 16, 0.6),
     0 0 24px rgba(134, 16, 16, 0.7);
-
-  --hover-back-button:#520a0a;
+    --accent: #01C38E;
+    --hover-back-button:#520a0a;
 }
 
 * {
@@ -21,11 +21,11 @@
 }
 
 body {
-  background-color: var(--bg-color);
+    background-color: #041524;
 }
 
 .top-nav-bar {
-    background-color: var(--container);
+    background-color: #1A1E29;
     overflow: hidden;
     font-style: "sans-serif";
 }
@@ -34,30 +34,32 @@ body {
     float: right;
     color: rgb(69, 68, 68);
     text-align: center;
-    padding: 20px 20px;
+    padding: 20px 10px;
     text-decoration: none;
     font-family: "Lexend Tera", sans-serif;
-    font-size: 20px;
+    font-size: 15px;
     margin-right: 0;
-    color: var(--text);
+    color: white;
+    transition: all 0.3s ease;
 }
 
-.top-nav-bar a:hover {
-    color: var(--highlight);
+.contact:hover, .about:hover, .home:hover {
     transform: translateY(-3px);
+    color: var(--accent);
+    border-bottom: 2px solid;
 }
 
 .icon img {
-  margin-top: -2.4%;
-  position: absolute;
-  width: 13%;
-  height: 150px;
-  margin-left: -2%;
+    margin-top: 5px;
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    margin-left: 2%;
 }
 
 .icon h4 {
     position: absolute;
-    margin-top: 2%;
+    margin-top: 1.5%;
     margin-left: 7%;
     font-family: "Lexend Tera", sans-serif;
     color: var(--text);
@@ -68,23 +70,23 @@ a {
 }
 
 #back_button {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 15px;
-    padding: 10px 30px;
-    border: solid 0px;
-    background-color: #861010;
-    color: white;
-    border-radius: 50px;
-    transition: all 0.3s ease;
-    margin-top: -50px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 15px;
+  padding: 10px 30px;
+  border: solid 0px;
+  background-color: #861010;
+  color: white;
+  border-radius: 50px;
+  margin-top: -10%;
+  transition: all 0.3s ease;
 }
 
 #back_button:hover {
-    transform: translateY(-3px);
-    cursor: pointer;
-    font-weight: bold;
-    background-color: var(--hover-back-button);
-    box-shadow: var(--back-button-shadow);
+  transform: translateY(-3px);
+  cursor: pointer;
+  font-weight: bold;
+  background-color: var(--hover-back-button);
+  box-shadow: var(--back-button-shadow);
 }
 
 .container-content {

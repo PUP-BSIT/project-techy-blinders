@@ -20,6 +20,7 @@
 
   --dark-shadow: 0 0.5rem 0.9375rem rgba(0, 0, 0, 0.2);
   --highlight: #007bff;
+  --hover-button: #0b3f34;
 }
 
 * {
@@ -44,30 +45,28 @@ body {
 }
 
 .top-nav-bar {
-  background-color: var(--container);
+  background-color: #1A1E29;
   overflow: hidden;
   font-style: "sans-serif";
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  flex-shrink: 0;
-  height: 80px;
 }
 
 .top-nav-bar a {
   float: right;
   color: rgb(69, 68, 68);
   text-align: center;
-  padding: 1.25rem 1.25rem;
+  padding: 20px 10px;
   text-decoration: none;
   font-family: "Lexend Tera", sans-serif;
-  font-size: 1.25rem;
+  font-size: 15px;
   margin-right: 0;
-  color: var(--text);
+  color: white;
+  transition: all 0.3s ease;
 }
 
-.top-nav-bar a:hover {
-  color: var(--highlight);
-  transform: translateY(-0.1875rem);
-  font-weight: bolder;
+.contact:hover, .about:hover, .home:hover {
+  transform: translateY(-3px);
+  color: var(--accent);
+  border-bottom: 2px solid;
 }
 
 .icon img {
@@ -92,21 +91,22 @@ a {
 
 #login_button {
   font-family: "IBM Plex Mono", monospace;
-  font-size: 0.9375rem;
-  padding: 0.4375rem;
-  width: 6.25rem;
+  font-size: 15px;
+  padding: 7px;
+  width: 100px;
   border: solid 0px;
   background-color: #01C38E;
-  color: var(--text);
-  box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
-  border-radius: 3.125rem;
+  color: white;
+  border-radius: 50px;
+  margin-top: -10%;
 }
 
 #login_button:hover {
-    cursor: pointer;
-    box-shadow: 0 0 20px #01C38E;
-    background-color:  #0b3f34;
-    transform: translateY(-3px);
+  cursor: pointer;
+  box-shadow: 0 0 20px #01C38E;
+  background-color:  #0b3f34;
+  transform: translateY(-3px);
+  transition: all 0.3s ease;
 }
 
 .main {

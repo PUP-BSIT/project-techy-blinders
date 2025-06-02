@@ -26,41 +26,10 @@
 }
 
 body {
-  background-color: #041524;
+  background-color: var(--bg-color);
   font-family: "IBM Plex Mono", monospace;
   color: var(--text);
   overflow-x: hidden;
-}
-
-.top-nav-bar {
-  background-color: #1A1E29;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 4px 40px;
-  position: relative;
-  z-index: 10;
-  flex-wrap: wrap;
-  margin-right: -2%;
-}
-
-.top-nav-bar a {
-  float: right;
-  color: rgb(69, 68, 68);
-  text-align: center;
-  padding: 10px 4px;
-  text-decoration: none;
-  font-family: "Lexend Tera", sans-serif;
-  font-size: 15px;
-  margin-right: 0;
-  color: white;
-  transition: all 0.3s ease;
-}
-
-.contact:hover, .about:hover, .home:hover {
-  transform: translateY(-3px);
-  color: var(--accent);
-  border-bottom: 2px solid;
 }
 
 .icon {
@@ -70,46 +39,70 @@ body {
 }
 
 .icon img {
-  margin-top: 3px;
+  margin-top: 4.5%;
   position: absolute;
-  width: 60px;
-  height: 60px;
-  margin-left: -1%;
+  width: 13%;
+  height: 150px;
+  margin-left: -2.5%;
+  z-index: 1;
 }
 
 .icon h4 {
   position: absolute;
-  margin-top: 0.2%;
-  margin-left: 4%;
+  margin-top: 4.2%;
+  margin-left: 7%;
   font-family: "Lexend Tera", sans-serif;
   color: white;
+  z-index: 1;
 }
 
-#back_button {
+.top-nav-bar {
+  background-color: #1A1E29;
+  overflow: hidden;
+  font-style: "sans-serif";
+  position: relative;
+  z-index: 2;
+}
+
+.top-nav-bar a {
+  float: right;
+  color: rgb(69, 68, 68);
+  text-align: center;
+  padding: 20px 10px;
+  text-decoration: none;
+  font-family: "Lexend Tera", sans-serif;
+  font-size: 15px;
+  margin-right: 0;
+  color: white;
+  transition: all 0.3s ease;
+  margin-top: 0.5%;
+}
+
+.contact:hover, .about:hover, .home:hover {
+  transform: translateY(-3px);
+  color: var(--accent);
+  border-bottom: 2px solid;
+}
+
+#login_button {
   font-family: "IBM Plex Mono", monospace;
   font-size: 15px;
-  padding: 10px 30px;
-  border: solid 0px;
-  background-color: #861010;
-  color: white;
+  padding: 7px 20px;
+  border: none;
+  background-color: var(--accent);
+  color: var(--text);
   border-radius: 50px;
-  transition: all 0.3s ease;
-    
+  transition: transform 0.2s ease;
+  margin-top: -13%;
 }
 
-#back_button:hover {
+#login_button:hover{
   transform: translateY(-3px);
   cursor: pointer;
   font-weight: bold;
-  background-color: var(--hover-back-button);
-  box-shadow: var(--back-button-shadow);
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
+  background-color: #017A5E;
+  background-color: var(--hover-button); 
+  box-shadow: var(--button-shadow);
 }
 
 .contact-form-container {
@@ -228,4 +221,24 @@ body {
   font-size: 16px;
   font-family: "Inter", monospace;
   margin-top: 10px;
+}
+
+#back_button {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 15px;
+    padding: 10px 30px;
+    border: solid 0px;
+    background-color: #861010;
+    color: white;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    
+}
+
+#back_button:hover {
+    transform: translateY(-3px);
+    cursor: pointer;
+    font-weight: bold;
+    background-color: var(--hover-back-button);
+    box-shadow: var(--back-button-shadow);
 }

@@ -2,20 +2,22 @@ const API_URL = `https://darkorange-cormorant-406076.hostingersite.com/php/trans
 
 document.addEventListener('DOMContentLoaded', function() {
     const accountIdInput = document.getElementById("account_id");
-    const depositAmountInput = document.getElementById("transfer_amount");
+    const transferAmountInput = document.getElementById("transfer_amount");
     
     accountIdInput.addEventListener('input', validateForm);
-    depositAmountInput.addEventListener('input', validateForm);
+    transferAmountInput.addEventListener('input', validateForm);
     
     validateForm();
+
+    document.getElementById("transfer").addEventListener('click', submitUser);
 });
 
 function validateForm() {
     let accountHolderId = document.getElementById("account_id").value;
-    let depositAmount = document.getElementById("transfer_amount").value;
+    let transferAmount = document.getElementById("transfer_amount").value;
     let transferButton = document.getElementById("transfer");
     
-    if(accountHolderId.length && depositAmount.length){
+    if(accountHolderId.length && transferAmount.length){
         transferButton.disabled = false;
         transferButton.style.cursor = 'pointer';
     } else {
@@ -29,7 +31,6 @@ function submitUser() {
     let transferAmount = document.getElementById("transfer_amount").value;
     let loggedInUserId = localStorage.getItem("loggedInId");
     let currentBalance = parseFloat(localStorage.getItem("currentBalance"));
-    validateForm();
     
     if (!accountHolderId || !transferAmount) {
         alert("Please complete the form");
@@ -56,37 +57,33 @@ function submitUser() {
         return;
     }
 
-    fetch(API_URL, {
+    // Fetch account name before proceeding to confirmation
+    fetch(`https://darkorange-cormorant-406076.hostingersite.com/php/get_account_info.php`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            account_holder_id: accountHolderId,
-            amount: transferAmount,
-            sender_id: loggedInUserId
+            account_holder_id: accountHolderId
         })
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            const serverBalance = parseFloat(data.sender_new_balance.replace(/,/g, ''));
-            localStorage.setItem("currentBalance", serverBalance.toFixed(2));
-
             const params = new URLSearchParams({
                 accountHolderId: accountHolderId,
                 accountName: data.account_name,
-                transferAmount: transferAmount
+                transferAmount: transferAmount,
+                recipientBalance: data.balance
             });
-
-            window.location.href = "transfer_confirmation.html?" + params.toString();
+            window.location.href = "confirmation_form.html?" + params.toString();
         } else {
-            alert('Transfer failed: ' + data.message);
+            alert('Account not found: ' + data.message);
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Error processing transfer');
+        alert('Error validating account');
     });
 }
 

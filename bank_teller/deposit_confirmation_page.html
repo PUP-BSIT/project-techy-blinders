@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Confirm Deposit | Bank Teller</title>
+        <link rel="stylesheet" href="styles/deposit_confirmation_page.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend+Tera:wght@100..900&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div class="top-nav-bar">
+                <div class="icon">
+                    <img src="/assets/logo-removebg-preview.png" alt="Blinders Vault Logo">
+                    <h4>Blinders Vault</h4>
+                </div>
+            
+                <a class="back-button" href="">
+                    <button type="button" 
+                            id="back_button">Back</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="confirmation-container">
+            <div class="confirmation-border">
+                <div class="confirmation-label">Confirmation</div>
+
+                <div class="confirmation-receipt-border">
+                    <div class="receipt-labels">
+                        <div class="detail-row">
+                            <div class="detail-label">Account Holder ID:</div>
+                            <div class="detail-value" 
+                                 id="display_account_holder_id"> </div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Account Name:</div>
+                            <div class="detail-value" 
+                                 id="display_account_name"> </div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Deposit Amount:</div>
+                            <div class="detail-value amount-highlight" 
+                                 id="display_deposit_amount"> </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <button type="button" 
+                            id="cancel">Cancel</button>
+                    <button type="button" 
+                            id="confirm">Confirm</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden inputs to store data -->
+        <input type="hidden" 
+               id="account_holder_id" 
+               name="account_holder_id">
+        <input type="hidden" 
+               id="account_name" 
+               name="account_name">
+        <input type="hidden" 
+               id="deposit_amount" 
+               name="deposit_amount">
+        
+        <script src="./scripts/deposit_confirmation_page.js"></script>
+    </body>
+</html>

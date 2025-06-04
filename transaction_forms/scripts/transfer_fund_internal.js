@@ -1,4 +1,5 @@
 const API_URL = `https://darkorange-cormorant-406076.hostingersite.com/php/transfer_internal.php`;
+const OTP_GENERATE_URL = `https://darkorange-cormorant-406076.hostingersite.com/php/transfer_otp_generate.php`;
 
 document.addEventListener('DOMContentLoaded', function() {
     const accountIdInput = document.getElementById("account_id");
@@ -57,7 +58,7 @@ function submitUser() {
         return;
     }
 
-    // Fetch account name before proceeding to confirmation
+    // First verify the recipient account exists
     fetch(`https://darkorange-cormorant-406076.hostingersite.com/php/get_account_info.php`, {
         method: 'POST',
         headers: {
@@ -70,13 +71,8 @@ function submitUser() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            const params = new URLSearchParams({
-                accountHolderId: accountHolderId,
-                accountName: data.account_name,
-                transferAmount: transferAmount,
-                recipientBalance: data.balance
-            });
-            window.location.href = "confirmation_form.html?" + params.toString();
+            // Account exists, now generate OTP for the transfer
+            generateOTPForTransfer(loggedInUserId, accountHolderId, transferAmount, data.account_name);
         } else {
             alert('Account not found: ' + data.message);
         }
@@ -84,6 +80,60 @@ function submitUser() {
     .catch(error => {
         console.error('Error:', error);
         alert('Error validating account');
+    });
+}
+
+function generateOTPForTransfer(senderId, recipientId, amount, recipientName) {
+    // Disable the transfer button to prevent multiple submissions
+    const transferButton = document.getElementById("transfer");
+    transferButton.disabled = true;
+    transferButton.textContent = 'Generating OTP...';
+
+    fetch(OTP_GENERATE_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            sender_id: senderId,
+            recipient_id: recipientId,
+            amount: parseFloat(amount)
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('OTP Generation result:', data);
+        
+        if (data.success) {
+            // Store transfer details in localStorage for OTP verification page
+            localStorage.setItem('pendingTransfer', JSON.stringify({
+                senderId: senderId,
+                recipientId: recipientId,
+                amount: amount,
+                recipientName: recipientName
+            }));
+
+            // Show OTP info if debug mode
+            if (data.debug_info) {
+                alert(`OTP sent successfully!\n\nDEBUG INFO:\nOTP: ${data.debug_info.otp}\nPhone: ${data.debug_info.phone}\nExpires: ${data.debug_info.expires_at}`);
+            } else {
+                alert('OTP sent to your registered phone number!');
+            }
+
+            // Redirect to OTP verification page
+            window.location.href = "otp_confirmation_page.html";
+        } else {
+            alert('Error generating OTP: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error generating OTP:', error);
+        alert('Network error. Please try again.');
+    })
+    .finally(() => {
+        // Re-enable the transfer button
+        transferButton.disabled = false;
+        transferButton.textContent = 'Transfer';
     });
 }
 

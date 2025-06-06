@@ -30,7 +30,8 @@
 }
 
 body {
-  background-color: var(--bg-color);
+  background: linear-gradient(135deg, #1A2235 0%, #2A3F5F 50%, 
+#01C38E 100%);
   font-family: "IBM Plex Mono", monospace;
   color: var(--text);
   height: 100vh;
@@ -45,7 +46,7 @@ body {
 }
 
 .top-nav-bar {
-  background-color: #1A1E29;
+  background-color: transparent;
   overflow: hidden;
   font-style: "sans-serif";
 }

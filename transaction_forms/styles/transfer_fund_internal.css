@@ -115,6 +115,15 @@ a {
     margin-top: 5%;
 }
 
+#account_id, 
+#transfer_amount {
+    margin-top: 5%;
+    width: 60%;
+    height: 15px;
+    padding: 5px;
+    border-radius: 8px;
+}
+
 .account-id-label {
     color: white;
     font-family: "Lexend Tera", sans-serif;

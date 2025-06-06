@@ -21,29 +21,27 @@
 
 * {
     margin: 0;
-    padding: 0px;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
     background-color: #1A2235;
+    font-family: "Lexend Tera", sans-serif;
 }
 
 .top-nav-bar {
     background-color: #1A1E29;
     overflow: hidden;
-    font-style: "sans-serif";
 }
 
 .top-nav-bar a {
     float: right;
-    color: rgb(69, 68, 68);
     text-align: center;
     padding: 20px 20px;
-    text-decoration: none;
-    font-family: "Lexend Tera", sans-serif;
     font-size: 20px;
-    margin-right: 0;
     color: white;
+    text-decoration: none;
 }
 
 .icon img {
@@ -58,9 +56,7 @@ body {
     position: absolute;
     margin-top: 2%;
     margin-left: 7%;
-    font-family: "Lexend Tera", sans-serif;
     color: white;
-
 }
 
 a {
@@ -71,7 +67,7 @@ a {
     font-family: "IBM Plex Mono", monospace;
     font-size: 15px;
     padding: 10px 20px;
-    border: solid 0px;
+    border: none;
     background-color: #861010;
     color: white;
     border-radius: 50px;
@@ -88,60 +84,50 @@ a {
 
 .close-account-container {
     display: flex;
-    text-align: center;
     justify-content: center;
     align-items: center;
 }
 
 .close-account-border {
-    padding: 5px;
+    padding: 30px;
     margin-top: 7%;
-    border: solid 0px;
     width: 607px;
-    height: 480px;
-    background-color: #132D46;
+    height: auto;
+    background-color: var(--container2);
     border-radius: 20px;
-    box-shadow: 0 0 50px #01C38E;
-}
-
-.text-area {
-    margin-top: 8%;
-}
-
-.text-area-label {
-    margin-top: 1%;
-    font-family: "Lexend Tera", sans-serif;
-    font-size: 25px;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    margin-left: 3%;
-}
-
-.account-id, textarea {
-    margin-top: 5%;
-}
-
-.account-id-label {
-    color: white;
-    font-family: "Lexend Tera", sans-serif;
-    margin-left: -40%;
-}
-
-#account_id {
-    margin-top: 1%;
-    width: 60%;
-    height: 15px;
-    padding: 5px;
+    box-shadow: 0 0 50px var(--accent);
 }
 
 .close-account-label {
-    margin-top: 2%;
+    margin-bottom: 30px;
     color: white;
-    font-family: "Lexend Tera", sans-serif;
-    margin-left: 5%;
     font-size: 30px;
     font-weight: bold;
+    text-align: center;
+}
+
+.account-id {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.account-id-label {
+    align-self: flex-start;
+    color: white;
+    font-size: 16px;
+    margin-left: 20%;
+    margin-bottom: 5px;
+}
+
+#account_id,
+#closure_reason {
+    width: 60%;
+    height: 40px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
 }
 
 .button-container {
@@ -149,10 +135,11 @@ a {
     display: flex;
     gap: 30px;
     justify-content: center;
+    margin-bottom: 5%;
 }
 
 #cancel {
-    border: solid 0px;
+    border: none;
     padding: 10px;
     width: 25%;
     background-color: #861010;
@@ -161,29 +148,30 @@ a {
     border-radius: 50px;
     box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 #submit {
-    border: solid 0px;
+    border: none;
     padding: 10px;
     width: 25%;
-    background-color: #01C38E;
+    background-color: var(--accent);
     color: white;
     font-family: "Lexend Tera", sans-serif;
     border-radius: 50px;
     box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
+    transition: all 0.3s ease;
 }
 
 #cancel:hover {
     transform: translateY(-3px);
-    cursor: pointer;
-    font-weight: bold;
     background-color: var(--hover-back-button);
     box-shadow: var(--back-button-shadow);
+    font-weight: bold;
 }
 
 #submit:hover {
     cursor: pointer;
-    box-shadow: 0 0 20px #01C38E;
     background-color: #076b51;
+    box-shadow: 0 0 20px var(--accent);
 }

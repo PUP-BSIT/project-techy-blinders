@@ -116,6 +116,15 @@ a {
     margin-top: 5%;
 }
 
+#account_id, 
+#withdraw_ammount {
+    margin-top: 1%;
+    width: 60%;
+    height: 15px;
+    padding: 5px;
+    border-radius: 8px;
+}
+
 .account-id-label {
     color: white;
     font-family: "Lexend Tera", sans-serif;
@@ -147,6 +156,7 @@ a {
     display: flex;
     gap: 30px;
     justify-content: center;
+    margin-bottom: 5%;
 }
 
 #cancel {

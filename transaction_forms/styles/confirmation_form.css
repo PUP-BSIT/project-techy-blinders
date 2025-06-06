@@ -126,7 +126,7 @@ a {
     cursor: pointer;
 }
 
-#confirm {
+#send_otp {
     border: solid 0px;
     padding: 10px;
     width: 25%;

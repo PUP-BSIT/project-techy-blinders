@@ -12,7 +12,7 @@ fetch(API_URL)
         if (data.success) {
             document.querySelector('.account-details h4:nth-of-type(1)').textContent = `Name: ${data.name}`;
             document.querySelector('.account-details h4:nth-of-type(2)').textContent = `Account Holder ID: ${data.account_holder_id}`;
-            document.querySelector('.balance-details h3').textContent = `₱${parseFloat(data.account_balance.replace(/,/g, '')).toLocaleString(undefined, {
+            document.querySelector('.balance-details h3').textContent = `$${parseFloat(data.account_balance.replace(/,/g, '')).toLocaleString(undefined, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             })}`;

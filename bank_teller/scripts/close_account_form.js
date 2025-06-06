@@ -103,6 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Parsed data:', data);
             if (data.success) {
                 alert(`Account closed successfully!\n\nAccount: ${data.account_name || accountId}\nClosure Date: ${data.close_date}\nTransaction ID: ${data.transaction_id}`);
+                window.location.href = "close_account_form.html?close_success=true&" + accountId;
                 
                 accountIdInput.value = '';
                 reasonTextarea.value = '';

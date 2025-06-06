@@ -104,17 +104,18 @@ async function handleWithdraw() {
 
         if (withdrawData.success) {
             alert(`Withdrawal Successful!\n\nTransaction Details:\nTransaction ID: ${tellerTransactionId}\nAccount: ${withdrawData.account_name}\nWithdrawn Amount: $${withdrawData.withdrawn_amount}\nNew Balance: $${withdrawData.new_balance}`);
-            
+            window.location.href = "withdraw_funds.html?teller_transactionsuccess=true&"+tellerTransactionId;
             document.getElementById('account_id').value = '';
             document.getElementById('withdraw_ammount').value = '';
             
             if (confirm('Withdrawal completed successfully. Would you like to process another withdrawal?')) {
                 validateForm();
             } else {
-                window.location.href = '../bank_teller/bank_teller_homepage.html';
+                window.location.href = '../bank_teller/bank_teller_homepage.html' + + withdrawData.message;
             }
         } else {
             alert('Withdrawal Failed: ' + withdrawData.message);
+            window.location.href = '../bank_teller/bank_teller_homepage.html' + + withdrawData.message;
         }
 
     } catch (error) {

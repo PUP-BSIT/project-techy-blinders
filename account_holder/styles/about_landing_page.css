@@ -19,12 +19,23 @@
     padding: 0px;
 }
 
+html, body {
+    height: 100%;
+}
+
 body {
-  background-color: var(--bg-color);
+  background: linear-gradient(135deg, #1A2235 0%, #2A3F5F 50%, 
+  #01C38E 140%);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.container {
+    min-height: 100vh;
 }
 
 .top-nav-bar {
-    background-color: #1A1E29;
+    background-color: transparent;
     overflow: hidden;
     font-style: "sans-serif";
 }

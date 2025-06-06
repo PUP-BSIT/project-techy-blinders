@@ -124,8 +124,7 @@ a {
 #account_id,
 #closure_reason {
     width: 60%;
-    height: 40px;
-    padding: 10px;
+    padding: 5px;
     border-radius: 8px;
     border: none;
 }

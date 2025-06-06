@@ -15,13 +15,12 @@ document.addEventListener('DOMContentLoaded', function() {
     backButton.addEventListener('click', handleBack);
     
     depositAmountInput.addEventListener('blur', function() {
-        if (this.value) {
-            const amount = parseFloat(this.value);
-            if (!isNaN(amount)) {
-                this.value = amount.toFixed(2);
-            }
-        }
+    const value = this.value.trim();
+    if (!isNaN(value) && value !== "") {
+        // Do nothing to preserve input as-is
+    }
     });
+
 
     validateForm();
 });

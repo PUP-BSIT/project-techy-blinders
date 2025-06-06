@@ -110,7 +110,7 @@ function submitUser() {
             clearForm();
             
             setTimeout(() => {
-                window.location.href = "login_page_index.html";
+                window.location.href = "login_page_index.html?account_successfully_created=true&account_id=" + accountId;
             }, 3000);
             
         } else {

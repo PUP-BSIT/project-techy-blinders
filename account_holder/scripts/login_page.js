@@ -37,11 +37,13 @@ function loginUser() {
                 localStorage.setItem("loggedInId", accountId);
                 alert('Login successful!');
                 
-                window.location.href = "account_holder_home_page.html";
+                window.location.href = "account_holder_home_page.html?login_success=true&account_id=" + accountId;
                 
             } else {
+                window.location.href = "login_page_index.html?login_success=false";
                 alert('Login failed: ' + (data.error || data.message || 'Unknown error'));
             }
+
         } catch (e) {
             console.error('JSON parse error:', e);
             console.error('Response was:', text);

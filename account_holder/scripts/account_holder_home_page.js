@@ -19,7 +19,9 @@ if (!loggedInId) {
             if (data.success) {
                 document.querySelector('.account-details h4:nth-of-type(1)').textContent = `Name: ${data.name}`;
                 document.querySelector('.account-details h4:nth-of-type(2)').textContent = `Account Holder ID: ${maskAccountId(data.account_holder_id)}`;
-                document.querySelector('.balance-details h3').textContent = `$${parseFloat(data.account_balance.replace(/,/g, '')).toLocaleString(undefined, {
+                const balance = parseFloat(data.account_balance.replace(/,/g, ''));
+                localStorage.setItem("currentBalance", balance.toString());
+                document.querySelector('.balance-details h3').textContent = `$${balance.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2
                 })}`;

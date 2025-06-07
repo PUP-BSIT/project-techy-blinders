@@ -28,16 +28,24 @@ function validateForm() {
 
 function submitUser() {
     let accountHolderId = document.getElementById("account_id").value;
-    let transferAmount = document.getElementById("transfer_amount").value;
+    let rawTransferAmount = document.getElementById("transfer_amount").value;
+    let transferAmount = parseFloat(rawTransferAmount);
     let loggedInUserId = localStorage.getItem("loggedInId");
-    let currentBalance = parseFloat(localStorage.getItem("currentBalance"));
+    let rawCurrentBalance = localStorage.getItem("currentBalance");
+    let currentBalance = parseFloat(rawCurrentBalance);
+
+    // Debug logs
+    console.log('Raw transfer amount:', rawTransferAmount);
+    console.log('Parsed transfer amount:', transferAmount, 'Type:', typeof transferAmount);
+    console.log('Raw current balance:', rawCurrentBalance);
+    console.log('Parsed current balance:', currentBalance, 'Type:', typeof currentBalance);
 
     if (!accountHolderId || !transferAmount) {
         alert("Please complete the form");
         return;
     }
 
-    if (isNaN(transferAmount) || parseFloat(transferAmount) <= 0) {
+    if (isNaN(transferAmount) || transferAmount <= 0) {
         alert("Please enter a valid positive amount");
         return;
     }
@@ -47,12 +55,14 @@ function submitUser() {
         return;
     }
 
-    if (currentBalance === 0) {
+    if (isNaN(currentBalance) || currentBalance === 0) {
         alert("Transaction not allowed. Your balance is 0.");
         return;
     }
 
-    if (currentBalance < parseFloat(transferAmount)) {
+    console.log('Comparing balance:', currentBalance, '<', transferAmount, '=', currentBalance < transferAmount);
+
+    if (currentBalance < transferAmount) {
         alert("Not enough Balance.");
         return;
     }

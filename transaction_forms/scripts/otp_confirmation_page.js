@@ -1,129 +1,136 @@
-const VERIFY_OTP_URL = `https://blindvault.site/php/verify_transfer_otp.php`;
-const OTP_GENERATE_URL = `https://blindvault.site/php/transfer_otp_generate.php`;
+// Shared OTP Confirmation Page for Internal and External Transfers
+const transferType = localStorage.getItem('pendingTransferType') || 'internal';
+
+const OTP_GENERATE_URL = transferType === 'external'
+  ? 'https://blindvault.site/php/external_transfer_otp_generate.php'
+  : 'https://blindvault.site/php/transfer_otp_generate.php';
+
+const OTP_VERIFY_URL = transferType === 'external'
+  ? 'https://blindvault.site/php/verify_external_transfer_otp.php'
+  : 'https://blindvault.site/php/verify_transfer_otp.php';
+
+const FINAL_TRANSFER_URL = transferType === 'external'
+  ? 'https://blindvault.site/php/transfer_external.php'
+  : null; // For internal, transfer is done in the verify endpoint
 
 let otpVerification = document.getElementById("otp_verification");
 let verifyButton = document.getElementById("verify");
 let cancelButton = document.getElementById("cancel");
 let otpAlertShown = false;
+let resendButton = document.getElementById("resend_otp");
 
 document.addEventListener('DOMContentLoaded', function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const accountHolderId = urlParams.get('accountHolderId');
-    const accountName = urlParams.get('accountName');
-    const transferAmount = urlParams.get('transferAmount');
-    const loggedInId = localStorage.getItem("loggedInId");
-
-    if (!loggedInId) {
-        alert('Error: Sender ID not found. Please try again.');
-        window.location.href = "transfer_fund_internal.html";
-        return;
+    // Optionally update UI for transfer type
+    if (transferType === 'external') {
+        const title = document.querySelector('h2');
+        if (title) title.textContent = 'Enter OTP for External Transfer';
     }
 
-    if (accountHolderId && accountName && transferAmount) {
-        // Store transfer details for verification
-        localStorage.setItem('pendingTransfer', JSON.stringify({
-            recipientId: accountHolderId,
-            recipientName: accountName,
-            amount: transferAmount,
-            senderId: loggedInId
-        }));
-
-        // Generate OTP for the transfer
-        generateOTPForTransfer(accountHolderId, transferAmount, accountName);
-    } else {
-        alert('Missing transfer information. Redirecting back...');
-        window.location.href = "transfer_fund_internal.html";
-        return;
+    // --- OTP GENERATION FOR INTERNAL TRANSFER ---
+    if (transferType === 'internal') {
+        const pendingTransfer = JSON.parse(localStorage.getItem('pendingTransfer'));
+        if (pendingTransfer) {
+            fetch(OTP_GENERATE_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    sender_id: pendingTransfer.senderId,
+                    recipient_id: pendingTransfer.recipientId,
+                    amount: parseFloat(pendingTransfer.amount),
+                    recipient_name: pendingTransfer.recipientName
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && !otpAlertShown) {
+                    otpAlertShown = true;
+                    let message = 'OTP sent successfully!';
+                    if (data.debug_info) {
+                        message += `\n\nPhone: ${data.debug_info.phone}\nExpires: ${data.debug_info.expires_at}`;
+                    }
+                    alert(message);
+                } else if (!data.success) {
+                    alert('Error generating OTP: ' + data.message);
+                    window.location.href = "transfer_fund_internal.html";
+                }
+            })
+            .catch(error => {
+                alert('Network error. Please try again.');
+                window.location.href = "transfer_fund_internal.html";
+            });
+        }
     }
 
     // Add event listeners
     otpVerification.addEventListener("input", validateForm);
     verifyButton.addEventListener("click", verifyOTP);
     cancelButton.addEventListener("click", cancelTransfer);
-
-    // Auto-format OTP input (only digits, max 6)
     otpVerification.addEventListener('input', function(e) {
         e.target.value = e.target.value.replace(/\D/g, '').substring(0, 6);
         validateForm();
     });
-
-    // Enable enter key for OTP input
     otpVerification.addEventListener('keypress', function(e) {
         if (e.key === 'Enter' && !verifyButton.disabled) {
             verifyOTP();
         }
     });
-
     validateForm();
-});
 
-function generateOTPForTransfer(recipientId, amount, recipientName) {
-    otpAlertShown = false;
-    
-    const transferButton = document.getElementById("verify");
-    transferButton.disabled = true;
-    transferButton.textContent = 'Generating OTP...';
-
-    // Get logged in user ID for sender
-    const loggedInId = localStorage.getItem("loggedInId");
-
-    if (!loggedInId) {
-        alert('Error: Sender ID not found. Please try again.');
-        window.location.href = "transfer_fund_internal.html";
-        return;
-    }
-
-    fetch(OTP_GENERATE_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            sender_id: loggedInId,
-            recipient_id: recipientId,
-            amount: parseFloat(amount),
-            recipient_name: recipientName
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('OTP Generation result:', data);
-        
-        if (data.success) {
-            // Store complete transfer details
-            localStorage.setItem('pendingTransfer', JSON.stringify({
-                senderId: loggedInId,
-                recipientId: recipientId,
-                amount: amount,
-                recipientName: recipientName
-            }));
-
-            if (!otpAlertShown) {
-                otpAlertShown = true;
-                
-                let message = 'OTP sent successfully!';
-                if (data.debug_info) {
-                    message += `\n\nPhone: ${data.debug_info.phone}\nExpires: ${data.debug_info.expires_at}`;
-                }
-                
-                alert(message);
+    if (resendButton) {
+        resendButton.addEventListener("click", function() {
+            const pendingTransfer = JSON.parse(localStorage.getItem('pendingTransfer'));
+            if (!pendingTransfer) {
+                alert('No pending transfer data found');
+                return;
             }
-        } else {
-            alert('Error generating OTP: ' + data.message);
-            window.location.href = "transfer_fund_internal.html";
-        }
-    })
-    .catch(error => {
-        console.error('Error generating OTP:', error);
-        alert('Network error. Please try again.');
-        window.location.href = "transfer_fund_internal.html";
-    })
-    .finally(() => {
-        transferButton.disabled = false;
-        transferButton.textContent = 'Verify';
-        validateForm();
-    });
-}
+            resendButton.disabled = true;
+            resendButton.textContent = 'Resending...';
+
+            let url, payload;
+            if (transferType === 'external') {
+                url = 'https://blindvault.site/php/external_transfer_otp_generate.php';
+                payload = {
+                    sender_id: pendingTransfer.senderId,
+                    recipient_id: pendingTransfer.recipientId,
+                    amount: parseFloat(pendingTransfer.amount)
+                };
+            } else {
+                url = 'https://blindvault.site/php/transfer_otp_generate.php';
+                payload = {
+                    sender_id: pendingTransfer.senderId,
+                    recipient_id: pendingTransfer.recipientId,
+                    amount: parseFloat(pendingTransfer.amount),
+                    recipient_name: pendingTransfer.recipientName
+                };
+            }
+
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    let message = 'OTP resent successfully!';
+                    if (data.debug_info) {
+                        message += `\n\nPhone: ${data.debug_info.phone}\nExpires: ${data.debug_info.expires_at}`;
+                    }
+                    alert(message);
+                } else {
+                    alert('Error resending OTP: ' + data.message);
+                }
+            })
+            .catch(error => {
+                alert('Network error. Please try again.');
+            })
+            .finally(() => {
+                resendButton.disabled = false;
+                resendButton.textContent = 'Resend OTP';
+            });
+        });
+    }
+});
 
 function validateForm() {
     if (otpVerification.value.length === 6) {
@@ -143,75 +150,85 @@ function verifyOTP() {
         alert('No pending transfer data found');
         return;
     }
-
     const otpCode = otpVerification.value.trim();
-    
     if (otpCode.length !== 6) {
         alert('Please enter a valid 6-digit OTP');
         return;
     }
-
-    // Disable verify button during processing
     verifyButton.disabled = true;
     verifyButton.textContent = 'Verifying...';
     verifyButton.style.cursor = 'not-allowed';
 
-    fetch(VERIFY_OTP_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+    if (transferType === 'external') {
+        // For external, send OTP and transfer details directly to transfer_external.php
+        const transferData = {
+            transaction_amount: parseFloat(pendingTransfer.amount),
             sender_id: pendingTransfer.senderId,
-            recipient_id: pendingTransfer.recipientId,
-            amount: parseFloat(pendingTransfer.amount),
-            otp_code: otpCode,
-            recipient_name: pendingTransfer.recipientName
+            recipient_account_no: parseInt(pendingTransfer.recipientId),
+            source_bank_code: 'Blind Vault',
+            external_bank_code: pendingTransfer.bankName,
+            otp_code: otpCode
+        };
+        fetch(FINAL_TRANSFER_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(transferData)
         })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('OTP Verification result:', data);
-        
-        if (data.success) {
-            // Update localStorage with new balance if provided
-            if (data.sender_new_balance) {
-                localStorage.setItem("currentBalance", data.sender_new_balance.replace(/,/g, ''));
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                alert('Transfer completed successfully!');
+                localStorage.removeItem('pendingTransfer');
+                localStorage.removeItem('pendingTransferType');
+                window.location.href = '../account_holder/account_holder_home_page.html';
+            } else {
+                alert('Transfer failed: ' + result.message);
+                verifyButton.disabled = false;
+                verifyButton.textContent = 'Verify';
+                verifyButton.style.cursor = 'pointer';
             }
-            
-            // Show success message
-            alert(`Transfer Successful!\n\nAmount: $${pendingTransfer.amount}\nTo: ${pendingTransfer.recipientName}\nYour new balance: $${data.sender_new_balance}\n\nTransaction ID: ${data.transaction_id}`);
-            
-            // Construct URL with all necessary parameters
-            const params = new URLSearchParams({
-                accountHolderId: pendingTransfer.recipientId,
-                accountName: pendingTransfer.recipientName,
-                transferAmount: pendingTransfer.amount
-            });
-            
-            // Clear pending transfer data before redirect
-            localStorage.removeItem('pendingTransfer');
-            
-            // Redirect to thank you page with parameters
-            window.location.href = `thank_you_message.html?${params.toString()}`;
-        } else {
-            alert('Verification failed: ' + data.message);
-            
-            // Re-enable verify button
+        })
+        .catch(error => {
+            alert('Network error during transfer. Please try again.');
             verifyButton.disabled = false;
             verifyButton.textContent = 'Verify';
             verifyButton.style.cursor = 'pointer';
-            
-            // Clear the OTP input for retry
+        });
+        return;
+    }
+
+    // Internal transfer: verify OTP first, then transfer is done in backend
+    let verifyPayload = {
+        sender_id: pendingTransfer.senderId,
+        otp_code: otpCode
+    };
+    verifyPayload.recipient_id = pendingTransfer.recipientId;
+    verifyPayload.amount = parseFloat(pendingTransfer.amount);
+    verifyPayload.recipient_name = pendingTransfer.recipientName;
+
+    fetch(OTP_VERIFY_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(verifyPayload)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(`Transfer Successful!`);
+            localStorage.removeItem('pendingTransfer');
+            localStorage.removeItem('pendingTransferType');
+            window.location.href = `thank_you_message.html`;
+        } else {
+            alert('Verification failed: ' + data.message);
+            verifyButton.disabled = false;
+            verifyButton.textContent = 'Verify';
+            verifyButton.style.cursor = 'pointer';
             otpVerification.value = '';
             validateForm();
         }
     })
     .catch(error => {
-        console.error('Error verifying OTP:', error);
         alert('Network error. Please try again.');
-        
-        // Re-enable verify button
         verifyButton.disabled = false;
         verifyButton.textContent = 'Verify';
         verifyButton.style.cursor = 'pointer';
@@ -220,13 +237,14 @@ function verifyOTP() {
 
 function cancelTransfer() {
     if (confirm('Are you sure you want to cancel this transfer?')) {
-        // Clear pending transfer data
         localStorage.removeItem('pendingTransfer');
-        
-        // Redirect back to transfer page
-        window.location.href = "transfer_fund_internal.html";
+        localStorage.removeItem('pendingTransferType');
+        if (transferType === 'external') {
+            window.location.href = 'transfer_fund_external.html';
+        } else {
+            window.location.href = 'transfer_fund_internal.html';
+        }
     }
 }
-
 // Initialize form validation on page load
-validateForm();
+validateForm(); 

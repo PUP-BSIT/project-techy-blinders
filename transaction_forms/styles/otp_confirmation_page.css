@@ -124,11 +124,19 @@ img {
     border-radius: 8px;
 }
 
-.resend-otp {
-    margin-top: 5%;
-    font-family: "Lexend Tera", sans-serif;
-    font-size: 15px;
+#resend_text {
     color: white;
+    font-family: "Lexend Tera", sans-serif;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+#resend_otp {
+    margin: 10px;
+    font-family: "Lexend Tera", sans-serif;
+    font-size: 13px;
+    background-color: #132D46;
+    color: green;
 }
 
 .button-container {
@@ -148,6 +156,7 @@ img {
     border-radius: 50px;
     box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
     cursor: pointer;
+    margin-right: 10px;
 }
 
 #verify {
@@ -159,6 +168,7 @@ img {
     font-family: "Lexend Tera", sans-serif;
     border-radius: 50px;
     box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
+    margin-left: 10px;
 }
 
 #cancel:hover {

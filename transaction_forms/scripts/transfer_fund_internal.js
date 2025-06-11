@@ -67,7 +67,7 @@ function submitUser() {
         return;
     }
 
-    fetch(`https://darkorange-cormorant-406076.hostingersite.com/php/get_account_info.php`, {
+    fetch(`https://blindvault.site/php/get_account_info.php`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

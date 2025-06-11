@@ -101,7 +101,8 @@ function submitTransfer() {
         transaction_amount: parseFloat(amount),
         sender_id: loggedInUserId,
         recipient_account_no: parseInt(recipient),
-        source_bank_code: 'Blind Vault'
+        source_bank_code: 'Blind Vault',
+        external_bank_code: bankName
     };
 
     console.log('Sending transfer data:', transferData); // Debug log

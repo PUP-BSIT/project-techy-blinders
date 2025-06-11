@@ -1,4 +1,4 @@
-const API_URL = "https://darkorange-cormorant-406076.hostingersite.com/php/login_page.php";
+const API_URL = "https://blindvault.site/php/login_page.php";
 
 function loginUser() {
     console.log("loginUser triggered");

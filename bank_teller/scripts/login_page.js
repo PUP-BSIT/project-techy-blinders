@@ -1,4 +1,4 @@
-const API_URL = "https://darkorange-cormorant-406076.hostingersite.com/php/login_page_teller.php";
+const API_URL = "https://blindvault.site/php/login_page_teller.php";
 
 function tellerUser() {
     console.log("tellerUser triggered");

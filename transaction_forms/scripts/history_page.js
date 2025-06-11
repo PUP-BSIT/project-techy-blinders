@@ -1,4 +1,4 @@
-const API_URL = `https://darkorange-cormorant-406076.hostingersite.com/php/history_page.php`;
+const API_URL = `https://blindvault.site/php/history_page.php`;
 
 function loadTransactions() {
     const urlParams = new URLSearchParams(window.location.search);

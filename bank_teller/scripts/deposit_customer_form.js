@@ -1,4 +1,4 @@
-const API_URL = `https://darkorange-cormorant-406076.hostingersite.com/php/deposit_customer.php`;
+const API_URL = `https://blindvault.site/php/deposit_customer.php`;
 
 document.addEventListener('DOMContentLoaded', function() {
     const accountIdInput = document.getElementById("account_id");
@@ -58,7 +58,7 @@ function submitDeposit() {
     depositButton.disabled = true;
     depositButton.textContent = 'Processing...';
 
-    fetch(`https://darkorange-cormorant-406076.hostingersite.com/php/get_account_info.php`, {
+    fetch(`https://blindvault.site/php/get_account_info.php`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

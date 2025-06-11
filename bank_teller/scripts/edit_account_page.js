@@ -1,4 +1,4 @@
-const API_URL = `https://darkorange-cormorant-406076.hostingersite.com/php/edit_account_details.php`;
+const API_URL = `https://blindvault.site/php/edit_account_details.php`;
 
 function loadDetails() {
     fetch(API_URL)

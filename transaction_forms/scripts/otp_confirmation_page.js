@@ -1,5 +1,5 @@
-const VERIFY_OTP_URL = `https://darkorange-cormorant-406076.hostingersite.com/php/verify_transfer_otp.php`;
-const OTP_GENERATE_URL = `https://darkorange-cormorant-406076.hostingersite.com/php/transfer_otp_generate.php`;
+const VERIFY_OTP_URL = `https://blindvault.site/php/verify_transfer_otp.php`;
+const OTP_GENERATE_URL = `https://blindvault.site/php/transfer_otp_generate.php`;
 
 let otpVerification = document.getElementById("otp_verification");
 let verifyButton = document.getElementById("verify");

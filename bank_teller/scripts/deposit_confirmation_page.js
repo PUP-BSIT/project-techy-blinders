@@ -35,7 +35,7 @@ function handleConfirm() {
     confirmButton.disabled = true;
     confirmButton.textContent = 'Processing...';
 
-    fetch('https://darkorange-cormorant-406076.hostingersite.com/php/deposit_customer.php', {
+    fetch('https://blindvault.site/php/deposit_customer.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

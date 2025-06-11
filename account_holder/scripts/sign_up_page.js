@@ -1,4 +1,4 @@
-let API_URL = "https://darkorange-cormorant-406076.hostingersite.com/php/process_registration.php";
+let API_URL = "https://blindvault.site/php/process_registration.php";
 
 document.addEventListener('DOMContentLoaded', function() {
     const firstName = document.getElementById("first_name");

@@ -31,14 +31,14 @@
                 <div class="otp-label">OTP Verification</div>
                 <div class="otp-input">
                     <input type="number" id="otp_verification">
-                    <div class="resend-otp">Did not receive OTP 
-                        <a href="">resend</a>
-                    </div>
                 </div>
+                
+                <span id="resend_text">Did not receive OTP? </span>
+                <button id="resend_otp" type="button">Resend</button>
 
-                <div class="button-container">
-                    <button type="button" id="cancel">Cancel</button>
-                    <button type="button" id="verify">Verify</button>
+                <div class="btn-group">
+                    <button id="cancel" type="button">Cancel</button>
+                    <button id="verify" disabled>Verify</button>
                 </div>
             </div>
         </div>

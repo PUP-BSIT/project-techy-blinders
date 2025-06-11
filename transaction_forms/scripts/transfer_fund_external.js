@@ -1,5 +1,7 @@
 const API_URL = `https://blindvault.site/php/transfer_external.php`;
 const BALANCE_URL = `https://blindvault.site/php/get_balance.php`;
+const OTP_GENERATE_URL = `https://blindvault.site/php/external_transfer_otp_generate.php`;
+const OTP_VERIFY_URL = `https://blindvault.site/php/verify_external_transfer_otp.php`;
 
 let transferAmountExternal = document.getElementById("transfer_amount_external");
 let recipientId = document.getElementById("recipient_id_external");
@@ -95,48 +97,17 @@ function submitTransfer() {
     // Disable submit button and show loading state
     submitButton.disabled = true;
     submitButton.textContent = 'Processing...';
-    
-    // Prepare data for transfer
-    const transferData = {
-        transaction_amount: parseFloat(amount),
-        sender_id: loggedInUserId,
-        recipient_account_no: parseInt(recipient),
-        source_bank_code: 'Blind Vault',
-        external_bank_code: bankName
-    };
 
-    console.log('Sending transfer data:', transferData); // Debug log
-
-    // Make the transfer request
-    fetch(API_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(transferData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Update local balance
-            const newBalance = parseFloat(data.sender_new_balance);
-            localStorage.setItem("currentBalance", newBalance.toString());
-            totalBalanceElement.textContent = `₱${newBalance.toFixed(2)}`;
-            
-            alert('Transfer completed successfully!');
-            window.location.href = "../account_holder/account_holder_home_page.html";
-        } else {
-            alert('Transfer failed: ' + data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Network error. Please try again.');
-    })
-    .finally(() => {
-        submitButton.disabled = false;
-        submitButton.textContent = 'Submit';
+    // Store transfer details for confirmation page
+    const params = new URLSearchParams({
+        transferType: 'external',
+        accountHolderId: recipient,
+        accountName: recipient,
+        transferAmount: amount,
+        bankName: bankName,
+        senderId: loggedInUserId
     });
+    window.location.href = `confirmation_form.html?${params.toString()}`;
 }
 
 function cancelTransfer() {

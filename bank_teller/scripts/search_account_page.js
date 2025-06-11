@@ -1,4 +1,4 @@
-const API_URL = `https://darkorange-cormorant-406076.hostingersite.com/php/search_account.php`;
+const API_URL = `https://blindvault.site/php/search_account.php`;
 
 document.addEventListener('DOMContentLoaded', function() {
     const searchTypeSelect = document.getElementById('search_type');

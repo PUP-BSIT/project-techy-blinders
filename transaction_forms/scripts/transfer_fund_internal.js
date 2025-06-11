@@ -1,4 +1,4 @@
-const API_URL = `https://darkorange-cormorant-406076.hostingersite.com/php/transfer_internal.php`;
+const API_URL = `https://blindvault.site/php/transfer_internal.php`;
 
 document.addEventListener('DOMContentLoaded', function () {
     const accountIdInput = document.getElementById("account_id");

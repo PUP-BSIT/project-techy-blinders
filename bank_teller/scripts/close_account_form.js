@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
             reason: reason
         };
 
-        fetch('https://darkorange-cormorant-406076.hostingersite.com/php/teller_close_account.php', {
+        fetch('https://blindvault.site/php/teller_close_account.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

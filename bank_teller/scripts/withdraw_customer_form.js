@@ -1,5 +1,5 @@
-const API_URL = `https://darkorange-cormorant-406076.hostingersite.com/php/withdraw_funds.php`;
-const ACCOUNT_INFO_URL = `https://darkorange-cormorant-406076.hostingersite.com/php/get_account_info.php`;
+const API_URL = `https://blindvault.site/php/withdraw_funds.php`;
+const ACCOUNT_INFO_URL = `https://blindvault.site/php/get_account_info.php`;
 
 document.addEventListener('DOMContentLoaded', function () {
     const withdrawButton = document.getElementById('withdraw');

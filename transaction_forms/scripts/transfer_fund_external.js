@@ -1,5 +1,5 @@
-const API_URL = `https://darkorange-cormorant-406076.hostingersite.com/php/transfer_external.php`;
-const BALANCE_URL = `https://darkorange-cormorant-406076.hostingersite.com/php/get_balance.php`;
+const API_URL = `https://blindvault.site/php/transfer_external.php`;
+const BALANCE_URL = `https://blindvault.site/php/get_balance.php`;
 
 let transferAmountExternal = document.getElementById("transfer_amount_external");
 let recipientId = document.getElementById("recipient_id_external");

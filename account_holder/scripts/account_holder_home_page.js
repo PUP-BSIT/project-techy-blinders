@@ -12,7 +12,7 @@ if (!loggedInId) {
     alert("Please log in first.");
     window.location.href = "login_page.html"; 
 } else {
-    const API_URL = `https://darkorange-cormorant-406076.hostingersite.com/php/account_holder_home_page.php?id=${loggedInId}`;
+    const API_URL = `https://blindvault.site/php/account_holder_home_page.php?id=${loggedInId}`;
     fetch(API_URL)
         .then(response => response.json())
         .then(data => {

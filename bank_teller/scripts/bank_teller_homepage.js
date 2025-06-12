@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const loggedInId = localStorage.getItem('loggedInId');
-    const tellerName = localStorage.getItem('tellerName');
+    const loggedInId = sessionStorage.getItem('teller_id');
+    
+    console.log('Checking session data:', { loggedInId });
     
     if (!loggedInId) {
         alert('Please log in first.');
@@ -8,21 +9,54 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     
-    const bankTellerLabel = document.querySelector('.bank-teller-label');
-    if (bankTellerLabel && tellerName) {
-        bankTellerLabel.textContent = `Hello, ${tellerName}`;
-    } else if (bankTellerLabel) {
-        bankTellerLabel.textContent = `Hello, Bank Teller (ID: ${loggedInId})`;
-    }
+    fetchTellerData(loggedInId);
     
-    console.log('Logged in teller:', tellerName, 'ID:', loggedInId);
+    console.log('Logged in teller ID:', loggedInId);
 });
 
+async function fetchTellerData(tellerId) {
+    try {
+        const response = await fetch('https://blindvault.site/php/login_page_teller.php', {
+            method: 'GET',
+            credentials: 'include' 
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            if (data.success) {
+                const bankTellerLabel = document.querySelector('.bank-teller-label');
+                if (bankTellerLabel) {
+                    bankTellerLabel.textContent = `Hello, ${data.teller_name}`;
+                }
+            } else {
+                const bankTellerLabel = document.querySelector('.bank-teller-label');
+                if (bankTellerLabel) {
+                    bankTellerLabel.textContent = `Hello, Bank Teller (ID: ${tellerId})`;
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Error fetching teller data:', error);
+        const bankTellerLabel = document.querySelector('.bank-teller-label');
+        if (bankTellerLabel) {
+            bankTellerLabel.textContent = `Hello, Bank Teller (ID: ${tellerId})`;
+        }
+    }
+}
+
 function logout() {
-    localStorage.removeItem('loggedInId');
-    localStorage.removeItem('tellerName');
+    sessionStorage.removeItem('teller_id');
     
-    window.location.href = './login_page.html';
+    fetch('https://blindvault.site/php/login_page_teller.php', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'action=logout'
+    }).finally(() => {
+        window.location.href = './login_page.html';
+    });
 }
 
 document.addEventListener('DOMContentLoaded', function() {

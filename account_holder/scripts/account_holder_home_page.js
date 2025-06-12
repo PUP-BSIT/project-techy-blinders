@@ -30,7 +30,7 @@ fetch(API_URL, {
         alert("Could not load data.");
     });
 
-function logout() {
+function logoutSession() {
     fetch("https://blindvault.site/php/logout_session.php", {
         method: 'POST',
         credentials: 'include'

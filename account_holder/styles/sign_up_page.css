@@ -2,7 +2,7 @@
   --container: #141B2A;
   --bg-color: #1A1E29;
   --text: #FFF;
-  --form-bg: #0F2138;
+  --form-bg: #122742;
   --accent: #01C38E;
   --danger: #F65354;
   --shadows: 0 0 1.25rem rgba(0, 223, 154, 0.3),
@@ -122,6 +122,8 @@ a {
 
 .form-container {
   background-color: var(--form-bg);
+  margin-left: 100px;
+  margin-right: -20px;
   padding: 2rem;
   border-radius: 1.25rem;
   width: min(90vw, 31.25rem);
@@ -218,22 +220,36 @@ a {
 }
 
 #login_font {
-    text-decoration: none;
-    color: green;
-    font-weight: bold;
+  text-decoration: none;
+  color: green;
+  font-weight: bold;
 }
 
 #login_font:hover {
-    color: #01C38E;
-    text-shadow: 0 0 30px #065b44;
-    transition: all 0.3s ease;
+  color: #01C38E;
+  text-shadow: 0 0 30px #065b44;
+  transition: all 0.3s ease;
 }
 
 .visual img {
-  max-width: min(90vw, 31.25rem);
+  width: 650px;
   height: auto;
-  border-radius: 1.25rem;
+  border-radius: 1rem;
   flex-shrink: 0;
   max-height: calc(100vh - 120px);
   object-fit: contain;
+}
+
+.floating-image {
+  position: absolute;
+  top: 60%;
+  left: 87%;
+  transform: translate(-50%, -50%);
+  z-index: 5; 
+}
+
+.floating-image img {
+  width: 500px;
+  height: auto;
+  border-radius: 12px;
 }

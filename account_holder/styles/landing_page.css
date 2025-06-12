@@ -34,6 +34,7 @@ body {
   background-color: transparent ;
   overflow: hidden;
   font-style: "sans-serif";
+  height: 80px; 
 }
 
 .top-nav-bar a {
@@ -137,7 +138,6 @@ body {
 #get_started:hover {
   transform: translateY(-3px);
   background-color: #0b3f34;
-  font-weight: bold;
   box-shadow: var(--button-shadow);
   outline: #017A5E;
   transition: all 0.3s ease;
@@ -158,4 +158,18 @@ body {
   max-width: 100%;
   height: auto;
   border-radius: 16px;
+}
+
+.floating-image {
+  position: absolute;
+  top: 63%; 
+  left: 90%; 
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.floating-image img {
+  width: 280px;
+  height: auto;
+  border-radius: 12px;
 }

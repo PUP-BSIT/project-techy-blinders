@@ -18,7 +18,7 @@ const historyDebugger = {
     }
 };
 
-const API_URL = `https://blindvault.site/php/history_page.php`;
+const API_URL = "https://blindvault.site/php/history_page.php";
 
 function formatTransactionType(type) {
     try {
@@ -45,25 +45,22 @@ function formatTransactionType(type) {
 function getAmountWithSign(transactionType, amount, isReceiver = false) {
     try {
         const numAmount = parseFloat(amount);
-        
         if (isNaN(numAmount)) {
             historyDebugger.logError('getAmountWithSign', 'Invalid amount provided', { transactionType, amount });
             return '$0.00';
         }
-        
+
         switch (transactionType.toLowerCase()) {
             case 'transfer_internal':
-                return isReceiver ? `+${numAmount.toFixed(2)}` : `-${numAmount.toFixed(2)}`;
+                return (isReceiver ? '+' : '-') + numAmount.toFixed(2);
             case 'transfer_in':
-                return `+${numAmount.toFixed(2)}`;
             case 'deposit':
-                return `+${numAmount.toFixed(2)}`;
+                return '+' + numAmount.toFixed(2);
             case 'withdraw':
-                return `-${numAmount.toFixed(2)}`;
             case 'transfer_external':
-                return `-${numAmount.toFixed(2)}`;
+                return '-' + numAmount.toFixed(2);
             default:
-                return `${numAmount.toFixed(2)}`;
+                return numAmount.toFixed(2);
         }
     } catch (error) {
         historyDebugger.logError('getAmountWithSign', error, { transactionType, amount, isReceiver });
@@ -87,18 +84,6 @@ function getTransactionClass(transactionType, isReceiver = false) {
 }
 
 function loadTransactions() {
-    const urlParams = new URLSearchParams(window.location.search);
-    let userId = urlParams.get('user_id') || localStorage.getItem('loggedInId');
-
-    if (!userId) {
-        historyDebugger.logError('loadTransactions', 'No user ID found in URL params or localStorage');
-        document.getElementById('transactions-list').innerHTML = `
-            <p>Invalid access. Please go back to home page.</p>
-            <button onclick="window.location.href='../account_holder/account_holder_home_page.html'">Go Back Home</button>
-        `;
-        return;
-    }
-
     const transactionsList = document.getElementById('transactions-list');
     if (!transactionsList) {
         historyDebugger.logError('loadTransactions', 'transactions-list element not found in DOM');
@@ -108,11 +93,9 @@ function loadTransactions() {
     fetch(API_URL, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            account_holder_id: userId
-        })
+        body: JSON.stringify({})
     })
     .then(res => {
         if (!res.ok) {
@@ -121,21 +104,19 @@ function loadTransactions() {
         return res.json();
     })
     .then(data => {
-        const container = document.getElementById('transactions-list');
-        
         if (!data) {
             historyDebugger.logError('loadTransactions', 'No data received from API');
-            container.innerHTML = '<p class="error-message">No data received. Please try again.</p>';
+            transactionsList.innerHTML = '<p class="error-message">No data received. Please try again.</p>';
             return;
         }
-        
+
         if (data.success) {
             if (!data.transactions || data.transactions.length === 0) {
-                container.innerHTML = '<p>No transactions found.</p>';
+                transactionsList.innerHTML = '<p>No transactions found.</p>';
                 return;
             }
 
-            container.innerHTML = '';
+            transactionsList.innerHTML = '';
 
             data.transactions.forEach((tx, index) => {
                 try {
@@ -143,7 +124,7 @@ function loadTransactions() {
                         historyDebugger.logWarning('loadTransactions', `Transaction ${index + 1} missing required fields`, tx);
                         return;
                     }
-                    
+
                     const div = document.createElement('div');
                     div.classList.add('transaction-entry');
 
@@ -152,7 +133,7 @@ function loadTransactions() {
                         historyDebugger.logError('loadTransactions', `Invalid date format for transaction ${index + 1}`, tx.created_at);
                         return;
                     }
-                    
+
                     const formattedDate = date.toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'short',
@@ -162,8 +143,8 @@ function loadTransactions() {
                     });
 
                     const formattedType = formatTransactionType(tx.transaction_type);
-                    const amountDisplay = getAmountWithSign(tx.transaction_type, tx.amount);
-                    const amountClass = getTransactionClass(tx.transaction_type);
+                    const amountDisplay = getAmountWithSign(tx.transaction_type, tx.amount, tx.account_holder_id === tx.recipient_id);
+                    const amountClass = getTransactionClass(tx.transaction_type, tx.account_holder_id === tx.recipient_id);
 
                     div.innerHTML = `
                         <div class="transaction-header">
@@ -180,26 +161,23 @@ function loadTransactions() {
                         </div>
                         <hr>
                     `;
-                    container.appendChild(div);
+                    transactionsList.appendChild(div);
                 } catch (error) {
                     historyDebugger.logError('loadTransactions', `Error processing transaction ${index + 1}`, error);
                 }
             });
         } else {
             historyDebugger.logError('loadTransactions', 'API returned unsuccessful response', data.message);
-            container.innerHTML = `<p class="error-message">${data.message || 'Unknown error occurred'}</p>`;
+            transactionsList.innerHTML = `<p class="error-message">${data.message || 'Unknown error occurred'}</p>`;
         }
     })
     .catch(error => {
         historyDebugger.logError('loadTransactions', 'Fetch request failed', error);
-        const container = document.getElementById('transactions-list');
-        if (container) {
-            container.innerHTML = '<p class="error-message">Failed to load transactions. Please try again.</p>';
-        }
+        transactionsList.innerHTML = '<p class="error-message">Failed to load transactions. Please try again.</p>';
     });
 }
 
-window.onload = function() {
+window.onload = function () {
     try {
         loadTransactions();
     } catch (error) {

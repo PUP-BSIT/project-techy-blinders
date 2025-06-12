@@ -6,11 +6,10 @@ function maskAccountId(accountId) {
     return idStr.slice(0, -5) + '*****';
 }
 
-// Get account_holder_id from sessionStorage
 const accountHolderId = sessionStorage.getItem('account_holder_id');
 if (!accountHolderId) {
     alert("Not logged in. Redirecting to login.");
-    window.location.href = "login_page.html";
+    window.location.href = "login_page_index.html";
 }
 
 const API_URL = `https://blindvault.site/php/account_holder_home_page.php?id=${accountHolderId}`;
@@ -32,7 +31,7 @@ fetch(API_URL, {
             })}`;
         } else {
             alert("Account not found or session invalid. Redirecting to login.");
-            window.location.href = "login_page.html";
+            window.location.href = "login_page_index.html";
         }
     })
     .catch(error => {
@@ -41,17 +40,17 @@ fetch(API_URL, {
     });
 
 function logout() {
-    fetch("https://blindvault.site/php/logout.php", {
+    fetch("https://blindvault.site/php/logout_session.php", {
         method: 'POST',
         credentials: 'include'
     })
     .then(() => {
         sessionStorage.removeItem('account_holder_id');
-        window.location.href = "login_page.html";
+        window.location.href = "login_page_index.html";
     })
     .catch(error => {
         console.error("Logout error:", error);
-        window.location.href = "login_page.html";
+        window.location.href = "login_page_index.html";
     });
 }
 

@@ -35,7 +35,6 @@ function loginUser() {
             console.log("Parsed JSON:", data);
 
             if (data.success) {
-                // ✅ Store in sessionStorage (not localStorage)
                 sessionStorage.setItem("account_holder_id", data.account_holder_id);
 
                 console.log("Session storage set:", sessionStorage.getItem("account_holder_id"));

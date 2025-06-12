@@ -24,6 +24,7 @@ function loadCurrentBalance() {
         headers: {
             'Content-Type': 'application/json',
         },
+        credentials: 'include',  // Include session credentials
         body: JSON.stringify({ user_id: loggedInUserId })
     })
     .then(response => response.json())
@@ -34,8 +35,13 @@ function loadCurrentBalance() {
             // Update localStorage with the latest balance
             localStorage.setItem("currentBalance", balance.toString());
         } else {
-            console.error("Failed to load balance:", data.message);
-            totalBalanceElement.textContent = "Error loading balance";
+            if (data.error === 'session_expired') {
+                alert("Session expired. Please login again.");
+                window.location.href = "../login_page_index.html";
+            } else {
+                console.error("Failed to load balance:", data.message);
+                totalBalanceElement.textContent = "Error loading balance";
+            }
         }
     })
     .catch(error => {
@@ -116,13 +122,33 @@ function cancelTransfer() {
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
-    startBalanceRefresh(); // Start balance refresh cycle
-    validateForm();
-    
-    transferAmountExternal.addEventListener("input", validateForm);
-    recipientId.addEventListener("input", validateForm);
-    selectBank.addEventListener("change", validateForm);
-    
-    submitButton.addEventListener("click", submitTransfer);
-    cancelButton.addEventListener("click", cancelTransfer);
+    // Verify session is valid
+    fetch("https://blindvault.site/php/account_holder_home_page.php", {
+        method: 'GET',
+        credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (!data.success) {
+            alert("Session expired. Please login again.");
+            window.location.href = "../login_page_index.html";
+            return;
+        }
+        
+        // Session is valid, initialize the form
+        startBalanceRefresh(); // Start balance refresh cycle
+        validateForm();
+        
+        transferAmountExternal.addEventListener("input", validateForm);
+        recipientId.addEventListener("input", validateForm);
+        selectBank.addEventListener("change", validateForm);
+        
+        submitButton.addEventListener("click", submitTransfer);
+        cancelButton.addEventListener("click", cancelTransfer);
+    })
+    .catch(error => {
+        console.error("Session validation error:", error);
+        alert("Error validating session. Please try again.");
+        window.location.href = "../login_page_index.html";
+    });
 });

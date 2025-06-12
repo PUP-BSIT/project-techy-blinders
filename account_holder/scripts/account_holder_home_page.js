@@ -1,18 +1,9 @@
 function maskAccountId(accountId) {
     const idStr = accountId.toString();
-    if (idStr.length <= 5) {
-        return '*'.repeat(idStr.length);
-    }
-    return idStr.slice(0, -5) + '*****';
+    return idStr.length <= 5 ? '*'.repeat(idStr.length) : idStr.slice(0, -5) + '*****';
 }
 
-const accountHolderId = sessionStorage.getItem('account_holder_id');
-if (!accountHolderId) {
-    alert("Not logged in. Redirecting to login.");
-    window.location.href = "login_page_index.html";
-}
-
-const API_URL = `https://blindvault.site/php/account_holder_home_page.php?id=${accountHolderId}`;
+const API_URL = "https://blindvault.site/php/account_holder_home_page.php";
 
 fetch(API_URL, {
     method: 'GET',
@@ -30,13 +21,13 @@ fetch(API_URL, {
                 maximumFractionDigits: 2
             })}`;
         } else {
-            alert("Account not found or session invalid. Redirecting to login.");
+            alert("Not logged in. Redirecting...");
             window.location.href = "login_page_index.html";
         }
     })
     .catch(error => {
         console.error("Error fetching data:", error);
-        alert("Error loading account details. Please try again.");
+        alert("Could not load data.");
     });
 
 function logout() {
@@ -45,7 +36,6 @@ function logout() {
         credentials: 'include'
     })
     .then(() => {
-        sessionStorage.removeItem('account_holder_id');
         window.location.href = "login_page_index.html";
     })
     .catch(error => {

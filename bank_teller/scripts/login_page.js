@@ -42,7 +42,7 @@ function tellerUser() {
                 window.location.href = './bank_teller_homepage.html?login_success=true';
             } else {
                 alert('Login failed: ' + (data.error || data.message || 'Unknown error'));
-                window.location.href = "teller_login_page.html?login_success=false";
+                window.location.href = "login_page.html?login_success=false";
             }
         } catch (e) {
             console.error('JSON parse error:', e);

@@ -1,3 +1,12 @@
+:root {
+    --back-button-shadow:
+    0 0 8px rgba(134, 16, 16, 0.5),
+    0 0 16px rgba(134, 16, 16, 0.6),
+    0 0 24px rgba(134, 16, 16, 0.7);
+
+    --hover-back-button:#520a0a;
+}
+
 * {
     margin: 0;
     padding: 0px;
@@ -8,6 +17,7 @@
     background-color: #1A1E29;
     overflow: hidden;
     font-style: "sans-serif";
+    height: 80px;
 }
 
 .top-nav-bar a {
@@ -19,11 +29,6 @@
     font-family: "Lexend Tera", sans-serif;
     font-size: 20px;
     margin-right: 0;
-    color: white;
-}
-
-.top-nav-bar a:hover {
-    background-color: #474e62;
     color: white;
 }
 
@@ -51,12 +56,20 @@ a {
 #back_button {
     font-family: "IBM Plex Mono", monospace;
     font-size: 15px;
-    padding: 7px;
-    width: 100px;
+    padding: 10px 20px;
     border: solid 0px;
-    background-color: #01C38E;
+    background-color: #861010;
     color: white;
     border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+#back_button:hover {
+    transform: translateY(-3px);
+    cursor: pointer;
+    font-weight: bold;
+    background-color: var(--hover-back-button);
+    box-shadow: var(--back-button-shadow);
 }
 
 body {

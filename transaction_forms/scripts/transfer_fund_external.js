@@ -15,25 +15,50 @@ function loadCurrentBalance() {
     const loggedInUserId = localStorage.getItem("loggedInId");
     if (!loggedInUserId) {
         console.error("No logged in user found");
+        // Try to get user ID from session
+        fetch("https://blindvault.site/php/account_holder_home_page.php", {
+            method: 'GET',
+            credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.account_holder_id) {
+                localStorage.setItem("loggedInId", data.account_holder_id);
+                // Retry loading balance with the new ID
+                fetchBalance(data.account_holder_id);
+            } else {
+                console.error("Failed to get user ID from session");
+                alert("Session expired. Please login again.");
+                window.location.href = "../login_page_index.html";
+            }
+        })
+        .catch(error => {
+            console.error("Error validating session:", error);
+            alert("Session expired. Please login again.");
+            window.location.href = "../login_page_index.html";
+        });
         return;
     }
+    
+    fetchBalance(loggedInUserId);
+}
 
-    // Fetch balance from database
+function fetchBalance(userId) {
     fetch(BALANCE_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        credentials: 'include',  // Include session credentials
-        body: JSON.stringify({ user_id: loggedInUserId })
+        credentials: 'include',
+        body: JSON.stringify({ user_id: userId })
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
             const balance = parseFloat(data.balance);
             totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
-            // Update localStorage with the latest balance
             localStorage.setItem("currentBalance", balance.toString());
+            console.log('Balance updated:', balance);
         } else {
             if (data.error === 'session_expired') {
                 alert("Session expired. Please login again.");
@@ -122,7 +147,7 @@ function cancelTransfer() {
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
-    // Verify session is valid
+    // Verify session is valid and get user ID
     fetch("https://blindvault.site/php/account_holder_home_page.php", {
         method: 'GET',
         credentials: 'include'
@@ -133,6 +158,11 @@ document.addEventListener('DOMContentLoaded', function() {
             alert("Session expired. Please login again.");
             window.location.href = "../login_page_index.html";
             return;
+        }
+        
+        // Store user ID if available
+        if (data.account_holder_id) {
+            localStorage.setItem("loggedInId", data.account_holder_id);
         }
         
         // Session is valid, initialize the form

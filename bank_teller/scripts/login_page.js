@@ -9,7 +9,7 @@ function tellerUser() {
     console.log("Teller ID:", tellerId, "Password length:", password.length);
     
     if (!tellerId || !password) {
-        alert('Please enter both account ID and password.');
+        alert('Please enter both teller ID and password.');
         return;
     }
     
@@ -18,6 +18,7 @@ function tellerUser() {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
+        credentials: 'include', 
         body: `teller_id=${encodeURIComponent(tellerId)}&password=${encodeURIComponent(password)}`
     })
     .then(response => {
@@ -34,14 +35,14 @@ function tellerUser() {
             console.log("Parsed JSON:", data);
             
             if (data.success) {
-                localStorage.setItem("loggedInId", data.teller_id);
-                localStorage.setItem("tellerName", data.teller_name);
+                sessionStorage.setItem("teller_id", data.teller_id);
+                console.log("Session storage set:", sessionStorage.getItem("teller_id"));
                 
                 alert('Login successful!');
-                
-                window.location.href = './bank_teller_homepage.html';
+                window.location.href = './bank_teller_homepage.html?login_success=true';
             } else {
                 alert('Login failed: ' + (data.error || data.message || 'Unknown error'));
+                window.location.href = "teller_login_page.html?login_success=false";
             }
         } catch (e) {
             console.error('JSON parse error:', e);

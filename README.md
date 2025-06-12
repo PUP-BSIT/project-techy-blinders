@@ -18,6 +18,6 @@ A secure and user-friendly web application designed to serve both bank tellers a
 ---
 
 ## 🌐 WebHosting Link
-
+## IS THIS DYNAMIC ##
 Visit [Blinders Vault](https://darkorange-cormorant-406076.hostingersite.com/) now!
 </div>

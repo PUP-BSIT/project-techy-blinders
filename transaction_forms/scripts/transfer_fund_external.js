@@ -30,7 +30,7 @@ function loadCurrentBalance() {
     .then(data => {
         if (data.success) {
             const balance = parseFloat(data.balance);
-            totalBalanceElement.textContent = `₱${balance.toFixed(2)}`;
+            totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
             // Update localStorage with the latest balance
             localStorage.setItem("currentBalance", balance.toString());
         } else {

@@ -48,8 +48,8 @@ function loadTransactions() {
                 });
 
                 const amountDisplay = tx.transaction_type.toLowerCase() === 'Transfer_internal'
-                    ? `-₱${parseFloat(tx.amount).toFixed(2)}`
-                    : `+₱${parseFloat(tx.amount).toFixed(2)}`;
+                    ? `-$${parseFloat(tx.amount).toFixed(2)}`
+                    : `+$${parseFloat(tx.amount).toFixed(2)}`;
 
                 div.innerHTML = `
                     <div class="transaction-header">

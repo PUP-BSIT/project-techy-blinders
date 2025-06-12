@@ -36,8 +36,10 @@ function loginUser() {
 
             if (data.success) {
                 sessionStorage.setItem("account_holder_id", data.account_holder_id);
+                localStorage.setItem("loggedInId", data.account_holder_id);
 
                 console.log("Session storage set:", sessionStorage.getItem("account_holder_id"));
+                console.log("Local storage set:", localStorage.getItem("loggedInId"));
                 alert('Login successful!');
                 window.location.href = "account_holder_home_page.html?login_success=true";
             } else {

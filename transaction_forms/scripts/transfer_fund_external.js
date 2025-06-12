@@ -13,6 +13,8 @@ let totalBalanceElement = document.querySelector(".total-balance-external");
 // Load and display current balance
 function loadCurrentBalance() {
     const loggedInUserId = localStorage.getItem("loggedInId");
+    console.log('Current loggedInId:', loggedInUserId);
+
     if (!loggedInUserId) {
         console.error("No logged in user found");
         // Try to get user ID from session
@@ -22,12 +24,20 @@ function loadCurrentBalance() {
         })
         .then(response => response.json())
         .then(data => {
+            console.log('Session data:', data);
             if (data.success && data.account_holder_id) {
+                console.log('Setting loggedInId:', data.account_holder_id);
                 localStorage.setItem("loggedInId", data.account_holder_id);
+                // Also store initial balance if available
+                if (data.account_balance) {
+                    const balance = parseFloat(data.account_balance.replace(/,/g, ''));
+                    localStorage.setItem("currentBalance", balance.toString());
+                    totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
+                }
                 // Retry loading balance with the new ID
                 fetchBalance(data.account_holder_id);
             } else {
-                console.error("Failed to get user ID from session");
+                console.error("Failed to get user ID from session:", data);
                 alert("Session expired. Please login again.");
                 window.location.href = "../login_page_index.html";
             }
@@ -44,6 +54,7 @@ function loadCurrentBalance() {
 }
 
 function fetchBalance(userId) {
+    console.log('Fetching balance for user:', userId);
     fetch(BALANCE_URL, {
         method: 'POST',
         headers: {
@@ -52,10 +63,19 @@ function fetchBalance(userId) {
         credentials: 'include',
         body: JSON.stringify({ user_id: userId })
     })
-    .then(response => response.json())
+    .then(response => {
+        console.log('Balance response status:', response.status);
+        return response.json();
+    })
     .then(data => {
+        console.log('Balance data:', data);
         if (data.success) {
             const balance = parseFloat(data.balance);
+            if (isNaN(balance)) {
+                console.error('Invalid balance received:', data.balance);
+                alert('Error: Invalid balance received from server');
+                return;
+            }
             totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
             localStorage.setItem("currentBalance", balance.toString());
             console.log('Balance updated:', balance);
@@ -99,6 +119,13 @@ function validateAmount(amount) {
     
     if (isNaN(transferAmount) || transferAmount <= 0) {
         alert("Please enter a valid positive amount");
+        return false;
+    }
+    
+    if (isNaN(currentBalance)) {
+        console.log('Balance not available, attempting to reload...');
+        alert("Unable to verify your balance. Please try again.");
+        loadCurrentBalance(); // Try to reload balance
         return false;
     }
     
@@ -147,13 +174,15 @@ function cancelTransfer() {
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
-    // Verify session is valid and get user ID
+    console.log('Page loaded, checking session...');
+    // Verify session is valid
     fetch("https://blindvault.site/php/account_holder_home_page.php", {
         method: 'GET',
         credentials: 'include'
     })
     .then(response => response.json())
     .then(data => {
+        console.log('Initial session check:', data);
         if (!data.success) {
             alert("Session expired. Please login again.");
             window.location.href = "../login_page_index.html";
@@ -162,7 +191,14 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Store user ID if available
         if (data.account_holder_id) {
+            console.log('Setting initial loggedInId:', data.account_holder_id);
             localStorage.setItem("loggedInId", data.account_holder_id);
+            // Also store initial balance if available
+            if (data.account_balance) {
+                const balance = parseFloat(data.account_balance.replace(/,/g, ''));
+                localStorage.setItem("currentBalance", balance.toString());
+                totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
+            }
         }
         
         // Session is valid, initialize the form

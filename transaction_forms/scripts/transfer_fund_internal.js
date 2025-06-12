@@ -4,24 +4,68 @@ const BALANCE_URL = `https://blindvault.site/php/get_balance.php`;
 // Function to fetch and update balance
 function loadCurrentBalance() {
     const loggedInUserId = localStorage.getItem("loggedInId");
+    console.log('Current loggedInId:', loggedInUserId);
+
     if (!loggedInUserId) {
         console.error("No logged in user found");
+        // Try to get user ID from session
+        fetch("https://blindvault.site/php/account_holder_home_page.php", {
+            method: 'GET',
+            credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Session data:', data);
+            if (data.success && data.account_holder_id) {
+                console.log('Setting loggedInId:', data.account_holder_id);
+                localStorage.setItem("loggedInId", data.account_holder_id);
+                // Also store initial balance if available
+                if (data.account_balance) {
+                    const balance = parseFloat(data.account_balance.replace(/,/g, ''));
+                    localStorage.setItem("currentBalance", balance.toString());
+                }
+                // Retry loading balance with the new ID
+                fetchBalance(data.account_holder_id);
+            } else {
+                console.error("Failed to get user ID from session:", data);
+                alert("Session expired. Please login again.");
+                window.location.href = "../login_page_index.html";
+            }
+        })
+        .catch(error => {
+            console.error("Error validating session:", error);
+            alert("Session expired. Please login again.");
+            window.location.href = "../login_page_index.html";
+        });
         return;
     }
+    
+    fetchBalance(loggedInUserId);
+}
 
-    // Fetch balance from database
+function fetchBalance(userId) {
+    console.log('Fetching balance for user:', userId);
     fetch(BALANCE_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        credentials: 'include',  // Include session credentials
-        body: JSON.stringify({ user_id: loggedInUserId })
+        credentials: 'include',
+        body: JSON.stringify({ user_id: userId })
     })
-    .then(response => response.json())
+    .then(response => {
+        console.log('Balance response status:', response.status);
+        return response.json();
+    })
     .then(data => {
+        console.log('Balance data:', data);
         if (data.success) {
             const balance = parseFloat(data.balance);
+            if (isNaN(balance)) {
+                console.error('Invalid balance received:', data.balance);
+                alert('Error: Invalid balance received from server');
+                return;
+            }
             // Update localStorage with the latest balance
             localStorage.setItem("currentBalance", balance.toString());
             console.log('Balance updated:', balance);
@@ -31,16 +75,19 @@ function loadCurrentBalance() {
                 window.location.href = "../login_page_index.html";
             } else {
                 console.error("Failed to load balance:", data.message);
+                alert("Failed to load balance. Please try again.");
             }
         }
     })
     .catch(error => {
         console.error('Error fetching balance:', error);
+        alert("Error loading balance. Please try again.");
     });
 }
 
 // Check session validity on page load
 document.addEventListener('DOMContentLoaded', function () {
+    console.log('Page loaded, checking session...');
     // Verify session is valid
     fetch("https://blindvault.site/php/account_holder_home_page.php", {
         method: 'GET',
@@ -48,10 +95,22 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .then(response => response.json())
     .then(data => {
+        console.log('Initial session check:', data);
         if (!data.success) {
             alert("Session expired. Please login again.");
             window.location.href = "../login_page_index.html";
             return;
+        }
+        
+        // Store user ID if available
+        if (data.account_holder_id) {
+            console.log('Setting initial loggedInId:', data.account_holder_id);
+            localStorage.setItem("loggedInId", data.account_holder_id);
+            // Also store initial balance if available
+            if (data.account_balance) {
+                const balance = parseFloat(data.account_balance.replace(/,/g, ''));
+                localStorage.setItem("currentBalance", balance.toString());
+            }
         }
         
         // Load current balance first
@@ -102,6 +161,7 @@ function submitUser() {
     console.log('Parsed transfer amount:', transferAmount, 'Type:', typeof transferAmount);
     console.log('Raw current balance:', rawCurrentBalance);
     console.log('Parsed current balance:', currentBalance, 'Type:', typeof currentBalance);
+    console.log('Logged in user ID:', loggedInUserId);
 
     if (!accountHolderId || !transferAmount) {
         alert("Please complete the form");
@@ -120,6 +180,7 @@ function submitUser() {
 
     // Check if balance is available
     if (!rawCurrentBalance || isNaN(currentBalance)) {
+        console.log('Balance not available, attempting to reload...');
         alert("Unable to verify your balance. Please try again.");
         loadCurrentBalance(); // Try to reload balance
         return;
@@ -140,7 +201,7 @@ function submitUser() {
         headers: {
             'Content-Type': 'application/json',
         },
-        credentials: 'include',  // Include session credentials
+        credentials: 'include',
         body: JSON.stringify({
             account_holder_id: accountHolderId
         })

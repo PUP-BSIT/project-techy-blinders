@@ -12,6 +12,10 @@ fetch(API_URL, {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            // Store user ID in localStorage
+            localStorage.setItem("loggedInId", data.account_holder_id);
+            console.log("Stored user ID:", data.account_holder_id);
+
             document.querySelector('.account-details h4:nth-of-type(1)').textContent = `Name: ${data.name}`;
             document.querySelector('.account-details h4:nth-of-type(2)').textContent = `Account Holder ID: ${maskAccountId(data.account_holder_id)}`;
 
@@ -20,6 +24,9 @@ fetch(API_URL, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             })}`;
+
+            // Store initial balance
+            localStorage.setItem("currentBalance", balance.toString());
         } else {
             alert("Not logged in. Redirecting...");
             window.location.href = "login_page_index.html";

@@ -1,15 +1,36 @@
 const API_URL = `https://blindvault.site/php/transfer_internal.php`;
 
+// Check session validity on page load
 document.addEventListener('DOMContentLoaded', function () {
-    const accountIdInput = document.getElementById("account_id");
-    const transferAmountInput = document.getElementById("transfer_amount");
+    // Verify session is valid
+    fetch("https://blindvault.site/php/account_holder_home_page.php", {
+        method: 'GET',
+        credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (!data.success) {
+            alert("Session expired. Please login again.");
+            window.location.href = "../login_page_index.html";
+            return;
+        }
+        
+        // Session is valid, initialize the form
+        const accountIdInput = document.getElementById("account_id");
+        const transferAmountInput = document.getElementById("transfer_amount");
 
-    accountIdInput.addEventListener('input', validateForm);
-    transferAmountInput.addEventListener('input', validateForm);
+        accountIdInput.addEventListener('input', validateForm);
+        transferAmountInput.addEventListener('input', validateForm);
 
-    validateForm();
+        validateForm();
 
-    document.getElementById("transfer").addEventListener('click', submitUser);
+        document.getElementById("transfer").addEventListener('click', submitUser);
+    })
+    .catch(error => {
+        console.error("Session validation error:", error);
+        alert("Error validating session. Please try again.");
+        window.location.href = "../login_page_index.html";
+    });
 });
 
 function validateForm() {
@@ -72,6 +93,7 @@ function submitUser() {
         headers: {
             'Content-Type': 'application/json',
         },
+        credentials: 'include',  // Include session credentials
         body: JSON.stringify({
             account_holder_id: accountHolderId
         })
@@ -87,7 +109,12 @@ function submitUser() {
             });
             window.location.href = "confirmation_form.html?" + params.toString();
         } else {
-            alert("Account not found.");
+            if (data.error === 'session_expired') {
+                alert("Session expired. Please login again.");
+                window.location.href = "../login_page_index.html";
+            } else {
+                alert("Account not found.");
+            }
         }
     })
     .catch(error => {

@@ -12,12 +12,11 @@ function maskAccountName(fullName) {
     return maskedParts.join(' ');
 }
 
-window.onload = function() {
+window.onload = async function() {
     const urlParams = new URLSearchParams(window.location.search);
     const transferType = urlParams.get('transferType') || 'internal';
     localStorage.setItem('pendingTransferType', transferType);
     const accountHolderId = urlParams.get('accountHolderId');
-    const accountName = urlParams.get('accountName');
     const transferAmount = urlParams.get('transferAmount');
     let bankName = urlParams.get('bankName');
     const senderId = urlParams.get('senderId');
@@ -33,15 +32,28 @@ window.onload = function() {
         bankName = bankNameMap[bankName] || bankName;
     }
     
-    if (accountHolderId && accountName && transferAmount) {
+    if (accountHolderId && transferAmount) {
         document.getElementById('display_account_holder_id').textContent = accountHolderId;
-        
-        // Display masked account name
-        document.getElementById('display_account_name').textContent = maskAccountName(accountName);
-        
-        document.getElementById('display_deposit_amount').textContent = '$' + parseFloat(transferAmount).toFixed(2);
         document.getElementById('account_holder_id').value = accountHolderId;
         document.getElementById('deposit_amount').value = transferAmount;
+        document.getElementById('display_deposit_amount').textContent = '$' + parseFloat(transferAmount).toFixed(2);
+        
+        // Fetch recipient name from backend
+        try {
+            const response = await fetch('https://blindvault.site/php/get_account_info.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ account_holder_id: accountHolderId })
+            });
+            const data = await response.json();
+            if (data.success && data.account_name) {
+                document.getElementById('display_account_name').textContent = maskAccountName(data.account_name);
+            } else {
+                document.getElementById('display_account_name').textContent = 'Recipient not found';
+            }
+        } catch (error) {
+            document.getElementById('display_account_name').textContent = 'Error fetching recipient';
+        }
         
         if (transferType === 'external' && bankName) {
             let bankRow = document.getElementById('bank_row');

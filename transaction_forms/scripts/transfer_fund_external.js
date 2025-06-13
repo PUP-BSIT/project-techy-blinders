@@ -1,7 +1,7 @@
 const API_URL = `https://blindvault.site/php/transfer_external.php`;
 const BALANCE_URL = `https://blindvault.site/php/get_balance.php`;
-const OTP_GENERATE_URL = `https://blindvault.site/php/external_transfer_otp_generate.php`;
-const OTP_VERIFY_URL = `https://blindvault.site/php/verify_external_transfer_otp.php`;
+const OTP_URL = `https://blindvault.site/php/generate_otp.php`;
+const VERIFY_OTP_URL = `https://blindvault.site/php/verify_otp.php`;
 
 let transferAmountExternal = document.getElementById("transfer_amount_external");
 let recipientId = document.getElementById("recipient_id_external");
@@ -10,7 +10,7 @@ let submitButton = document.getElementById("submit");
 let cancelButton = document.getElementById("cancel");
 let totalBalanceElement = document.querySelector(".total-balance-external");
 
-// Load and display current balance
+// Function to fetch and update balance
 function loadCurrentBalance() {
     const loggedInUserId = localStorage.getItem("loggedInId");
     console.log('Current loggedInId:', loggedInUserId);
@@ -28,13 +28,17 @@ function loadCurrentBalance() {
             if (data.success && data.account_holder_id) {
                 console.log('Setting loggedInId:', data.account_holder_id);
                 localStorage.setItem("loggedInId", data.account_holder_id);
-                // Also store initial balance if available
+                
+                // Store initial balance
                 if (data.account_balance) {
                     const balance = parseFloat(data.account_balance.replace(/,/g, ''));
-                    localStorage.setItem("currentBalance", balance.toString());
-                    totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
+                    if (!isNaN(balance)) {
+                        localStorage.setItem("currentBalance", balance.toString());
+                        console.log('Initial balance stored:', balance);
+                    }
                 }
-                // Retry loading balance with the new ID
+                
+                // Fetch latest balance
                 fetchBalance(data.account_holder_id);
             } else {
                 console.error("Failed to get user ID from session:", data);
@@ -76,8 +80,10 @@ function fetchBalance(userId) {
                 alert('Error: Invalid balance received from server');
                 return;
             }
-            totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
+            // Update localStorage with the latest balance
             localStorage.setItem("currentBalance", balance.toString());
+            // Update UI with the balance
+            totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
             console.log('Balance updated:', balance);
         } else {
             if (data.error === 'session_expired') {
@@ -85,13 +91,13 @@ function fetchBalance(userId) {
                 window.location.href = "../login_page_index.html";
             } else {
                 console.error("Failed to load balance:", data.message);
-                totalBalanceElement.textContent = "Error loading balance";
+                alert("Failed to load balance. Please try again.");
             }
         }
     })
     .catch(error => {
         console.error('Error fetching balance:', error);
-        totalBalanceElement.textContent = "Error loading balance";
+        alert("Error loading balance. Please try again.");
     });
 }
 
@@ -172,8 +178,8 @@ function cancelTransfer() {
     window.location.href = "../account_holder/account_holder_home_page.html";
 }
 
-// Event Listeners
-document.addEventListener('DOMContentLoaded', function() {
+// Check session validity on page load
+document.addEventListener('DOMContentLoaded', function () {
     console.log('Page loaded, checking session...');
     // Verify session is valid
     fetch("https://blindvault.site/php/account_holder_home_page.php", {
@@ -193,24 +199,30 @@ document.addEventListener('DOMContentLoaded', function() {
         if (data.account_holder_id) {
             console.log('Setting initial loggedInId:', data.account_holder_id);
             localStorage.setItem("loggedInId", data.account_holder_id);
-            // Also store initial balance if available
+            
+            // Store initial balance
             if (data.account_balance) {
                 const balance = parseFloat(data.account_balance.replace(/,/g, ''));
-                localStorage.setItem("currentBalance", balance.toString());
-                totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
+                if (!isNaN(balance)) {
+                    localStorage.setItem("currentBalance", balance.toString());
+                    totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
+                    console.log('Initial balance stored:', balance);
+                }
             }
         }
         
+        // Load current balance first
+        loadCurrentBalance();
+        
         // Session is valid, initialize the form
-        startBalanceRefresh(); // Start balance refresh cycle
+        transferAmountExternal.addEventListener('input', validateForm);
+        recipientId.addEventListener('input', validateForm);
+        selectBank.addEventListener('change', validateForm);
+
         validateForm();
-        
-        transferAmountExternal.addEventListener("input", validateForm);
-        recipientId.addEventListener("input", validateForm);
-        selectBank.addEventListener("change", validateForm);
-        
-        submitButton.addEventListener("click", submitTransfer);
-        cancelButton.addEventListener("click", cancelTransfer);
+
+        submitButton.addEventListener('click', submitTransfer);
+        cancelButton.addEventListener('click', cancelTransfer);
     })
     .catch(error => {
         console.error("Session validation error:", error);

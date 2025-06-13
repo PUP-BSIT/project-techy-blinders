@@ -19,12 +19,17 @@ function loadCurrentBalance() {
             if (data.success && data.account_holder_id) {
                 console.log('Setting loggedInId:', data.account_holder_id);
                 localStorage.setItem("loggedInId", data.account_holder_id);
-                // Also store initial balance if available
+                
+                // Store initial balance
                 if (data.account_balance) {
                     const balance = parseFloat(data.account_balance.replace(/,/g, ''));
-                    localStorage.setItem("currentBalance", balance.toString());
+                    if (!isNaN(balance)) {
+                        localStorage.setItem("currentBalance", balance.toString());
+                        console.log('Initial balance stored:', balance);
+                    }
                 }
-                // Retry loading balance with the new ID
+                
+                // Fetch latest balance
                 fetchBalance(data.account_holder_id);
             } else {
                 console.error("Failed to get user ID from session:", data);
@@ -68,6 +73,8 @@ function fetchBalance(userId) {
             }
             // Update localStorage with the latest balance
             localStorage.setItem("currentBalance", balance.toString());
+            // Update UI with the balance
+            document.querySelector(".total-balance").textContent = `$${balance.toFixed(2)}`;
             console.log('Balance updated:', balance);
         } else {
             if (data.error === 'session_expired') {
@@ -106,10 +113,15 @@ document.addEventListener('DOMContentLoaded', function () {
         if (data.account_holder_id) {
             console.log('Setting initial loggedInId:', data.account_holder_id);
             localStorage.setItem("loggedInId", data.account_holder_id);
-            // Also store initial balance if available
+            
+            // Store initial balance
             if (data.account_balance) {
                 const balance = parseFloat(data.account_balance.replace(/,/g, ''));
-                localStorage.setItem("currentBalance", balance.toString());
+                if (!isNaN(balance)) {
+                    localStorage.setItem("currentBalance", balance.toString());
+                    document.querySelector(".total-balance").textContent = `$${balance.toFixed(2)}`;
+                    console.log('Initial balance stored:', balance);
+                }
             }
         }
         
@@ -117,11 +129,11 @@ document.addEventListener('DOMContentLoaded', function () {
         loadCurrentBalance();
         
         // Session is valid, initialize the form
-        const accountIdInput = document.getElementById("account_id");
         const transferAmountInput = document.getElementById("transfer_amount");
+        const accountIdInput = document.getElementById("account_id");
 
-        accountIdInput.addEventListener('input', validateForm);
         transferAmountInput.addEventListener('input', validateForm);
+        accountIdInput.addEventListener('input', validateForm);
 
         validateForm();
 

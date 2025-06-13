@@ -171,8 +171,8 @@ function submitUser() {
     transferButton.disabled = true;
     transferButton.textContent = 'Processing...';
 
-    // Fetch recipient's account name using their accountHolderId
-    fetch(`https://blindvault.site/php/get_account_info.php?id=${accountHolderId}`, {
+    // Fetch account name first
+    fetch(`https://blindvault.site/php/account_holder_home_page.php`, {
         method: 'GET',
         credentials: 'include'
     })
@@ -183,7 +183,7 @@ function submitUser() {
             const params = new URLSearchParams({
                 transferType: 'internal',
                 accountHolderId: accountHolderId,
-                accountName: data.name, // recipient's name
+                accountName: data.name,
                 transferAmount: transferAmount,
                 senderId: loggedInUserId
             });

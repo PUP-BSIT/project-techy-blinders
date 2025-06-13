@@ -26,40 +26,39 @@ document.addEventListener('DOMContentLoaded', function() {
         if (title) title.textContent = 'Enter OTP for External Transfer';
     }
 
-    // --- OTP GENERATION FOR INTERNAL TRANSFER ---
-    if (transferType === 'internal') {
-        const pendingTransfer = JSON.parse(localStorage.getItem('pendingTransfer'));
-        if (pendingTransfer) {
-            fetch(OTP_GENERATE_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    sender_id: pendingTransfer.senderId,
-                    recipient_id: pendingTransfer.recipientId,
-                    amount: parseFloat(pendingTransfer.amount),
-                    recipient_name: pendingTransfer.recipientName
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success && !otpAlertShown) {
-                    otpAlertShown = true;
-                    let message = 'OTP sent successfully!';
-                    if (data.debug_info) {
-                        message += `\n\nPhone: ${data.debug_info.phone}\nExpires: ${data.debug_info.expires_at}`;
-                    }
-                    alert(message);
-                } else if (!data.success) {
-                    alert('Error generating OTP: ' + data.message);
-                    window.location.href = "transfer_fund_internal.html";
-                }
-            })
-            .catch(error => {
-                alert('Network error. Please try again.');
-                window.location.href = "transfer_fund_internal.html";
-            });
-        }
-    }
+    // if (transferType === 'internal') {
+    //     const pendingTransfer = JSON.parse(localStorage.getItem('pendingTransfer'));
+    //     if (pendingTransfer) {
+    //         fetch(OTP_GENERATE_URL, {
+    //             method: 'POST',
+    //             headers: { 'Content-Type': 'application/json' },
+    //             body: JSON.stringify({
+    //                 sender_id: pendingTransfer.senderId,
+    //                 recipient_id: pendingTransfer.recipientId,
+    //                 amount: parseFloat(pendingTransfer.amount),
+    //                 recipient_name: pendingTransfer.recipientName
+    //             })
+    //         })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             if (data.success && !otpAlertShown) {
+    //                 otpAlertShown = true;
+    //                 let message = 'OTP sent successfully!';
+    //                 if (data.debug_info) {
+    //                     message += `\n\nPhone: ${data.debug_info.phone}\nExpires: ${data.debug_info.expires_at}`;
+    //                 }
+    //                 alert(message);
+    //             } else if (!data.success) {
+    //                 alert('Error generating OTP: ' + data.message);
+    //                 window.location.href = "transfer_fund_internal.html";
+    //             }
+    //         })
+    //         .catch(error => {
+    //             alert('Network error. Please try again.');
+    //             window.location.href = "transfer_fund_internal.html";
+    //         });
+    //     }
+    // }
 
     // Add event listeners
     otpVerification.addEventListener("input", validateForm);

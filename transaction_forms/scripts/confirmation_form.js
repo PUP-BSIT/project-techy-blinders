@@ -1,3 +1,5 @@
+const urlParams = new URLSearchParams(window.location.search);
+
 function maskAccountName(fullName) {
     if (!fullName) return '***';
     
@@ -13,7 +15,6 @@ function maskAccountName(fullName) {
 }
 
 window.onload = async function() {
-    const urlParams = new URLSearchParams(window.location.search);
     const transferType = urlParams.get('transferType') || 'internal';
     localStorage.setItem('pendingTransferType', transferType);
     const accountHolderId = urlParams.get('accountHolderId');

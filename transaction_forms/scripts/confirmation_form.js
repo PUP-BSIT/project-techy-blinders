@@ -74,33 +74,68 @@ window.onload = async function() {
     }
 };
 
-document.getElementById('send_otp').addEventListener('click', function() {
+document.getElementById('send_otp').addEventListener('click', async function() {
     const transferType = localStorage.getItem('pendingTransferType') || 'internal';
     const accountHolderId = document.getElementById('account_holder_id').value;
     const accountName = document.getElementById('display_account_name').textContent;
     const transferAmount = document.getElementById('deposit_amount').value;
     const bankName = document.getElementById('display_bank_name') ? document.getElementById('display_bank_name').textContent : undefined;
     const senderId = localStorage.getItem('loggedInId');
-    
+
+    // Prepare transfer data for localStorage
+    let pendingTransfer;
     if (transferType === 'external') {
-        // Store both code and display name
-        localStorage.setItem('pendingTransfer', JSON.stringify({
+        pendingTransfer = {
             senderId: senderId,
             recipientId: accountHolderId,
             amount: transferAmount,
             recipientName: accountName,
             bankCode: urlParams.get('bankName'), // This is the code: 'bank1' or 'bank2'
             bankDisplayName: bankName // For display only
-        }));
-        window.location.href = "otp_confirmation_page.html";
+        };
     } else {
-        localStorage.setItem('pendingTransfer', JSON.stringify({
+        pendingTransfer = {
             senderId: senderId,
             recipientId: accountHolderId,
             amount: transferAmount,
             recipientName: accountName
-        }));
-        window.location.href = "otp_confirmation_page.html";
+        };
+    }
+
+    // Send OTP API request
+    let otpUrl, otpPayload;
+    if (transferType === 'external') {
+        otpUrl = 'https://blindvault.site/php/external_transfer_otp_generate.php';
+        otpPayload = {
+            sender_id: senderId,
+            recipient_id: accountHolderId,
+            amount: parseFloat(transferAmount)
+        };
+    } else {
+        otpUrl = 'https://blindvault.site/php/transfer_otp_generate.php';
+        otpPayload = {
+            sender_id: senderId,
+            recipient_id: accountHolderId,
+            amount: parseFloat(transferAmount),
+            recipient_name: accountName
+        };
+    }
+
+    try {
+        const response = await fetch(otpUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(otpPayload)
+        });
+        const data = await response.json();
+        if (data.success) {
+            localStorage.setItem('pendingTransfer', JSON.stringify(pendingTransfer));
+            window.location.href = "otp_confirmation_page.html";
+        } else {
+            alert('Error sending OTP: ' + data.message);
+        }
+    } catch (error) {
+        alert('Network error. Please try again.');
     }
 });
 

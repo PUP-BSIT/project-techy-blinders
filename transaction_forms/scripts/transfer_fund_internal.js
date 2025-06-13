@@ -132,12 +132,20 @@ document.addEventListener('DOMContentLoaded', function () {
         const transferAmountInput = document.getElementById("transfer_amount");
         const accountIdInput = document.getElementById("account_id");
 
-        transferAmountInput.addEventListener('input', validateForm);
-        accountIdInput.addEventListener('input', validateForm);
+        if (transferAmountInput && accountIdInput) {
+            transferAmountInput.addEventListener('input', validateForm);
+            accountIdInput.addEventListener('input', validateForm);
+            validateForm();
+        } else {
+            console.error('Form elements not found');
+        }
 
-        validateForm();
-
-        document.getElementById("transfer").addEventListener('click', submitUser);
+        const transferButton = document.getElementById("transfer");
+        if (transferButton) {
+            transferButton.addEventListener('click', submitUser);
+        } else {
+            console.error('Transfer button not found');
+        }
     })
     .catch(error => {
         console.error("Session validation error:", error);

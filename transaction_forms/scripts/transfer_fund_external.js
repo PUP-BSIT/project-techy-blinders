@@ -215,14 +215,21 @@ document.addEventListener('DOMContentLoaded', function () {
         loadCurrentBalance();
         
         // Session is valid, initialize the form
-        transferAmountExternal.addEventListener('input', validateForm);
-        recipientId.addEventListener('input', validateForm);
-        selectBank.addEventListener('change', validateForm);
+        if (transferAmountExternal && recipientId && selectBank) {
+            transferAmountExternal.addEventListener('input', validateForm);
+            recipientId.addEventListener('input', validateForm);
+            selectBank.addEventListener('change', validateForm);
+            validateForm();
+        } else {
+            console.error('Form elements not found');
+        }
 
-        validateForm();
-
-        submitButton.addEventListener('click', submitTransfer);
-        cancelButton.addEventListener('click', cancelTransfer);
+        if (submitButton && cancelButton) {
+            submitButton.addEventListener('click', submitTransfer);
+            cancelButton.addEventListener('click', cancelTransfer);
+        } else {
+            console.error('Buttons not found');
+        }
     })
     .catch(error => {
         console.error("Session validation error:", error);

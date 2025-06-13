@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (title) title.textContent = 'Enter OTP for External Transfer';
     }
 
+    // --- REMOVE automatic OTP GENERATION FOR INTERNAL TRANSFER ---
     // if (transferType === 'internal') {
     //     const pendingTransfer = JSON.parse(localStorage.getItem('pendingTransfer'));
     //     if (pendingTransfer) {
@@ -162,12 +163,28 @@ function verifyOTP() {
         // For external, send OTP and transfer details directly to transfer_external.php
         const transferData = {
             transaction_amount: parseFloat(pendingTransfer.amount),
-            sender_id: pendingTransfer.senderId,
+            source_account_no: pendingTransfer.senderId, // sender's account number/id
+            source_bank_code: 'Blind Vault',
             recipient_account_no: parseInt(pendingTransfer.recipientId),
-            source_bank_code: 'blindvault',
-            external_bank_code: pendingTransfer.bankCode,
             otp_code: otpCode
         };
+        // Check for missing required fields
+        const requiredFields = ['transaction_amount', 'source_account_no', 'source_bank_code', 'recipient_account_no', 'otp_code'];
+        const missingFields = requiredFields.filter(field => {
+            return (
+                transferData[field] === undefined ||
+                transferData[field] === null ||
+                transferData[field] === '' ||
+                (typeof transferData[field] === 'number' && isNaN(transferData[field]))
+            );
+        });
+        if (missingFields.length > 0) {
+            alert('Cannot proceed. Missing required fields: ' + missingFields.join(', '));
+            verifyButton.disabled = false;
+            verifyButton.textContent = 'Verify';
+            verifyButton.style.cursor = 'pointer';
+            return;
+        }
         fetch(FINAL_TRANSFER_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

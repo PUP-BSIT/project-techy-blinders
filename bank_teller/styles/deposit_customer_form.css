@@ -198,3 +198,95 @@ a {
     box-shadow: var(--button-shadow);
     transform: translateY(-2px); 
 }
+
+@media (max-width: 600px) {
+    .top-nav-bar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 8px;
+        gap: 0;
+    }
+
+    .icon {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: static;
+    }
+
+    .icon img {
+        width: 36px;
+        height: 36px;
+        margin: 0;
+        position: static;
+    }
+
+    .icon h4 {
+        font-size: 1.1em;
+        margin: 0;
+        position: static;
+    }
+
+    .top-nav-bar a {
+        float: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .deposit-customer-container {
+        min-height: 100vh;
+        padding: 0 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .deposit-customer-border {
+        width: 98vw;
+        max-width: 370px;
+        height: auto;
+        margin-top: 30px;
+        padding-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .deposit-label {
+        font-size: 1.2em;
+        margin-top: 20px;
+    }
+
+    .account-id-label,
+    .deposit-amount-label {
+        margin-left: 0;
+        text-align: left;
+        width: 100%;
+        font-size: 1em;
+    }
+
+    #account_id,
+    #deposit_amount {
+        width: 90%;
+        font-size: 1em;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    #cancel,
+    #deposit {
+        width: 100%;
+        font-size: 1em;
+        padding: 12px;
+    }
+}

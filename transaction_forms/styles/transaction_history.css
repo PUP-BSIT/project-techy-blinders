@@ -110,3 +110,30 @@ body {
 .transaction-item {
     margin-top: 5%;
 }
+
+@media (max-width: 600px) {
+    .icon h4 {
+        margin-top: 5%;
+        margin-left: 15%;
+    }
+
+    .receipt-border {
+        width: 75%;
+    }
+
+    .receipt-label {
+        font-size: 25px;
+    }
+
+    .transaction-label {
+        font-size: 20px;
+    }
+
+    .transaction-amount {
+        font-size: 20px;
+    }
+
+    .receipt-border {
+        margin-bottom: 2%;
+    }
+}

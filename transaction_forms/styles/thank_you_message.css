@@ -84,14 +84,17 @@ body {
 }
 
 .thank-you-border {
-    margin-top: 7%;
+    margin-top: 4.5%;
     border: solid 0px;
     width: 600px;
-    height: 400px;
     background-color: #132D46;
     border-radius: 20px;
     box-shadow: 0 0 50px #01C38E;
-    padding: 20px;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .thank-you-label {
@@ -103,7 +106,24 @@ body {
 
 p {
     margin-top: 5%;
-    color: white;
+    color: #e0e0e0;
     font-family: "IBM Plex Mono", monospace;
-    font-size: 20px;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+    text-align: left;
+    padding: 0 10px;
+    margin-bottom: 2%;
+}
+
+@media (max-width: 600px) {
+    .thank-you-border {
+        width: 90%;
+        margin-bottom: 3%;
+    }
+
+    .icon h4 {
+        margin-top: 5%;
+        margin-left: 15%;
+    }
 }

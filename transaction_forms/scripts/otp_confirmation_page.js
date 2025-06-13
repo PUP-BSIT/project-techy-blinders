@@ -165,8 +165,8 @@ function verifyOTP() {
             transaction_amount: parseFloat(pendingTransfer.amount),
             sender_id: pendingTransfer.senderId,
             recipient_account_no: parseInt(pendingTransfer.recipientId),
-            source_bank_code: 'Blind Vault',
-            external_bank_code: pendingTransfer.bankName,
+            source_bank_code: 'blindvault',
+            external_bank_code: pendingTransfer.bankCode,
             otp_code: otpCode
         };
         fetch(FINAL_TRANSFER_URL, {

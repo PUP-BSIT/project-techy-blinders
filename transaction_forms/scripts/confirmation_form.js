@@ -70,34 +70,16 @@ document.getElementById('send_otp').addEventListener('click', function() {
     const senderId = localStorage.getItem('loggedInId');
     
     if (transferType === 'external') {
-        // Generate OTP for external
-        fetch('https://blindvault.site/php/external_transfer_otp_generate.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                sender_id: senderId,
-                recipient_id: accountHolderId,
-                amount: transferAmount
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                localStorage.setItem('pendingTransfer', JSON.stringify({
-                    senderId: senderId,
-                    recipientId: accountHolderId,
-                    amount: transferAmount,
-                    recipientName: accountName,
-                    bankName: bankName
-                }));
-                window.location.href = "otp_confirmation_page.html";
-            } else {
-                alert('OTP generation failed: ' + data.message);
-            }
-        })
-        .catch(error => {
-            alert('Network error. Please try again.');
-        });
+        // Store both code and display name
+        localStorage.setItem('pendingTransfer', JSON.stringify({
+            senderId: senderId,
+            recipientId: accountHolderId,
+            amount: transferAmount,
+            recipientName: accountName,
+            bankCode: urlParams.get('bankName'), // This is the code: 'bank1' or 'bank2'
+            bankDisplayName: bankName // For display only
+        }));
+        window.location.href = "otp_confirmation_page.html";
     } else {
         localStorage.setItem('pendingTransfer', JSON.stringify({
             senderId: senderId,

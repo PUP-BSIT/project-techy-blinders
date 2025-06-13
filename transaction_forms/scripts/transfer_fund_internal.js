@@ -172,7 +172,7 @@ function submitUser() {
     transferButton.textContent = 'Processing...';
 
     // Fetch recipient's account name using their accountHolderId
-    fetch(`https://blindvault.site/php/get_account_holder_info.php?id=${accountHolderId}`, {
+    fetch(`https://blindvault.site/php/get_account_info.php?id=${accountHolderId}`, {
         method: 'GET',
         credentials: 'include'
     })

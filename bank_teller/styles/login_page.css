@@ -203,3 +203,53 @@ body {
     color: #00a876;
     text-decoration: underline;
 }
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+        min-height: unset;
+    }
+
+    .logo-design-container {
+        margin-bottom: 2rem;
+    }
+
+    .logo-display {
+        width: 180px;
+    }
+
+    .bank-name {
+        font-size: 2.2rem;
+    }
+
+    .welcome-message,
+    .role-message {
+        font-size: 1.5rem;
+    }
+
+    .login-form-container {
+        padding: 2rem 1rem;
+        max-width: 100%;
+        border-radius: 18px;
+    }
+
+    .button {
+        width: 80%;
+        min-width: 100px;
+        font-size: 1rem;
+        height: 40px;
+    }
+
+    .line-container {
+        width: 95%;
+    }
+
+    .text-content-container {
+        margin-bottom: 1rem;
+    }
+
+    .account-id-container, .password-container {
+        margin-bottom: 1rem;
+    }
+}

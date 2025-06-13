@@ -184,3 +184,83 @@ img {
     box-shadow: 0 0 20px #01C38E;
     background-color: #076b51;
 }
+
+@media (max-width: 768px) {
+    .icon img {
+        width: 45px;
+        height: 45px;
+        margin-left: 3%;
+        margin-top: 10px;
+        position: relative;
+    }
+
+    .icon h4 {
+        margin-left: 18%;
+        margin-top: 18px;
+        font-size: 16px;
+        position: relative;
+    }
+
+    .top-nav-bar a {
+        font-size: 16px;
+        padding: 16px;
+    }
+
+    .otp-border {
+        width: 90%;
+        height: auto;
+        padding: 30px 10px;
+        margin-top: 10%;
+    }
+
+    .otp-label {
+        font-size: 28px;
+    }
+
+    #otp_verification {
+        width: 80%;
+        height: 20px;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    #cancel, #verify {
+        width: 70%;
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .icon h4 {
+        font-size: 14px;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .otp-label {
+        font-size: 24px;
+    }
+
+    #otp_verification {
+        width: 90%;
+    }
+
+    .top-nav-bar a {
+        font-size: 14px;
+        padding: 14px;
+    }
+
+    #resend_text, #resend_otp {
+        font-size: 12px;
+    }
+
+    #cancel, #verify {
+        width: 85%;
+        font-size: 13px;
+    }
+}

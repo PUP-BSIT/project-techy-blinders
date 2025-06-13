@@ -250,16 +250,26 @@ a {
 
 @media (max-width: 600px) {
     .top-nav-bar {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
         padding: 10px 8px;
-        gap: 10px;
+        gap: 0;
+        display: flex;
     }
 
     .nav-left, .nav-right {
         flex-direction: row;
-        width: 100%;
-        justify-content: space-between;
+        width: auto;
+        justify-content: flex-start;
+        gap: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .icon {
+        display: flex;
+        align-items: center;
         gap: 10px;
     }
 

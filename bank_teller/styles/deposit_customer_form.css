@@ -250,7 +250,9 @@ a {
         max-width: 370px;
         height: auto;
         margin-top: 30px;
-        padding-bottom: 20px;
+        margin-left: 10%;
+        margin-right: 10%;
+        padding: 5%;
         display: flex;
         flex-direction: column;
         align-items: center;

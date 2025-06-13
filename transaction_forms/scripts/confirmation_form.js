@@ -17,7 +17,6 @@ window.onload = function() {
     const transferType = urlParams.get('transferType') || 'internal';
     localStorage.setItem('pendingTransferType', transferType);
     const accountHolderId = urlParams.get('accountHolderId');
-    const accountName = urlParams.get('accountName');
     const transferAmount = urlParams.get('transferAmount');
     let bankName = urlParams.get('bankName');
     const senderId = urlParams.get('senderId');
@@ -33,28 +32,43 @@ window.onload = function() {
         bankName = bankNameMap[bankName] || bankName;
     }
     
-    if (accountHolderId && accountName && transferAmount) {
-        document.getElementById('display_account_holder_id').textContent = accountHolderId;
-        
-        // Display masked account name
-        document.getElementById('display_account_name').textContent = maskAccountName(accountName);
-        
-        document.getElementById('display_deposit_amount').textContent = '$' + parseFloat(transferAmount).toFixed(2);
-        document.getElementById('account_holder_id').value = accountHolderId;
-        document.getElementById('deposit_amount').value = transferAmount;
-        
-        if (transferType === 'external' && bankName) {
-            let bankRow = document.getElementById('bank_row');
-            if (!bankRow) {
-                const receiptLabels = document.querySelector('.receipt-labels');
-                bankRow = document.createElement('div');
-                bankRow.className = 'detail-row';
-                bankRow.id = 'bank_row';
-                bankRow.innerHTML = `<div class="detail-label">Bank Name:</div><div class="detail-value" id="display_bank_name"></div>`;
-                receiptLabels.appendChild(bankRow);
+    if (accountHolderId && transferAmount) {
+        // Fetch account name from the database
+        fetch(`https://blindvault.site/php/get_account_details.php?account_holder_id=${accountHolderId}`, {
+            method: 'GET',
+            credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.name) {
+                document.getElementById('display_account_holder_id').textContent = accountHolderId;
+                document.getElementById('display_account_name').textContent = data.name; // Show actual name
+                document.getElementById('display_deposit_amount').textContent = '$' + parseFloat(transferAmount).toFixed(2);
+                document.getElementById('account_holder_id').value = accountHolderId;
+                document.getElementById('deposit_amount').value = transferAmount;
+                
+                if (transferType === 'external' && bankName) {
+                    let bankRow = document.getElementById('bank_row');
+                    if (!bankRow) {
+                        const receiptLabels = document.querySelector('.receipt-labels');
+                        bankRow = document.createElement('div');
+                        bankRow.className = 'detail-row';
+                        bankRow.id = 'bank_row';
+                        bankRow.innerHTML = `<div class="detail-label">Bank Name:</div><div class="detail-value" id="display_bank_name"></div>`;
+                        receiptLabels.appendChild(bankRow);
+                    }
+                    document.getElementById('display_bank_name').textContent = bankName;
+                }
+            } else {
+                alert("Error fetching account information. Please try again.");
+                window.location.href = transferType === 'external' ? "transfer_fund_external.html" : "transfer_fund_internal.html";
             }
-            document.getElementById('display_bank_name').textContent = bankName;
-        }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Network error. Please try again.");
+            window.location.href = transferType === 'external' ? "transfer_fund_external.html" : "transfer_fund_internal.html";
+        });
     } else {
         alert("Missing transfer information. Please go back and fill the form.");
         window.location.href = transferType === 'external' ? "transfer_fund_external.html" : "transfer_fund_internal.html";

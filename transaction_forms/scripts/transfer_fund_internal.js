@@ -171,15 +171,35 @@ function submitUser() {
     transferButton.disabled = true;
     transferButton.textContent = 'Processing...';
 
-    // Store transfer details for confirmation page
-    const params = new URLSearchParams({
-        transferType: 'internal',
-        accountHolderId: accountHolderId,
-        accountName: accountHolderId, // Using accountHolderId as the name for internal transfers
-        transferAmount: transferAmount,
-        senderId: loggedInUserId
+    // Fetch account name first
+    fetch(`https://blindvault.site/php/account_holder_home_page.php`, {
+        method: 'GET',
+        credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success && data.name) {
+            // Store transfer details for confirmation page
+            const params = new URLSearchParams({
+                transferType: 'internal',
+                accountHolderId: accountHolderId,
+                accountName: data.name,
+                transferAmount: transferAmount,
+                senderId: loggedInUserId
+            });
+            window.location.href = `confirmation_form.html?${params.toString()}`;
+        } else {
+            alert("Error: Could not verify recipient account. Please try again.");
+            transferButton.disabled = false;
+            transferButton.textContent = 'Transfer';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Network error. Please try again.");
+        transferButton.disabled = false;
+        transferButton.textContent = 'Transfer';
     });
-    window.location.href = `confirmation_form.html?${params.toString()}`;
 }
 
 function cancelButton() {

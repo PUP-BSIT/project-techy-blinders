@@ -162,11 +162,11 @@ function verifyOTP() {
     if (transferType === 'external') {
         // For external, send OTP and transfer details directly to transfer_external.php
         const transferData = {
-            transaction_amount: parseFloat(pendingTransfer.amount),
-            source_account_no: pendingTransfer.senderId, // sender's account number/id
-            source_bank_code: 'blindvault',
-            recipient_account_no: parseInt(pendingTransfer.recipientId),
-            otp_code: otpCode
+            transaction_amount: Number(pendingTransfer.amount),
+            source_account_no: String(pendingTransfer.senderId),
+            source_bank_code: 'Blinders Vault',
+            recipient_account_no: String(pendingTransfer.recipientId),
+            otp_code: String(otpCode)
         };
         // Check for missing required fields
         const requiredFields = ['transaction_amount', 'source_account_no', 'source_bank_code', 'recipient_account_no', 'otp_code'];

@@ -22,6 +22,7 @@
 * {
     margin: 0;
     padding: 0px;
+    box-sizing: border-box;
 }
 
 body {
@@ -32,6 +33,8 @@ body {
     background-color: #1A1E29;
     overflow: hidden;
     font-style: "sans-serif";
+    position: relative;
+    min-height: 70px;
 }
 
 .top-nav-bar a {
@@ -60,7 +63,6 @@ body {
     margin-left: 7%;
     font-family: "Lexend Tera", sans-serif;
     color: white;
-
 }
 
 a {
@@ -77,6 +79,7 @@ a {
     color: white;
     border-radius: 50px;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 #back_button:hover {
@@ -92,16 +95,20 @@ a {
     text-align: center;
     justify-content: center;
     align-items: center;
+    padding: 0 20px;
 }
 
 .withdraw-customer-border {
     margin-top: 7%;
     border: solid 0px;
-    width: 507px;
-    height: 380px;
+    width: 100%;
+    max-width: 507px;
+    height: auto;
+    min-height: 380px;
     background-color: #132D46;
     border-radius: 20px;
     box-shadow: 0 0 50px #01C38E;
+    padding: 30px 20px;
 }
 
 .withdraw-customer-label {
@@ -157,28 +164,35 @@ a {
     gap: 30px;
     justify-content: center;
     margin-bottom: 5%;
+    flex-wrap: wrap;
 }
 
 #cancel {
     border: solid 0px;
     padding: 10px;
     width: 25%;
+    min-width: 100px;
     background-color: #E73115;
     color: white;
     font-family: "Lexend Tera", sans-serif;
     border-radius: 50px;
     box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 #withdraw {
     border: solid 0px;
     padding: 10px;
     width: 25%;
+    min-width: 100px;
     background-color: #01C38E;
     color: white;
     font-family: "Lexend Tera", sans-serif;
     border-radius: 50px;
     box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 #cancel:hover {
@@ -193,4 +207,148 @@ a {
     cursor: pointer;
     box-shadow: 0 0 20px #01C38E;
     background-color: #076b51;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+    .top-nav-bar {
+        padding: 10px 0;
+    }
+    
+    .top-nav-bar a {
+        float: none;
+        display: block;
+        text-align: left;
+        padding: 15px 20px;
+        font-size: 18px;
+    }
+    
+    .icon img {
+        width: 50px;
+        height: 50px;
+        margin-left: 20px;
+    }
+    
+    .icon h4 {
+        margin-left: 80px;
+        margin-top: 15px;
+        font-size: 16px;
+    }
+    
+    #back_button {
+        width: 120px;
+        padding: 10px;
+        font-size: 14px;
+    }
+    
+    .withdraw-customer-container {
+        padding: 0 15px;
+    }
+    
+    .withdraw-customer-border {
+        margin-top: 20px;
+        padding: 25px 15px;
+        border-radius: 15px;
+    }
+    
+    .withdraw-customer-label {
+        font-size: 20px;
+        margin-top: 0;
+    }
+    
+    .account-id-label,
+    .withdraw-ammount-label {
+        margin-left: 0;
+        text-align: left;
+        width: 100%;
+        display: block;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+    
+    #account_id,
+    #withdraw_ammount {
+        width: 100%;
+        height: 40px;
+        padding: 10px;
+        font-size: 16px;
+        margin-top: 0;
+    }
+    
+    .button-container {
+        gap: 15px;
+        margin-top: 30px;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    #cancel,
+    #withdraw {
+        width: 80%;
+        max-width: 200px;
+        padding: 15px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .top-nav-bar a {
+        font-size: 16px;
+        padding: 12px 15px;
+    }
+    
+    .icon img {
+        width: 40px;
+        height: 40px;
+        margin-left: 15px;
+    }
+    
+    .icon h4 {
+        margin-left: 65px;
+        margin-top: 12px;
+        font-size: 14px;
+    }
+    
+    #back_button {
+        width: 100px;
+        padding: 8px;
+        font-size: 12px;
+    }
+    
+    .withdraw-customer-container {
+        padding: 0 10px;
+    }
+    
+    .withdraw-customer-border {
+        padding: 20px 10px;
+        margin-top: 15px;
+    }
+    
+    .withdraw-customer-label {
+        font-size: 18px;
+    }
+    
+    .account-id-label,
+    .withdraw-ammount-label {
+        font-size: 12px;
+    }
+    
+    #account_id,
+    #withdraw_ammount {
+        height: 35px;
+        padding: 8px;
+        font-size: 14px;
+    }
+    
+    #cancel,
+    #withdraw {
+        width: 90%;
+        padding: 12px;
+        font-size: 12px;
+    }
+    
+    .button-container {
+        gap: 10px;
+        margin-top: 25px;
+    }
 }

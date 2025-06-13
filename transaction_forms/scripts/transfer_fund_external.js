@@ -185,60 +185,43 @@ function cancelTransfer() {
 
 // Check session validity on page load
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('Page loaded, checking session...');
-    // Verify session is valid
+    // Check session before doing anything else
     fetch("https://blindvault.site/php/account_holder_home_page.php", {
         method: 'GET',
         credentials: 'include'
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Initial session check:', data);
-        if (!data.success) {
-            alert("Session expired. Please login again.");
-            window.location.href = "../login_page_index.html";
+        if (!data.success || data.error === 'session_expired') {
+            handleSessionExpired();
             return;
         }
-        
         // Store user ID if available
         if (data.account_holder_id) {
-            console.log('Setting initial loggedInId:', data.account_holder_id);
             localStorage.setItem("loggedInId", data.account_holder_id);
-            
-            // Store initial balance
             if (data.account_balance) {
                 const balance = parseFloat(data.account_balance.replace(/,/g, ''));
                 if (!isNaN(balance)) {
                     localStorage.setItem("currentBalance", balance.toString());
                     totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
-                    console.log('Initial balance stored:', balance);
                 }
             }
         }
-        
-        // Load current balance first
+        // Now load current balance and initialize form
         loadCurrentBalance();
-        
-        // Session is valid, initialize the form
+        // ... (rest of your form initialization code)
         if (transferAmountExternal && recipientId && selectBank) {
             transferAmountExternal.addEventListener('input', validateForm);
             recipientId.addEventListener('input', validateForm);
             selectBank.addEventListener('change', validateForm);
             validateForm();
-        } else {
-            console.error('Form elements not found');
         }
-
         if (submitButton && cancelButton) {
             submitButton.addEventListener('click', submitTransfer);
             cancelButton.addEventListener('click', cancelTransfer);
-        } else {
-            console.error('Buttons not found');
         }
     })
     .catch(error => {
-        console.error("Session validation error:", error);
-        alert("Error validating session. Please try again.");
-        window.location.href = "../login_page_index.html";
+        handleSessionExpired();
     });
 });

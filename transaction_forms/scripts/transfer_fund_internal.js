@@ -175,6 +175,7 @@ function submitUser() {
     const params = new URLSearchParams({
         transferType: 'internal',
         accountHolderId: accountHolderId,
+        accountName: accountHolderId, // Using accountHolderId as the name for internal transfers
         transferAmount: transferAmount,
         senderId: loggedInUserId
     });

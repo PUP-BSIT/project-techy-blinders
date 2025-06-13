@@ -7,21 +7,18 @@
     --shadow: 0 0 20px rgba(0, 223, 154, 0.3),
               0 0 80px rgba(0, 223, 154, 0.4);
     --button-shadow: 0 0 8px rgba(0, 223, 154, 0.5),
-            0 0 16px rgba(0, 223, 154, 0.6),
-            0 0 24px rgba(0, 223, 154, 0.7);
+                     0 0 16px rgba(0, 223, 154, 0.6),
+                     0 0 24px rgba(0, 223, 154, 0.7);
     --hover-button: #0b3f34;
-
-    --back-button-shadow:
-    0 0 8px rgba(134, 16, 16, 0.5),
-    0 0 16px rgba(134, 16, 16, 0.6),
-    0 0 24px rgba(134, 16, 16, 0.7);
-
+    --back-button-shadow: 0 0 8px rgba(134, 16, 16, 0.5),
+                          0 0 16px rgba(134, 16, 16, 0.6),
+                          0 0 24px rgba(134, 16, 16, 0.7);
     --hover-back-button:#520a0a;
 }
 
 * {
     margin: 0;
-    padding: 0px;
+    padding: 0;
     box-sizing: border-box;
 }
 
@@ -39,19 +36,17 @@ body {
 
 .top-nav-bar a {
     float: right;
-    color: rgb(69, 68, 68);
+    color: white;
     text-align: center;
-    padding: 20px 20px;
+    padding: 20px;
     text-decoration: none;
     font-family: "Lexend Tera", sans-serif;
     font-size: 20px;
-    margin-right: 0;
-    color: white;
 }
 
 .icon img {
-    margin-top: 5px;
     position: absolute;
+    margin-top: 5px;
     width: 60px;
     height: 60px;
     margin-left: 2%;
@@ -73,7 +68,7 @@ a {
     font-family: "IBM Plex Mono", monospace;
     font-size: 15px;
     padding: 10px 20px;
-    border: solid 0px;
+    border: none;
     background-color: #861010;
     color: white;
     border-radius: 50px;
@@ -90,18 +85,16 @@ a {
 
 .transfer-customer-container {
     display: flex;
-    text-align: center;
     justify-content: center;
     align-items: center;
     padding: 0 20px;
+    text-align: center;
 }
 
 .transfer-customer-border {
     margin-top: 7%;
-    border: solid 0px;
     width: 100%;
     max-width: 507px;
-    height: auto;
     min-height: 380px;
     background-color: #132D46;
     border-radius: 20px;
@@ -123,11 +116,13 @@ a {
 
 #account_id, 
 #transfer_amount {
-    margin-top: 5%;
-    width: 60%;
-    height: 15px;
-    padding: 5px;
+    margin-top: 1%;
     border-radius: 8px;
+    width: 70%;
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 0;
 }
 
 .account-id-label {
@@ -136,24 +131,10 @@ a {
     margin-left: -36%;
 }
 
-#account_id {
-    margin-top: 1%;
-    width: 60%;
-    height: 15px;
-    padding: 5px;
-}
-
 .transfer-amount-label {
     color: white;
     font-family: "Lexend Tera", sans-serif;
     margin-left: -27%;
-}
-
-#transfer_amount {
-    margin-top: 1%;
-    width: 60%;
-    height: 15px;
-    padding: 5px;
 }
 
 .button-container {
@@ -164,95 +145,78 @@ a {
     flex-wrap: wrap;
 }
 
-#cancel {
-    border: solid 0px;
+#cancel,
+#transfer {
+    border: none;
     padding: 10px;
     width: 25%;
     min-width: 100px;
-    background-color: #861010;
-    color: white;
-    font-family: "Lexend Tera", sans-serif;
     border-radius: 50px;
+    font-family: "Lexend Tera", sans-serif;
+    color: white;
     box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
     cursor: pointer;
 }
 
+#cancel {
+    background-color: #861010;
+}
+
 #transfer {
-    border: solid 0px;
-    padding: 10px;
-    width: 25%;
-    min-width: 100px;
     background-color: #01C38E;
-    color: white;
-    font-family: "Lexend Tera", sans-serif;
-    border-radius: 50px;
-    box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
 }
 
 #cancel:hover {
     transform: translateY(-3px);
-    cursor: pointer;
     font-weight: bold;
     background-color: var(--hover-back-button);
     box-shadow: var(--back-button-shadow);
 }
 
 #transfer:hover {
-    cursor: pointer;
     box-shadow: 0 0 20px #01C38E;
     background-color: #076b51;
 }
 
 @media screen and (max-width: 768px) {
-    .top-nav-bar {
-        padding: 10px 0;
-    }
-    
-    .top-nav-bar a {
-        float: none;
-        display: block;
-        text-align: left;
-        padding: 15px 20px;
-        font-size: 18px;
-    }
     
     .icon img {
         width: 50px;
         height: 50px;
         margin-left: 20px;
     }
-    
+
     .icon h4 {
         margin-left: 80px;
         margin-top: 15px;
         font-size: 16px;
     }
-    
+
     .transfer-customer-container {
         padding: 0 15px;
+        flex-direction: column;
     }
-    
+
     .transfer-customer-border {
         margin-top: 20px;
         padding: 25px 15px;
         border-radius: 15px;
     }
-    
+
     .transfer-label {
         font-size: 20px;
         margin-top: 0;
     }
-    
+
     .account-id-label,
     .transfer-amount-label {
         margin-left: 0;
         text-align: left;
         width: 100%;
-        display: block;
         margin-bottom: 10px;
         font-size: 14px;
     }
-    
+
     #account_id,
     #transfer_amount {
         width: 100%;
@@ -261,14 +225,14 @@ a {
         font-size: 16px;
         margin-top: 0;
     }
-    
+
     .button-container {
         gap: 15px;
         margin-top: 30px;
         flex-direction: column;
         align-items: center;
     }
-    
+
     #cancel,
     #transfer {
         width: 80%;
@@ -283,51 +247,51 @@ a {
         font-size: 16px;
         padding: 12px 15px;
     }
-    
+
     .icon img {
         width: 40px;
         height: 40px;
         margin-left: 15px;
     }
-    
+
     .icon h4 {
         margin-left: 65px;
         margin-top: 12px;
         font-size: 14px;
     }
-    
+
     .transfer-customer-container {
         padding: 0 10px;
     }
-    
+
     .transfer-customer-border {
         padding: 20px 10px;
         margin-top: 15px;
     }
-    
+
     .transfer-label {
         font-size: 18px;
     }
-    
+
     .account-id-label,
     .transfer-amount-label {
         font-size: 12px;
     }
-    
+
     #account_id,
     #transfer_amount {
         height: 35px;
         padding: 8px;
         font-size: 14px;
     }
-    
+
     #cancel,
     #transfer {
         width: 90%;
         padding: 12px;
         font-size: 12px;
     }
-    
+
     .button-container {
         gap: 10px;
         margin-top: 25px;

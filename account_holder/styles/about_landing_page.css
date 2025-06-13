@@ -12,6 +12,10 @@
                 0 0 16px rgba(0, 223, 154, 0.6),
                 0 0 24px rgba(0, 223, 154, 0.7);
     --hover-button: #0b3f34;
+    --hover-back-button: #6b0d0d;
+    --back-button-shadow: 0 0 8px rgba(134, 16, 16, 0.5),
+                    0 0 16px rgba(134, 16, 16, 0.6),
+                    0 0 24px rgba(134, 16, 16, 0.7);
 }
 
 * {
@@ -62,8 +66,8 @@ body {
 }
 
 .icon img {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     object-fit: contain;
 }
 
@@ -71,7 +75,7 @@ body {
     font-family: "Lexend Tera", sans-serif;
     color: white;
     margin-left: 10px;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .nav-links {
@@ -165,7 +169,7 @@ body {
 
 .heading {
     font-weight: bold;
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: 300%;
     font-family: var(--font-family);
     line-height: 1.2;
 }
@@ -176,7 +180,7 @@ body {
 
 .container-paragraph {
     font-family: var(--font-family);
-    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-size: 90%;
     line-height: 1.6;
     color: #333;
 }
@@ -212,14 +216,14 @@ body {
     color: var(--text);
     font-family: var(--font-family);
     font-weight: bold;
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-size: 200%;
     margin-bottom: 20px;
 }
 
 .paragraph-2 {
     color: var(--text);
     font-family: var(--font-family);
-    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-size: large;
     max-width: 600px;
     margin: 0 auto;
     line-height: 1.6;
@@ -275,6 +279,7 @@ body {
         color: white;
         text-decoration: none;
         display: block;
+        font-size: 14px;
     }
 
     .top-nav-bar a:hover {
@@ -285,18 +290,14 @@ body {
     #login_button {
         width: 100%;
         margin-top: 10px;
-        background-color: var(--accent);
+        background-color: #01C38E;
         color: white;
         border: none;
         padding: 10px 20px;
         border-radius: 50px;
         cursor: pointer;
         transition: all 0.3s ease;
-    }
-
-    #login_button:hover {
-        background-color: var(--hover-button);
-        box-shadow: var(--button-shadow);
+        font-size: 14px;
     }
 
     .icon {
@@ -304,12 +305,12 @@ body {
     }
 
     .icon img {
-        width: 40px;
-        height: 40px;
+        width: 45px;
+        height: 45px;
     }
 
     .icon h4 {
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .container-content {
@@ -364,12 +365,12 @@ body {
     }
 
     .icon img {
-        width: 35px;
-        height: 35px;
+        width: 40px;
+        height: 40px;
     }
 
     .icon h4 {
-        font-size: 14px;
+        font-size: 13px;
     }
 
     .container-text {
@@ -411,9 +412,18 @@ body {
 }
 
 /* Extra Small Mobile Styles */
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 425px) {
     .top-nav-bar {
         padding: 0 8px;
+    }
+
+    .nav-links {
+        padding: 4px 0;
+    }
+
+    .top-nav-bar a {
+        padding: 8px;
+        font-size: 12px;
     }
 
     .icon img {
@@ -422,30 +432,58 @@ body {
     }
 
     .icon h4 {
-        font-size: 13px;
-        margin-left: 6px;
+        font-size: 12px;
+        margin-left: 8px;
+    }
+
+    #login_button {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+
+    .container-content {
+        grid-template-columns: 1fr;
+        min-height: auto;
     }
 
     .container-text {
-        padding: 15px 10px;
+        order: 1;
+        padding: 20px;
     }
 
     .container-image {
-        padding: 10px;
+        order: 2;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .heading {
+        font-size: 200%;
+    }
+
+    .container-paragraph {
+        font-size: 80%;
     }
 
     .person-3 {
         height: 180px;
+        width: auto;
+        max-width: 100%;
     }
 
     .yellow-design {
-        width: 140px;
-        height: 140px;
+        width: 160px;
+        height: 160px;
     }
 
-    #login_button {
-        padding: 6px 12px;
-        font-size: 13px;
+    .heading-2 {
+        font-size: 150%;
+    }
+
+    .paragraph-2 {
+        font-size: 80%;
     }
 }
 

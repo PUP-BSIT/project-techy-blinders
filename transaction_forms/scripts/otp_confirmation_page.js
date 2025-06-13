@@ -164,7 +164,7 @@ function verifyOTP() {
         const transferData = {
             transaction_amount: parseFloat(pendingTransfer.amount),
             source_account_no: pendingTransfer.senderId, // sender's account number/id
-            source_bank_code: 'Blind Vault',
+            source_bank_code: 'blindvault',
             recipient_account_no: parseInt(pendingTransfer.recipientId),
             otp_code: otpCode
         };
@@ -188,7 +188,8 @@ function verifyOTP() {
         fetch(FINAL_TRANSFER_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(transferData)
+            body: JSON.stringify(transferData),
+            credentials: 'include'
         })
         .then(response => response.json())
         .then(result => {

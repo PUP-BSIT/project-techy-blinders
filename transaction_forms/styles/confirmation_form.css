@@ -2,17 +2,14 @@
     margin: 0;
     padding: 0px;
 }
-
 body {
     background-color: #1A2235;
 }
-
 .top-nav-bar {
     background-color: #1A1E29;
     overflow: hidden;
     font-style: "sans-serif";
 }
-
 .top-nav-bar a {
     float: right;
     color: rgb(69, 68, 68);
@@ -24,7 +21,6 @@ body {
     margin-right: 0;
     color: white;
 }
-
 .icon img {
     margin-top: 5px;
     position: absolute;
@@ -32,20 +28,16 @@ body {
     height: 60px;
     margin-left: 2%;
 }
-
 .icon h4 {
     position: absolute;
     margin-top: 2%;
     margin-left: 7%;
     font-family: "Lexend Tera", sans-serif;
     color: white;
-
 }
-
 a {
     text-decoration: none;
 }
-
 #back_button {
     font-family: "IBM Plex Mono", monospace;
     font-size: 15px;
@@ -57,7 +49,6 @@ a {
     border-radius: 50px;
     cursor: pointer;
 }
-
 .confirmation-container {
     margin-top: -2%;
     display: flex;
@@ -65,7 +56,6 @@ a {
     justify-content: center;
     align-items: center;
 }
-
 .confirmation-border {
     padding: 5px;
     margin-top: 7%;
@@ -76,7 +66,6 @@ a {
     border-radius: 20px;
     box-shadow: 0 0 50px #01C38E;
 }
-
 .confirmation-label {
     margin-top: 2%;
     font-family: "Lexend Tera", sans-serif;
@@ -84,7 +73,6 @@ a {
     font-weight: bold;
     font-size: 25px;
 }
-
 .confirmation-receipt-border {
     margin: 5% auto;
     justify-content: center;
@@ -95,7 +83,6 @@ a {
     border-radius: 5px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
-
 .receipt-labels {
     display: flex;
     flex-direction: column;
@@ -106,14 +93,12 @@ a {
     font-weight: bold;
     font-size: 20px;
 }
-
 .button-container {
     margin-top: 5%;
     display: flex;
     gap: 30px;
     justify-content: center;
 }
-
 #cancel {
     border: solid 0px;
     padding: 10px;
@@ -125,7 +110,6 @@ a {
     box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
     cursor: pointer;
 }
-
 #send_otp {
     border: solid 0px;
     padding: 10px;
@@ -136,4 +120,157 @@ a {
     border-radius: 50px;
     box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
     cursor: pointer;
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+    .top-nav-bar a {
+        font-size: 16px;
+        padding: 15px 15px;
+    }
+    
+    .icon img {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .icon h4 {
+        font-size: 14px;
+    }
+    
+    .confirmation-container {
+        padding: 0 20px;
+    }
+    
+    .confirmation-border {
+        width: 90%;
+        max-width: 507px;
+        height: auto;
+        min-height: 580px;
+        margin-top: 5%;
+    }
+    
+    .confirmation-label {
+        font-size: 22px;
+    }
+    
+    .receipt-labels {
+        font-size: 18px;
+        gap: 40px;
+        padding: 20px;
+    }
+    
+    .button-container {
+        gap: 20px;
+        flex-wrap: wrap;
+        padding: 0 20px;
+    }
+    
+    #cancel, #send_otp {
+        width: 40%;
+        min-width: 120px;
+        padding: 12px 8px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .top-nav-bar {
+        height: 60px;
+        padding: 0 10px;
+    }
+    
+    .top-nav-bar a {
+        font-size: 14px;
+        padding: 10px 8px;
+    }
+    
+    .icon img {
+        width: 40px;
+        height: 40px;
+        margin-left: 3%;
+    }
+    
+    .icon h4 {
+        font-size: 12px;
+        margin-left: 10%;
+    }
+    
+    #back_button {
+        font-size: 12px;
+        padding: 6px 12px;
+        width: 80px;
+    }
+    
+    .confirmation-container {
+        padding: 0 15px;
+        margin-top: 5%;
+    }
+    
+    .confirmation-border {
+        width: 95%;
+        padding: 15px;
+        margin-top: 10%;
+    }
+    
+    .confirmation-label {
+        font-size: 18px;
+        margin-top: 5%;
+    }
+    
+    .confirmation-receipt-border {
+        width: 85%;
+        height: 70%;
+        margin: 8% auto;
+    }
+    
+    .receipt-labels {
+        font-size: 14px;
+        gap: 25px;
+        padding: 15px 10px;
+    }
+    
+    .button-container {
+        margin-top: 8%;
+        gap: 15px;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    #cancel, #send_otp {
+        width: 60%;
+        max-width: 200px;
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .top-nav-bar a {
+        font-size: 12px;
+        padding: 8px 6px;
+    }
+    
+    .icon img {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .icon h4 {
+        font-size: 10px;
+    }
+    
+    .confirmation-label {
+        font-size: 16px;
+    }
+    
+    .receipt-labels {
+        font-size: 12px;
+        gap: 20px;
+    }
+    
+    #cancel, #send_otp {
+        width: 70%;
+        font-size: 12px;
+    }
 }

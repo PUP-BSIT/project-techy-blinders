@@ -31,17 +31,11 @@ body {
     overflow: hidden;
     font-style: "sans-serif";
     position: relative;
-    min-height: 70px;
+    height: 70px;
 }
 
 .top-nav-bar a {
     float: right;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    text-decoration: none;
-    font-family: "Lexend Tera", sans-serif;
-    font-size: 20px;
 }
 
 .icon img {
@@ -54,7 +48,7 @@ body {
 
 .icon h4 {
     position: absolute;
-    margin-top: 2%;
+    margin-top: 1.5%;
     margin-left: 7%;
     font-family: "Lexend Tera", sans-serif;
     color: white;
@@ -73,6 +67,8 @@ a {
     color: white;
     border-radius: 50px;
     transition: all 0.3s ease;
+    margin-top: 20%;
+    margin-right: 10px;
 }
 
 #back_button:hover {

@@ -30,6 +30,7 @@ body {
     background-color: #1A1E29;
     overflow: hidden;
     font-style: "sans-serif";
+    height: 65px;
 }
 
 .top-nav-bar a {

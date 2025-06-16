@@ -311,3 +311,109 @@ a {
     border: solid 0px;
     cursor: pointer;
 }
+
+/* Responsive Mobile View */
+@media (max-width: 600px) {
+    .top-nav-bar {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 10px;
+    }
+    .top-nav-bar a, #logout_button {
+        float: none;
+        display: block;
+        width: 100%;
+        margin: 5px 0 0 0;
+        text-align: left;
+        padding: 10px 15px;
+        font-size: 16px;
+    }
+    .icon img {
+        position: static;
+        width: 45px;
+        height: 45px;
+        margin: 10px 0 0 10px;
+    }
+    .icon h4 {
+        position: static;
+        margin: 10px 0 0 10px;
+        font-size: 18px;
+    }
+    .account-details-border {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 10px;
+        width: 98%;
+        margin: 2% 1% 0 1%;
+        height: auto;
+    }
+    .account-details {
+        margin-left: 0;
+        gap: 15px;
+        width: 100%;
+    }
+    .account-details h1 {
+        font-size: 22px;
+        margin-top: 0;
+    }
+    .account-details h4 {
+        font-size: 16px;
+        padding: 0;
+    }
+    .balance-details {
+        width: 100%;
+        margin-top: 20px;
+    }
+    .balance-details h1 {
+        font-size: 20px;
+    }
+    .balance-details h3 {
+        font-size: 32px;
+    }
+    .recent-transaction-container {
+        margin: 2% 1% 0 1%;
+    }
+    .bottom-boxes {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .recent-transaction-border,
+    .bank-services-border {
+        width: 100%;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+    }
+    .recent-transaction-details {
+        padding: 15px 10px;
+    }
+    .recent-transaction-details h1 {
+        font-size: 20px;
+        margin-left: 0;
+        margin-bottom: 10px;
+        margin-top: 0;
+    }
+    .bank-service {
+        font-size: 20px;
+        margin-top: 10px;
+    }
+    .bank-service-details {
+        margin-top: 10px;
+    }
+    .transfer-funds-internal button,
+    .transfer-funds-external button,
+    .deposit-funds button {
+        width: 90%;
+        font-size: 16px;
+        padding: 10px 0;
+        margin-top: 10px;
+    }
+    #history_button {
+        width: 90%;
+        font-size: 16px;
+        margin: 10px 0 0 0;
+        padding: 10px 0;
+        border-radius: 10px;
+    }
+}

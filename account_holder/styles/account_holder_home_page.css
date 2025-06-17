@@ -312,35 +312,50 @@ a {
     cursor: pointer;
 }
 
-/* Responsive Mobile View */
-@media (max-width: 600px) {
+@media (max-width: 700px) {
     .top-nav-bar {
         height: auto;
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
         padding-bottom: 10px;
     }
-    .top-nav-bar a, #logout_button {
-        float: none;
-        display: block;
+    
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 100%;
-        margin: 5px 0 0 0;
-        text-align: left;
-        padding: 10px 15px;
-        font-size: 16px;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
+
     .icon img {
         position: static;
         width: 45px;
         height: 45px;
-        margin: 10px 0 0 10px;
+        margin: 0 8px 0 0;
     }
+
     .icon h4 {
         position: static;
-        margin: 10px 0 0 10px;
+        margin: 0;
         font-size: 18px;
+        color: white;
+        font-family: "Lexend Tera", sans-serif;
     }
+
+    .top-nav-bar a, #logout_button {
+        float: none;
+        display: block;
+        width: 90%;
+        text-align: center;
+        padding: 10px 0;
+        font-size: 16px;
+        margin: 0 auto;
+        flex-direction: column-reverse;
+    }
+
     .account-details-border {
         flex-direction: column;
         align-items: flex-start;
@@ -349,71 +364,95 @@ a {
         margin: 2% 1% 0 1%;
         height: auto;
     }
+
     .account-details {
         margin-left: 0;
         gap: 15px;
         width: 100%;
     }
+    
     .account-details h1 {
         font-size: 22px;
         margin-top: 0;
     }
+
     .account-details h4 {
         font-size: 16px;
         padding: 0;
     }
+
     .balance-details {
         width: 100%;
         margin-top: 20px;
     }
+
     .balance-details h1 {
         font-size: 20px;
     }
+
     .balance-details h3 {
         font-size: 32px;
     }
+
     .recent-transaction-container {
         margin: 2% 1% 0 1%;
     }
+
     .bottom-boxes {
         flex-direction: column;
         gap: 20px;
     }
+
     .recent-transaction-border,
     .bank-services-border {
         width: 100%;
         margin-bottom: 15px;
         padding-bottom: 10px;
     }
+
     .recent-transaction-details {
         padding: 15px 10px;
     }
+
     .recent-transaction-details h1 {
         font-size: 20px;
         margin-left: 0;
         margin-bottom: 10px;
         margin-top: 0;
     }
+
+    .bank-services-border {
+        margin-top: -26px;
+    }
+
     .bank-service {
         font-size: 20px;
         margin-top: 10px;
     }
+
     .bank-service-details {
         margin-top: 10px;
     }
+
     .transfer-funds-internal button,
-    .transfer-funds-external button,
-    .deposit-funds button {
+    .transfer-funds-external button {
         width: 90%;
+        max-width: unset;
+        min-width: 100px;
         font-size: 16px;
         padding: 10px 0;
         margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
     }
+
     #history_button {
         width: 90%;
+        min-width: 100px;
+        max-width: unset;
         font-size: 16px;
-        margin: 10px 0 0 0;
         padding: 10px 0;
-        border-radius: 10px;
+        margin: 16px auto 0 auto;
     }
 }

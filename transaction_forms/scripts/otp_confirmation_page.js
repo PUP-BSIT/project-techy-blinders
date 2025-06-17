@@ -235,7 +235,7 @@ function verifyOTP() {
         const transferData = {
             transaction_amount: Number(pendingTransfer.amount),
             source_account_no: String(pendingTransfer.senderId),
-            source_bank_code: 'Blinders Vault',
+            source_bank_code: 'Blind Vault',
             recipient_account_no: String(pendingTransfer.recipientId),
             otp_code: String(otpCode)
         };

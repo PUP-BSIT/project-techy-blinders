@@ -522,6 +522,15 @@ a {
         min-width: 300px;
     }
     
+    .modal-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .modal-button {
+        width: 100%;
+    }
+    
     #back_button {
         font-size: 12px;
         padding: 6px 12px;

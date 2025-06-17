@@ -53,7 +53,7 @@
             <div class="modal">
                 <div class="modal-header">
                     <div id="modal_title" class="modal-title">Alert</div>
-                    <button class="modal-close" onclick="closeModal()">X</button>
+                    <button class="modal-close" onclick="closeModal()">×</button>
                 </div>
                 <div class="modal-body">
                     <i id="modal_icon" class="modal-icon"></i>
@@ -65,31 +65,52 @@
             </div>
         </div>
 
-        <div id="edit_modal" class="modal-overlay">
+        <div id="edit_email_modal" class="modal-overlay">
             <div class="modal">
                 <div class="modal-header">
-                    <div class="modal-title">Update Account Details</div>
-                    <button class="modal-close" onclick="closeEditModal()">X</button>
+                    <div class="modal-title">Update Email</div>
+                    <button class="modal-close" onclick="closeEmailModal()">×</button>
                 </div>
                 <div class="modal-body">
-                    <form id="editForm">
+                    <div class="modal-message">Do you want to edit the email address?</div>
+                    <form id="editEmailForm">
                         <div class="account-id-container">
                             <label class="account-id-label">New Email</label>
                             <div>
-                                <input type="email" id="new_email" class="account-id-input" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
-                            </div>
-                        </div>
-                        <div class="password-container">
-                            <label class="password-label">New Phone Number</label>
-                            <div>
-                                <input type="number" id="new_phone" class="password-input" required pattern="[0-9]{11}">
+                                <input type="email" id="new_email" class="account-id-input" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="modal-button secondary" onclick="closeEditModal()">Cancel</button>
-                    <button class="modal-button primary" onclick="submitEditForm()">Update</button>
+                    <button class="modal-button secondary" onclick="closeEmailModal()">Cancel</button>
+                    <button class="modal-button secondary" onclick="skipEmail()">Skip</button>
+                    <button class="modal-button primary" onclick="submitEmail()">Update Email</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="edit_phone_modal" class="modal-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <div class="modal-title">Update Phone Number</div>
+                    <button class="modal-close" onclick="closePhoneModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-message">Do you want to edit the phone number?</div>
+                    <form id="editPhoneForm">
+                        <div class="password-container">
+                            <label class="password-label">New Phone Number</label>
+                            <div>
+                                <input type="number" id="new_phone" class="password-input" pattern="[0-9]{11}">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-button secondary" onclick="closePhoneModal()">Cancel</button>
+                    <button class="modal-button secondary" onclick="submitChanges()">Skip</button>
+                    <button class="modal-button primary" onclick="submitPhone()">Update Phone</button>
                 </div>
             </div>
         </div>

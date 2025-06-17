@@ -1,6 +1,7 @@
 const API_URL = `https://blindvault.site/php/edit_account_details.php`;
 
 let currentEditId = null;
+let updates = { email: null, phone_number: null };
 
 function showModal(message, type = 'info', title = 'Alert') {
     const modal = document.getElementById('custom_modal');
@@ -72,10 +73,11 @@ function closeModal() {
     }, 300);
 }
 
-function showEditModal(id) {
+function showEmailModal(id) {
     currentEditId = id;
-    const modal = document.getElementById('edit_modal');
-    const form = document.getElementById('editForm');
+    updates = { email: null, phone_number: null };
+    const modal = document.getElementById('edit_email_modal');
+    const form = document.getElementById('editEmailForm');
     if (!modal || !form) return;
     
     form.reset();
@@ -92,8 +94,38 @@ function showEditModal(id) {
     }, 100);
 }
 
-function closeEditModal() {
-    const modal = document.getElementById('edit_modal');
+function closeEmailModal() {
+    const modal = document.getElementById('edit_email_modal');
+    if (!modal) return;
+    
+    modal.classList.remove('show');
+    
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
+}
+
+function showPhoneModal() {
+    const modal = document.getElementById('edit_phone_modal');
+    const form = document.getElementById('editPhoneForm');
+    if (!modal || !form) return;
+    
+    form.reset();
+    modal.classList.remove('show');
+    modal.style.display = 'block';
+    modal.offsetHeight;
+    
+    requestAnimationFrame(() => {
+        modal.classList.add('show');
+    });
+    
+    setTimeout(() => {
+        document.getElementById('new_phone').focus();
+    }, 100);
+}
+
+function closePhoneModal() {
+    const modal = document.getElementById('edit_phone_modal');
     if (!modal) return;
     
     modal.classList.remove('show');
@@ -120,7 +152,7 @@ function loadDetails() {
                         <td>${info.phone_number}</td>
                         <td>${info.email}</td>
                         <td>
-                            <button class="edit-button" onclick="showEditModal('${info.account_holder_id}')">Edit</button>
+                            <button class="edit-button" onclick="showEmailModal('${info.account_holder_id}')">Edit</button>
                         </td>
                     </tr>
                 `;
@@ -133,26 +165,64 @@ function loadDetails() {
         });
 }
 
-function submitEditForm() {
+function submitEmail() {
     const newEmail = document.getElementById('new_email').value;
-    const newPhone = document.getElementById('new_phone').value;
-    const editButton = document.querySelector(`button[onclick="showEditModal('${currentEditId}')"]`);
-
-    // Collect all validation errors
     const errors = [];
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailRegex.test(newEmail)) {
-        errors.push('Invalid email address: must contain "@" and a valid domain.');
-    }
 
-    const phoneRegex = /^\d{11}$/;
-    if (!phoneRegex.test(newPhone)) {
-        errors.push('Invalid phone number: must be exactly 11 digits.');
+    if (newEmail) {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(newEmail)) {
+            errors.push('Invalid email address: must contain "@" and a valid domain.');
+        } else {
+            updates.email = newEmail;
+        }
     }
 
     if (errors.length > 0) {
-        closeEditModal();
+        closeEmailModal();
         showModal(errors.join('\n'), 'warning', 'Invalid Input');
+        return;
+    }
+
+    closeEmailModal();
+    showPhoneModal();
+}
+
+function submitPhone() {
+    const newPhone = document.getElementById('new_phone').value;
+    const errors = [];
+
+    if (newPhone) {
+        const phoneRegex = /^\d{11}$/;
+        if (!phoneRegex.test(newPhone)) {
+            errors.push('Invalid phone number: must be exactly 11 digits.');
+        } else {
+            updates.phone_number = newPhone;
+        }
+    }
+
+    if (errors.length > 0) {
+        closePhoneModal();
+        showModal(errors.join('\n'), 'warning', 'Invalid Input');
+        return;
+    }
+
+    closePhoneModal();
+    submitChanges();
+}
+
+function skipEmail() {
+    closeEmailModal();
+    showPhoneModal();
+}
+
+function submitChanges() {
+    const editButton = document.querySelector(`button[onclick="showEmailModal('${currentEditId}')"]`);
+
+    // Check if any updates were provided
+    if (!updates.email && !updates.phone_number) {
+        closePhoneModal();
+        showModal('No changes were made.', 'info', 'No Updates');
         return;
     }
 
@@ -161,16 +231,16 @@ function submitEditForm() {
         editButton.innerHTML = '<span class="loading-spinner"></span>Updating...';
     }
 
+    const payload = { account_holder_id: currentEditId };
+    if (updates.email) payload.email = updates.email;
+    if (updates.phone_number) payload.phone_number = updates.phone_number;
+
     fetch(API_URL, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            account_holder_id: currentEditId,
-            email: newEmail,
-            phone_number: newPhone
-        })
+        body: JSON.stringify(payload)
     })
     .then(response => {
         if (!response.ok) {
@@ -180,17 +250,14 @@ function submitEditForm() {
     })
     .then(data => {
         if (data.success) {
-            closeEditModal();
             showModal("Account updated successfully!", 'success', 'Success');
             loadDetails();
         } else {
-            closeEditModal();
             showModal("Error: " + (data.error || 'Unknown error'), 'error', 'Error');
         }
     })
     .catch(err => {
         console.error("Update failed", err);
-        closeEditModal();
         showModal("An error occurred while updating.", 'error', 'Error');
     })
     .finally(() => {

@@ -14,6 +14,76 @@ function maskAccountName(fullName) {
     return maskedParts.join(' ');
 }
 
+function showModal(message, type = 'info', title = 'Confirmation Receipt') {
+    const modal = document.getElementById('custom_modal');
+    const modalTitle = document.getElementById('modal_title');
+    const modalMessage = document.getElementById('modal_message');
+    const modalIcon = document.getElementById('modal_icon');
+    
+    if (!modal || !modalTitle || !modalMessage || !modalIcon) {
+        console.error('Modal elements not found:', {
+            modal: !!modal,
+            modalTitle: !!modalTitle,
+            modalMessage: !!modalMessage,
+            modalIcon: !!modalIcon
+        });
+        alert(message);
+        return;
+    }
+    
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+    
+    modalIcon.className = 'modal-icon';
+    
+    switch(type) {
+        case 'success':
+            modalIcon.className += ' success fas fa-check-circle';
+            modalTitle.textContent = title || 'Success';
+            break;
+        case 'error':
+            modalIcon.className += ' error fas fa-times-circle';
+            modalTitle.textContent = title || 'Error';
+            break;
+        case 'warning':
+            modalIcon.className += ' warning fas fa-exclamation-triangle';
+            modalTitle.textContent = title || 'Warning';
+            break;
+        case 'info':
+            modalIcon.className += ' info fas fa-info-circle';
+            break;
+        default:
+            modalIcon.className += ' info fas fa-info-circle';
+    }
+    
+    modal.classList.remove('show');
+    
+    modal.style.display = 'block';
+    modal.offsetHeight; 
+    
+    requestAnimationFrame(() => {
+        modal.classList.add('show');
+    });
+    
+    setTimeout(() => {
+        const closeButton = modal.querySelector('.modal-button.primary');
+        if (closeButton) {
+            closeButton.focus();
+        }
+    }, 100);
+}
+
+function closeModal() {
+    const modal = document.getElementById('custom_modal');
+    if (!modal) return;
+    
+    modal.classList.remove('show');
+    
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
+}
+
 window.onload = async function() {
     const transferType = urlParams.get('transferType') || 'internal';
     localStorage.setItem('pendingTransferType', transferType);
@@ -69,7 +139,7 @@ window.onload = async function() {
             document.getElementById('display_bank_name').textContent = bankName;
         }
     } else {
-        alert("Missing transfer information. Please go back and fill the form.");
+        showModal("Missing transfer information. Please go back and fill the form.");
         window.location.href = transferType === 'external' ? "transfer_fund_external.html" : "transfer_fund_internal.html";
     }
 };
@@ -132,10 +202,10 @@ document.getElementById('send_otp').addEventListener('click', async function() {
             localStorage.setItem('pendingTransfer', JSON.stringify(pendingTransfer));
             window.location.href = "otp_confirmation_page.html";
         } else {
-            alert('Error sending OTP: ' + data.message);
+            showModal('Error sending OTP: ' + data.message);
         }
     } catch (error) {
-        alert('Network error. Please try again.');
+        showModal('Network error. Please try again.');
     }
 });
 

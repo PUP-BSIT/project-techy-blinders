@@ -1,5 +1,67 @@
 let API_URL = "https://blindvault.site/php/process_registration.php";
 
+function showModal(message, type = 'info', title = 'Alert') {
+    const modal = document.getElementById('custom_modal');
+    const modalTitle = document.getElementById('modal_title');
+    const modalMessage = document.getElementById('modal_message');
+    const modalIcon = document.getElementById('modal_icon');
+    
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+    
+    modalIcon.className = 'modal-icon';
+    switch(type) {
+        case 'success':
+            modalIcon.className += ' success fas fa-check-circle';
+            modalTitle.textContent = title || 'Success';
+            break;
+        case 'error':
+            modalIcon.className += ' error fas fa-times-circle';
+            modalTitle.textContent = title || 'Error';
+            break;
+        case 'warning':
+            modalIcon.className += ' warning fas fa-exclamation-triangle';
+            modalTitle.textContent = title || 'Warning';
+            break;
+        case 'info':
+            modalIcon.className += ' info fas fa-info-circle';
+            break;
+        default:
+            modalIcon.className += ' info fas fa-info-circle';
+    }
+    
+    modal.style.display = 'block';
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
+    
+    setTimeout(() => {
+        const closeButton = modal.querySelector('.modal-button.primary');
+        closeButton.focus();
+    }, 100);
+}
+
+function closeModal() {
+    const modal = document.getElementById('custom_modal');
+    modal.classList.remove('show');
+    
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
+}
+
+document.getElementById('custom_modal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeModal();
+    }
+});
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('custom_modal').style.display === 'block') {
+        closeModal();
+    }
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     const firstName = document.getElementById("first_name");
     const lastName = document.getElementById("last_name");
@@ -54,27 +116,27 @@ function submitUser() {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     validateForm();
     if (!firstName || !lastName || !middleInitial) {
-        alert("Please complete the form.");
+        showModal("Please complete the form.");
         return;
     }
 
     if (!phonePattern.test(phoneNumber)) {
-        alert("Phone number must be 10–15 digits.");
+        showModal("Phone number must be 10–15 digits.");
         return;
     }
 
     if (!emailPattern.test(email)) {
-        alert("Please enter a valid email address.");
+        showModal("Please enter a valid email address.");
         return;
     }
 
     if (password.length < 6) {
-        alert("Password must be at least 6 characters.");
+        showModal("Password must be at least 6 characters.");
         return;
     }
 
     if (password !== confirmationPassword) {
-        alert("Passwords do not match.");
+        showModal("Passwords do not match.");
         return;
     }
 
@@ -102,9 +164,9 @@ function submitUser() {
             
             responseText.toLocaleLowerCase().includes()
             if (accountId) {
-                alert(`Account successfully created! Your Account ID is: ${accountId}\n\nPlease save this ID as you will need it to log in.`);
+                showModal(`Account successfully created! Your Account ID is: ${accountId}\n\nPlease save this ID as you will need it to log in.`);
             } else {
-                alert("Account successfully created! Please check the server response for your Account ID.");
+                showModal("Account successfully created! Please check the server response for your Account ID.");
             }
             
             clearForm();
@@ -114,12 +176,12 @@ function submitUser() {
             }, 3000);
             
         } else {
-            alert(responseText);
+            showModal(responseText);
         }
     })
     .catch((error) => {
         console.error("Error submitting user:", error);
-        alert("An error occurred. Please try again.");
+        showModal("An error occurred. Please try again.");
     });
 }
 

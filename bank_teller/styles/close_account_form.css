@@ -174,3 +174,108 @@ a {
     background-color: #076b51;
     box-shadow: 0 0 20px var(--accent);
 }
+
+@media (max-width: 600px) {
+    .top-nav-bar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 8px;
+        gap: 0;
+    }
+
+    .icon {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: static;
+    }
+
+    .icon img {
+        width: 36px;
+        height: 36px;
+        margin: 0;
+        position: static;
+    }
+
+    .icon h4 {
+        font-size: 1.1em;
+        margin: 0;
+        position: static;
+    }
+
+    .top-nav-bar a {
+        float: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    #back_button {
+        font-size: 1em;
+        padding: 8px 16px;
+        border-radius: 30px;
+        margin-left: 8px;
+    }
+
+    .close-account-container {
+        min-height: 100vh;
+        padding: 0 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .close-account-border {
+        width: 98vw;
+        max-width: 370px;
+        height: auto;
+        margin-top: 30px;
+        margin-left: 10%;
+        margin-right: 10%;
+        padding: 5%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .close-account-label {
+        font-size: 1.2em;
+        margin-top: 20px;
+    }
+
+    .account-id-label {
+        margin-left: 0;
+        text-align: left;
+        width: 100%;
+        font-size: 15px;
+    }
+
+    #account_id {
+        width: 150%;
+        font-size: 1em;
+    }
+
+    #closure_reason {
+        width: 93%;
+        font-size: 1em;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    #cancel,
+    #submit {
+        width: 70%;
+        font-size: 1em;
+        padding: 12px;
+        margin-left: 15%;
+    }
+}

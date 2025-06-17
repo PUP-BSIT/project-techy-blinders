@@ -6,10 +6,22 @@ const API_URL = "https://blindvault.site/php/login_page.php";
     const modalMessage = document.getElementById('modal_message');
     const modalIcon = document.getElementById('modal_icon');
     
+    if (!modal || !modalTitle || !modalMessage || !modalIcon) {
+        console.error('Modal elements not found:', {
+            modal: !!modal,
+            modalTitle: !!modalTitle,
+            modalMessage: !!modalMessage,
+            modalIcon: !!modalIcon
+        });
+        alert(message);
+        return;
+    }
+    
     modalTitle.textContent = title;
     modalMessage.textContent = message;
     
     modalIcon.className = 'modal-icon';
+    
     switch(type) {
         case 'success':
             modalIcon.className += ' success fas fa-check-circle';
@@ -30,37 +42,33 @@ const API_URL = "https://blindvault.site/php/login_page.php";
             modalIcon.className += ' info fas fa-info-circle';
     }
     
+    modal.classList.remove('show');
+    
     modal.style.display = 'block';
-    setTimeout(() => {
+    modal.offsetHeight; 
+    
+    requestAnimationFrame(() => {
         modal.classList.add('show');
-    }, 10);
+    });
     
     setTimeout(() => {
         const closeButton = modal.querySelector('.modal-button.primary');
-        closeButton.focus();
+        if (closeButton) {
+            closeButton.focus();
+        }
     }, 100);
 }
 
 function closeModal() {
     const modal = document.getElementById('custom_modal');
+    if (!modal) return;
+    
     modal.classList.remove('show');
     
     setTimeout(() => {
         modal.style.display = 'none';
     }, 300);
 }
-
-document.getElementById('custom_modal').addEventListener('click', function(e) {
-    if (e.target === this) {
-        closeModal();
-    }
-});
-
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && document.getElementById('custom_modal').style.display === 'block') {
-        closeModal();
-    }
-});
 
 function loginUser() {
     console.log("loginUser triggered");
@@ -76,8 +84,10 @@ function loginUser() {
         return;
     }
 
-    loginButton.disabled = true;
-    loginButton.innerHTML = '<span class="loading-spinner"></span>Logging in...';
+    if (loginButton) {
+        loginButton.disabled = true;
+        loginButton.innerHTML = '<span class="loading-spinner"></span>Logging in...';
+    }
 
     fetch(API_URL, {
         method: 'POST',
@@ -106,20 +116,33 @@ function loginUser() {
 
                 console.log("Session storage set:", sessionStorage.getItem("account_holder_id"));
                 console.log("Local storage set:", localStorage.getItem("loggedInId"));
-                showModal('Login successful!');
-                window.location.href = "account_holder_home_page.html?login_success=true";
+                
+                showModal('Login successful!', 'success', 'Success');
+                
+                setTimeout(() => {
+                    window.location.href = "account_holder_home_page.html?login_success=true";
+                }, 1500);
             } else {
-                showModal('Login failed: ' + (data.error || data.message || 'Unknown error'));
-                window.location.href = "login_page_index.html?login_success=false";
+                showModal('Login failed: ' + (data.error || data.message || 'Unknown error'), 'error', 'Login Failed');
+                
+                setTimeout(() => {
+                    window.location.href = "login_page_index.html?login_success=false";
+                }, 2000);
             }
 
         } catch (e) {
             console.error('JSON parse error:', e);
-            showModal('Server error: Invalid response format');
+            showModal('Server error: Invalid response format', 'error', 'Server Error');
         }
     })
     .catch(error => {
         console.error('Login error:', error);
-        showModal('Network error: ' + error.message);
+        showModal('Network error: ' + error.message, 'error', 'Network Error');
+    })
+    .finally(() => {
+        if (loginButton) {
+            loginButton.disabled = false;
+            loginButton.innerHTML = 'Login'; // Or whatever the original text was
+        }
     });
 }

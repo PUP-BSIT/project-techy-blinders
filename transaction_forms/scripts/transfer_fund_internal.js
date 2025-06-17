@@ -7,6 +7,76 @@ let transferButton = document.getElementById("transfer");
 let cancelButtonElem = document.getElementById("cancel");
 let totalBalanceElement = document.querySelector(".total-balance");
 
+function showModal(message, type = 'info', title = 'Transaction Internal') {
+    const modal = document.getElementById('custom_modal');
+    const modalTitle = document.getElementById('modal_title');
+    const modalMessage = document.getElementById('modal_message');
+    const modalIcon = document.getElementById('modal_icon');
+    
+    if (!modal || !modalTitle || !modalMessage || !modalIcon) {
+        console.error('Modal elements not found:', {
+            modal: !!modal,
+            modalTitle: !!modalTitle,
+            modalMessage: !!modalMessage,
+            modalIcon: !!modalIcon
+        });
+        alert(message);
+        return;
+    }
+    
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+    
+    modalIcon.className = 'modal-icon';
+    
+    switch(type) {
+        case 'success':
+            modalIcon.className += ' success fas fa-check-circle';
+            modalTitle.textContent = title || 'Success';
+            break;
+        case 'error':
+            modalIcon.className += ' error fas fa-times-circle';
+            modalTitle.textContent = title || 'Error';
+            break;
+        case 'warning':
+            modalIcon.className += ' warning fas fa-exclamation-triangle';
+            modalTitle.textContent = title || 'Warning';
+            break;
+        case 'info':
+            modalIcon.className += ' info fas fa-info-circle';
+            break;
+        default:
+            modalIcon.className += ' info fas fa-info-circle';
+    }
+    
+    modal.classList.remove('show');
+    
+    modal.style.display = 'block';
+    modal.offsetHeight; 
+    
+    requestAnimationFrame(() => {
+        modal.classList.add('show');
+    });
+    
+    setTimeout(() => {
+        const closeButton = modal.querySelector('.modal-button.primary');
+        if (closeButton) {
+            closeButton.focus();
+        }
+    }, 100);
+}
+
+function closeModal() {
+    const modal = document.getElementById('custom_modal');
+    if (!modal) return;
+    
+    modal.classList.remove('show');
+    
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
+}
+
 // Function to fetch and update balance
 function loadCurrentBalance() {
     const loggedInUserId = localStorage.getItem("loggedInId");
@@ -40,13 +110,13 @@ function loadCurrentBalance() {
                 fetchBalance(data.account_holder_id);
             } else {
                 console.error("Failed to get user ID from session:", data);
-                alert("Session expired. Please login again.");
+                showModal("Session expired. Please login again.");
                 window.location.href = "../login_page_index.html";
             }
         })
         .catch(error => {
             console.error("Error validating session:", error);
-            alert("Session expired. Please login again.");
+            showModal("Session expired. Please login again.");
             window.location.href = "../login_page_index.html";
         });
         return;
@@ -58,7 +128,7 @@ function loadCurrentBalance() {
 function handleSessionExpired() {
     localStorage.clear();
     sessionStorage.clear();
-    alert("Session expired. Please login again.");
+    showModal("Session expired. Please login again.");
     window.location.href = "../login_page_index.html";
 }
 
@@ -86,7 +156,7 @@ function fetchBalance(userId) {
             const balance = parseFloat(data.balance);
             if (isNaN(balance)) {
                 console.error('Invalid balance received:', data.balance);
-                alert('Error: Invalid balance received from server');
+                showModal('Error: Invalid balance received from server');
                 return;
             }
             localStorage.setItem("currentBalance", balance.toString());
@@ -94,12 +164,12 @@ function fetchBalance(userId) {
             console.log('Balance updated:', balance);
         } else {
             console.error("Failed to load balance:", data.message);
-            alert("Failed to load balance. Please try again.");
+            showModal("Failed to load balance. Please try again.");
         }
     })
     .catch(error => {
         console.error('Error fetching balance:', error);
-        alert("Error loading balance. Please try again.");
+        showModal("Error loading balance. Please try again.");
     });
 }
 
@@ -124,19 +194,19 @@ function validateAmount(amount) {
     const transferAmount = parseFloat(amount);
     
     if (isNaN(transferAmount) || transferAmount <= 0) {
-        alert("Please enter a valid positive amount");
+        showModal("Please enter a valid positive amount");
         return false;
     }
     
     if (isNaN(currentBalance)) {
         console.log('Balance not available, attempting to reload...');
-        alert("Unable to verify your balance. Please try again.");
+        showModal("Unable to verify your balance. Please try again.");
         loadCurrentBalance(); // Try to reload balance
         return false;
     }
     
     if (transferAmount > currentBalance) {
-        alert("Transfer amount exceeds current balance");
+        showModal("Transfer amount exceeds current balance");
         return false;
     }
     
@@ -163,7 +233,7 @@ function submitUser() {
     }
 
     if (accountHolderId === loggedInUserId) {
-        alert("You cannot transfer funds to yourself.");
+        showModal("You cannot transfer funds to yourself.");
         return;
     }
 
@@ -189,14 +259,14 @@ function submitUser() {
             });
             window.location.href = `confirmation_form.html?${params.toString()}`;
         } else {
-            alert("Error: Could not verify recipient account. Please try again.");
+            showModal("Error: Could not verify recipient account. Please try again.");
             transferButton.disabled = false;
             transferButton.textContent = 'Transfer';
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert("Network error. Please try again.");
+        showModal("Network error. Please try again.");
         transferButton.disabled = false;
         transferButton.textContent = 'Transfer';
     });

@@ -19,6 +19,77 @@ let cancelButton = document.getElementById("cancel");
 let otpAlertShown = false;
 let resendButton = document.getElementById("resend_otp");
 
+function showModal(message, type = 'info', title = 'Transaction Internal') {
+    const modal = document.getElementById('custom_modal');
+    const modalTitle = document.getElementById('modal_title');
+    const modalMessage = document.getElementById('modal_message');
+    const modalIcon = document.getElementById('modal_icon');
+    
+    if (!modal || !modalTitle || !modalMessage || !modalIcon) {
+        console.error('Modal elements not found:', {
+            modal: !!modal,
+            modalTitle: !!modalTitle,
+            modalMessage: !!modalMessage,
+            modalIcon: !!modalIcon
+        });
+        alert(message);
+        return;
+    }
+    
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+    
+    modalIcon.className = 'modal-icon';
+    
+    switch(type) {
+        case 'success':
+            modalIcon.className += ' success fas fa-check-circle';
+            modalTitle.textContent = title || 'Success';
+            break;
+        case 'error':
+            modalIcon.className += ' error fas fa-times-circle';
+            modalTitle.textContent = title || 'Error';
+            break;
+        case 'warning':
+            modalIcon.className += ' warning fas fa-exclamation-triangle';
+            modalTitle.textContent = title || 'Warning';
+            break;
+        case 'info':
+            modalIcon.className += ' info fas fa-info-circle';
+            break;
+        default:
+            modalIcon.className += ' info fas fa-info-circle';
+    }
+    
+    modal.classList.remove('show');
+    
+    modal.style.display = 'block';
+    modal.offsetHeight; 
+    
+    requestAnimationFrame(() => {
+        modal.classList.add('show');
+    });
+    
+    setTimeout(() => {
+        const closeButton = modal.querySelector('.modal-button.primary');
+        if (closeButton) {
+            closeButton.focus();
+        }
+    }, 100);
+}
+
+function closeModal() {
+    const modal = document.getElementById('custom_modal');
+    if (!modal) return;
+    
+    modal.classList.remove('show');
+    
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
+}
+
+
 document.addEventListener('DOMContentLoaded', function() {
     // Optionally update UI for transfer type
     if (transferType === 'external') {
@@ -80,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
         resendButton.addEventListener("click", function() {
             const pendingTransfer = JSON.parse(localStorage.getItem('pendingTransfer'));
             if (!pendingTransfer) {
-                alert('No pending transfer data found');
+                showModal('No pending transfer data found');
                 return;
             }
             resendButton.disabled = true;
@@ -116,13 +187,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (data.debug_info) {
                         message += `\n\nPhone: ${data.debug_info.phone}\nExpires: ${data.debug_info.expires_at}`;
                     }
-                    alert(message);
+                    showModal(message);
                 } else {
-                    alert('Error resending OTP: ' + data.message);
+                    showModal('Error resending OTP: ' + data.message);
                 }
             })
             .catch(error => {
-                alert('Network error. Please try again.');
+                showModal('Network error. Please try again.');
             })
             .finally(() => {
                 resendButton.disabled = false;
@@ -147,12 +218,12 @@ function validateForm() {
 function verifyOTP() {
     const pendingTransfer = JSON.parse(localStorage.getItem('pendingTransfer'));
     if (!pendingTransfer) {
-        alert('No pending transfer data found');
+        showModal('No pending transfer data found');
         return;
     }
     const otpCode = otpVerification.value.trim();
     if (otpCode.length !== 6) {
-        alert('Please enter a valid 6-digit OTP');
+        showModal('Please enter a valid 6-digit OTP');
         return;
     }
     verifyButton.disabled = true;
@@ -179,7 +250,7 @@ function verifyOTP() {
             );
         });
         if (missingFields.length > 0) {
-            alert('Cannot proceed. Missing required fields: ' + missingFields.join(', '));
+            showModal('Cannot proceed. Missing required fields: ' + missingFields.join(', '));
             verifyButton.disabled = false;
             verifyButton.textContent = 'Verify';
             verifyButton.style.cursor = 'pointer';
@@ -194,19 +265,19 @@ function verifyOTP() {
         .then(response => response.json())
         .then(result => {
             if (result.success) {
-                alert('Transfer completed successfully!');
+                showModal('Transfer completed successfully!');
                 localStorage.removeItem('pendingTransfer');
                 localStorage.removeItem('pendingTransferType');
                 window.location.href = '../account_holder/account_holder_home_page.html';
             } else {
-                alert('Transfer failed: ' + result.message);
+                showModal('Transfer failed: ' + result.message);
                 verifyButton.disabled = false;
                 verifyButton.textContent = 'Verify';
                 verifyButton.style.cursor = 'pointer';
             }
         })
         .catch(error => {
-            alert('Network error during transfer. Please try again.');
+            showModal('Network error during transfer. Please try again.');
             verifyButton.disabled = false;
             verifyButton.textContent = 'Verify';
             verifyButton.style.cursor = 'pointer';
@@ -231,12 +302,12 @@ function verifyOTP() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert(`Transfer Successful!`);
+            showModal(`Transfer Successful!`);
             localStorage.removeItem('pendingTransfer');
             localStorage.removeItem('pendingTransferType');
             window.location.href = `thank_you_message.html`;
         } else {
-            alert('Verification failed: ' + data.message);
+            showModal('Verification failed: ' + data.message);
             verifyButton.disabled = false;
             verifyButton.textContent = 'Verify';
             verifyButton.style.cursor = 'pointer';
@@ -245,7 +316,7 @@ function verifyOTP() {
         }
     })
     .catch(error => {
-        alert('Network error. Please try again.');
+        showModal('Network error. Please try again.');
         verifyButton.disabled = false;
         verifyButton.textContent = 'Verify';
         verifyButton.style.cursor = 'pointer';

@@ -6,10 +6,25 @@ function showModal(message, type = 'info', title = 'Alert') {
     const modalMessage = document.getElementById('modal_message');
     const modalIcon = document.getElementById('modal_icon');
     
+    // Check if all elements exist
+    if (!modal || !modalTitle || !modalMessage || !modalIcon) {
+        console.error('Modal elements not found:', {
+            modal: !!modal,
+            modalTitle: !!modalTitle,
+            modalMessage: !!modalMessage,
+            modalIcon: !!modalIcon
+        });
+        // Fallback to browser alert if modal elements don't exist
+        alert(message);
+        return;
+    }
+    
     modalTitle.textContent = title;
     modalMessage.textContent = message;
     
+    // Reset classes first
     modalIcon.className = 'modal-icon';
+    
     switch(type) {
         case 'success':
             modalIcon.className += ' success fas fa-check-circle';
@@ -30,19 +45,31 @@ function showModal(message, type = 'info', title = 'Alert') {
             modalIcon.className += ' info fas fa-info-circle';
     }
     
-    modal.style.display = 'block';
-    setTimeout(() => {
-        modal.classList.add('show');
-    }, 10);
+    // Remove any existing show class first
+    modal.classList.remove('show');
     
+    // Force display and trigger reflow
+    modal.style.display = 'block';
+    modal.offsetHeight; // Force reflow
+    
+    // Add show class
+    requestAnimationFrame(() => {
+        modal.classList.add('show');
+    });
+    
+    // Focus the close button after animation
     setTimeout(() => {
         const closeButton = modal.querySelector('.modal-button.primary');
-        closeButton.focus();
+        if (closeButton) {
+            closeButton.focus();
+        }
     }, 100);
 }
 
 function closeModal() {
     const modal = document.getElementById('custom_modal');
+    if (!modal) return;
+    
     modal.classList.remove('show');
     
     setTimeout(() => {
@@ -50,19 +77,18 @@ function closeModal() {
     }, 300);
 }
 
-document.getElementById('custom_modal').addEventListener('click', function(e) {
-    if (e.target === this) {
-        closeModal();
-    }
-});
-
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && document.getElementById('custom_modal').style.display === 'block') {
-        closeModal();
-    }
-});
-
 document.addEventListener('DOMContentLoaded', function() {
+    // Add modal event listeners only if modal exists
+    const customModal = document.getElementById('custom_modal');
+    if (customModal) {
+        customModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    }
+    
+    // Form validation setup
     const firstName = document.getElementById("first_name");
     const lastName = document.getElementById("last_name");
     const middleName = document.getElementById("middle_name");
@@ -71,26 +97,36 @@ document.addEventListener('DOMContentLoaded', function() {
     const password = document.getElementById("password");
     const confirmPassword = document.getElementById("confirm_password");
 
-    firstName.addEventListener('input', validateForm);
-    lastName.addEventListener('input', validateForm);
-    middleName.addEventListener('input', validateForm);
-    phoneNumber.addEventListener('input', validateForm);
-    email.addEventListener('input', validateForm);
-    password.addEventListener('input', validateForm);
-    confirmPassword.addEventListener('input', validateForm);
+    if (firstName && lastName && middleName && phoneNumber && email && password && confirmPassword) {
+        firstName.addEventListener('input', validateForm);
+        lastName.addEventListener('input', validateForm);
+        middleName.addEventListener('input', validateForm);
+        phoneNumber.addEventListener('input', validateForm);
+        email.addEventListener('input', validateForm);
+        password.addEventListener('input', validateForm);
+        confirmPassword.addEventListener('input', validateForm);
 
-    validateForm();
+        validateForm();
+    }
+});
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('custom_modal')?.style.display === 'block') {
+        closeModal();
+    }
 });
 
 function validateForm() {
-    const firstName = document.getElementById("first_name").value;
-    const lastName = document.getElementById("last_name").value;
-    const middleName = document.getElementById("middle_name").value;
-    const phoneNumber = document.getElementById("phone_number").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirm_password").value;
+    const firstName = document.getElementById("first_name")?.value || '';
+    const lastName = document.getElementById("last_name")?.value || '';
+    const middleName = document.getElementById("middle_name")?.value || '';
+    const phoneNumber = document.getElementById("phone_number")?.value || '';
+    const email = document.getElementById("email")?.value || '';
+    const password = document.getElementById("password")?.value || '';
+    const confirmPassword = document.getElementById("confirm_password")?.value || '';
     let createAccount = document.querySelector('.create');
+    
+    if (!createAccount) return;
     
     if(firstName.length && lastName.length && middleName.length &&
         phoneNumber.length && email.length && password.length
@@ -104,40 +140,48 @@ function validateForm() {
 }
 
 function submitUser() {
-    let firstName = document.getElementById("first_name").value;
-    let lastName = document.getElementById("last_name").value;
-    let middleInitial = document.getElementById("middle_name").value;
-    let phoneNumber = document.getElementById("phone_number").value;
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
-    let confirmationPassword = document.getElementById("confirm_password").value;
+    let firstName = document.getElementById("first_name")?.value || '';
+    let lastName = document.getElementById("last_name")?.value || '';
+    let middleInitial = document.getElementById("middle_name")?.value || '';
+    let phoneNumber = document.getElementById("phone_number")?.value || '';
+    let email = document.getElementById("email")?.value || '';
+    let password = document.getElementById("password")?.value || '';
+    let confirmationPassword = document.getElementById("confirm_password")?.value || '';
     
     const phonePattern = /^[0-9]{10,15}$/;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
     validateForm();
+    
     if (!firstName || !lastName || !middleInitial) {
-        showModal("Please complete the form.");
+        showModal("Please complete the form.", 'warning', 'Missing Information');
         return;
     }
 
     if (!phonePattern.test(phoneNumber)) {
-        showModal("Phone number must be 10–15 digits.");
+        showModal("Phone number must be 10–15 digits.", 'warning', 'Invalid Phone Number');
         return;
     }
 
     if (!emailPattern.test(email)) {
-        showModal("Please enter a valid email address.");
+        showModal("Please enter a valid email address.", 'warning', 'Invalid Email');
         return;
     }
 
     if (password.length < 6) {
-        showModal("Password must be at least 6 characters.");
+        showModal("Password must be at least 6 characters.", 'warning', 'Password Too Short');
         return;
     }
 
     if (password !== confirmationPassword) {
-        showModal("Passwords do not match.");
+        showModal("Passwords do not match.", 'warning', 'Password Mismatch');
         return;
+    }
+
+    const submitButton = document.querySelector('.create');
+    if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<span class="loading-spinner"></span>Creating Account...';
     }
 
     fetch(API_URL, {
@@ -162,26 +206,31 @@ function submitUser() {
             
             let accountId = extractAccountId(responseText);
             
-            responseText.toLocaleLowerCase().includes()
             if (accountId) {
-                showModal(`Account successfully created! Your Account ID is: ${accountId}\n\nPlease save this ID as you will need it to log in.`);
+                showModal(`Account successfully created! Your Account ID is: ${accountId}\n\nPlease save this ID as you will need it to log in.`, 'success', 'Account Created');
             } else {
-                showModal("Account successfully created! Please check the server response for your Account ID.");
+                showModal("Account successfully created! Please check the server response for your Account ID.", 'success', 'Account Created');
             }
             
             clearForm();
             
             setTimeout(() => {
-                window.location.href = "login_page_index.html?account_successfully_created=true&account_id=" + accountId;
+                window.location.href = "login_page_index.html?account_successfully_created=true&account_id=" + (accountId || '');
             }, 3000);
             
         } else {
-            showModal(responseText);
+            showModal(responseText, 'error', 'Registration Failed');
         }
     })
     .catch((error) => {
         console.error("Error submitting user:", error);
-        showModal("An error occurred. Please try again.");
+        showModal("An error occurred. Please try again.", 'error', 'Network Error');
+    })
+    .finally(() => {
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.innerHTML = 'Create Account'; // Or whatever the original text was
+        }
     });
 }
 
@@ -193,7 +242,6 @@ function extractAccountId(responseText) {
         }
     } catch (e) {
     }
-    
     
     const numberMatches = responseText.match(/\b\d{6,}\b/g);
     if (numberMatches && numberMatches.length > 0) {
@@ -217,5 +265,9 @@ function extractAccountId(responseText) {
 }
 
 function clearForm() {
-    document.getElementById("signup_form").reset();
+    const form = document.getElementById("signup_form");
+    if (form) {
+        form.reset();
+    }
+    validateForm();
 }

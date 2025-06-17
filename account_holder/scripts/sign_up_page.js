@@ -6,7 +6,6 @@ function showModal(message, type = 'info', title = 'Alert') {
     const modalMessage = document.getElementById('modal_message');
     const modalIcon = document.getElementById('modal_icon');
     
-    // Check if all elements exist
     if (!modal || !modalTitle || !modalMessage || !modalIcon) {
         console.error('Modal elements not found:', {
             modal: !!modal,
@@ -14,7 +13,6 @@ function showModal(message, type = 'info', title = 'Alert') {
             modalMessage: !!modalMessage,
             modalIcon: !!modalIcon
         });
-        // Fallback to browser alert if modal elements don't exist
         alert(message);
         return;
     }
@@ -22,7 +20,6 @@ function showModal(message, type = 'info', title = 'Alert') {
     modalTitle.textContent = title;
     modalMessage.textContent = message;
     
-    // Reset classes first
     modalIcon.className = 'modal-icon';
     
     switch(type) {
@@ -45,19 +42,15 @@ function showModal(message, type = 'info', title = 'Alert') {
             modalIcon.className += ' info fas fa-info-circle';
     }
     
-    // Remove any existing show class first
     modal.classList.remove('show');
     
-    // Force display and trigger reflow
     modal.style.display = 'block';
-    modal.offsetHeight; // Force reflow
+    modal.offsetHeight; 
     
-    // Add show class
     requestAnimationFrame(() => {
         modal.classList.add('show');
     });
     
-    // Focus the close button after animation
     setTimeout(() => {
         const closeButton = modal.querySelector('.modal-button.primary');
         if (closeButton) {
@@ -78,7 +71,6 @@ function closeModal() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Add modal event listeners only if modal exists
     const customModal = document.getElementById('custom_modal');
     if (customModal) {
         customModal.addEventListener('click', function(e) {
@@ -88,7 +80,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Form validation setup
     const firstName = document.getElementById("first_name");
     const lastName = document.getElementById("last_name");
     const middleName = document.getElementById("middle_name");
@@ -229,7 +220,7 @@ function submitUser() {
     .finally(() => {
         if (submitButton) {
             submitButton.disabled = false;
-            submitButton.innerHTML = 'Create Account'; // Or whatever the original text was
+            submitButton.innerHTML = 'Create Account';
         }
     });
 }

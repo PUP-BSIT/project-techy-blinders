@@ -1,6 +1,6 @@
 const API_URL = "https://blindvault.site/php/login_page.php";
 
- function showModal(message, type = 'info', title = 'Alert') {
+ function showModal(message, type = 'info', title = 'Login') {
     const modal = document.getElementById('custom_modal');
     const modalTitle = document.getElementById('modal_title');
     const modalMessage = document.getElementById('modal_message');

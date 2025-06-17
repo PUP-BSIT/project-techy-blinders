@@ -218,6 +218,7 @@ body {
     text-shadow: 0 0 30px #065b44;
     transition: all 0.3s ease;
 }
+
 .modal-overlay.show {
     opacity: 1;
 }

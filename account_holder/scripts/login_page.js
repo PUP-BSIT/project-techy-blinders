@@ -106,20 +106,20 @@ function loginUser() {
 
                 console.log("Session storage set:", sessionStorage.getItem("account_holder_id"));
                 console.log("Local storage set:", localStorage.getItem("loggedInId"));
-                alert('Login successful!');
+                showModal('Login successful!');
                 window.location.href = "account_holder_home_page.html?login_success=true";
             } else {
-                alert('Login failed: ' + (data.error || data.message || 'Unknown error'));
+                showModal('Login failed: ' + (data.error || data.message || 'Unknown error'));
                 window.location.href = "login_page_index.html?login_success=false";
             }
 
         } catch (e) {
             console.error('JSON parse error:', e);
-            alert('Server error: Invalid response format');
+            showModal('Server error: Invalid response format');
         }
     })
     .catch(error => {
         console.error('Login error:', error);
-        alert('Network error: ' + error.message);
+        showModal('Network error: ' + error.message);
     });
 }

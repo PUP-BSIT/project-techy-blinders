@@ -26,6 +26,7 @@ Account Holder ID - 2193425582
 Password - kirbyconsultado
 
 # Account for Teller #
+Bank Teller [Login Page](https://blindvault.site/bank_teller/login_page.html) now!
 Teller ID - 1214567897
 Password - chris143
 </div>

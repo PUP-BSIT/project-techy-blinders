@@ -221,13 +221,16 @@ function submitUser() {
     let rawCurrentBalance = localStorage.getItem("currentBalance");
     let currentBalance = parseFloat(rawCurrentBalance);
 
-    // Debug logs
     console.log('Raw transfer amount:', rawTransferAmount);
     console.log('Parsed transfer amount:', transferAmount, 'Type:', typeof transferAmount);
     console.log('Raw current balance:', rawCurrentBalance);
     console.log('Parsed current balance:', currentBalance, 'Type:', typeof currentBalance);
     console.log('Logged in user ID:', loggedInUserId);
 
+    if (accountHolderId.length < 10 || accountHolderId > 10){
+        showModal("Account ID Should be exact 10");
+    }
+    
     if (!validateAmount(rawTransferAmount)) {
         return;
     }

@@ -104,7 +104,9 @@ function loadCurrentBalance() {
                     const balance = parseFloat(data.account_balance.replace(/,/g, ''));
                     if (!isNaN(balance)) {
                         localStorage.setItem("currentBalance", balance.toString());
-                        totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
+                        if (totalBalanceElement) {
+                            totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
+                        }
                         console.log('Initial balance stored:', balance);
                     }
                 }
@@ -114,13 +116,17 @@ function loadCurrentBalance() {
             } else {
                 console.error("Failed to get user ID from session:", data);
                 showModal("Session expired. Please login again.");
-                window.location.href = "../login_page_index.html";
+                setTimeout(() => {
+                    window.location.href = "../login_page_index.html";
+                }, 2000);
             }
         })
         .catch(error => {
             console.error("Error validating session:", error);
             showModal("Session expired. Please login again.");
-            window.location.href = "../login_page_index.html";
+            setTimeout(() => {
+                window.location.href = "../login_page_index.html";
+            }, 2000);
         });
         return;
     }
@@ -132,7 +138,9 @@ function handleSessionExpired() {
     localStorage.clear();
     sessionStorage.clear();
     showModal("Session expired. Please login again.");
-    window.location.href = "../login_page_index.html";
+    setTimeout(() => {
+        window.location.href = "../login_page_index.html";
+    }, 2000);
 }
 
 function fetchBalance(userId) {
@@ -163,7 +171,9 @@ function fetchBalance(userId) {
                 return;
             }
             localStorage.setItem("currentBalance", balance.toString());
-            totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
+            if (totalBalanceElement) {
+                totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
+            }
             console.log('Balance updated:', balance);
         } else {
             console.error("Failed to load balance:", data.message);
@@ -183,14 +193,19 @@ function startBalanceRefresh() {
 }
 
 function validateForm() {
-    if (transferAmountExternal.value.length && 
+    if (transferAmountExternal && recipientId && selectBank &&
+        transferAmountExternal.value.length && 
         recipientId.value.length && 
         selectBank.value !== "default") {
-        submitButton.disabled = false;
-        submitButton.style.cursor = "pointer";
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.style.cursor = "pointer";
+        }
     } else {
-        submitButton.disabled = true;
-        submitButton.style.cursor = "not-allowed";
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.style.cursor = "not-allowed";
+        }
     }
 }
 
@@ -218,11 +233,27 @@ function validateAmount(amount) {
     return true;
 }
 
-function submitTransfer() {
+function submitTransfer(event) {
+    // Prevent default form submission if this is a form button
+    if (event) {
+        event.preventDefault();
+    }
+    
+    if (!transferAmountExternal || !recipientId || !selectBank) {
+        showModal("Form elements not properly initialized");
+        return;
+    }
+    
     const amount = transferAmountExternal.value;
     const recipient = recipientId.value;
     const bankName = selectBank.value;
     const loggedInUserId = localStorage.getItem("loggedInId");
+    
+    // Check if form is properly filled
+    if (!amount || !recipient || !bankName || bankName === "default") {
+        showModal("Please fill in all required fields");
+        return;
+    }
     
     if (!validateAmount(amount)) {
         return;
@@ -234,8 +265,10 @@ function submitTransfer() {
     }
 
     // Disable submit button and show loading state
-    submitButton.disabled = true;
-    submitButton.textContent = 'Processing...';
+    if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Processing...';
+    }
 
     // Store transfer details for confirmation page
     const params = new URLSearchParams({
@@ -249,7 +282,11 @@ function submitTransfer() {
     window.location.href = `confirmation_form.html?${params.toString()}`;
 }
 
-function cancelTransfer() {
+function cancelTransfer(event) {
+    // Prevent default form submission if this is a form button
+    if (event) {
+        event.preventDefault();
+    }
     window.location.href = "../account_holder/account_holder_home_page.html";
 }
 
@@ -271,27 +308,42 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem("loggedInId", data.account_holder_id);
             if (data.account_balance) {
                 const balance = parseFloat(data.account_balance.replace(/,/g, ''));
-                if (!isNaN(balance)) {
+                if (!isNaN(balance) && totalBalanceElement) {
                     localStorage.setItem("currentBalance", balance.toString());
                     totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
                 }
             }
         }
-        // Now load current balance and initialize form
+        
+        // Initialize form elements and event listeners
+        transferAmountExternal = document.getElementById("transfer_amount_external");
+        recipientId = document.getElementById("recipient_id_external");
+        selectBank = document.getElementsByClassName("select-external-option")[0];
+        submitButton = document.getElementById("submit");
+        cancelButton = document.getElementById("cancel");
+        totalBalanceElement = document.querySelector(".total-balance-external");
+        
+        // Now load current balance
         loadCurrentBalance();
-        // ... (rest of your form initialization code)
+        
+        // Add event listeners only if elements exist
         if (transferAmountExternal && recipientId && selectBank) {
             transferAmountExternal.addEventListener('input', validateForm);
             recipientId.addEventListener('input', validateForm);
             selectBank.addEventListener('change', validateForm);
             validateForm();
         }
-        if (submitButton && cancelButton) {
+        
+        if (submitButton) {
             submitButton.addEventListener('click', submitTransfer);
+        }
+        
+        if (cancelButton) {
             cancelButton.addEventListener('click', cancelTransfer);
         }
     })
     .catch(error => {
+        console.error("Session validation error:", error);
         handleSessionExpired();
     });
 });

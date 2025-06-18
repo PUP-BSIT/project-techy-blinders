@@ -76,11 +76,17 @@ function loginUser() {
     const loginButton = document.querySelector('.button');
     let accountId = document.getElementById('account_id').value;
     let password = document.getElementById('password').value;
+    const captchaResponse = grecaptcha.getResponse();
 
     console.log("Account ID:", accountId, "Password length:", password.length);
 
     if (!accountId || !password) {
         showModal('Please enter both account ID and password.', 'warning', 'Missing Information');
+        return;
+    }
+
+    if (captchaResponse.length === 0) {
+        showModal("Please verify the CAPTCHA before logging in.", "error", "CAPTCHA Required");
         return;
     }
 
@@ -95,7 +101,7 @@ function loginUser() {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         credentials: 'include',
-        body: `account_holder_id=${encodeURIComponent(accountId)}&password=${encodeURIComponent(password)}`
+        body: `account_holder_id=${encodeURIComponent(accountId)}&password=${encodeURIComponent(password)}&g-recaptcha-response=${encodeURIComponent(captchaResponse)}`
     })
     .then(response => {
         console.log("Response status:", response.status);

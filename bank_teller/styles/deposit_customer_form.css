@@ -7,21 +7,25 @@
     --shadow: 0 0 20px rgba(0, 223, 154, 0.3),
               0 0 80px rgba(0, 223, 154, 0.4);
     --button-shadow: 0 0 8px rgba(0, 223, 154, 0.5),
-            0 0 16px rgba(0, 223, 154, 0.6),
-            0 0 24px rgba(0, 223, 154, 0.7);
+                     0 0 16px rgba(0, 223, 154, 0.6),
+                     0 0 24px rgba(0, 223, 154, 0.7);
     --hover-button: #0b3f34;
-
-    --back-button-shadow:
-    0 0 8px rgba(134, 16, 16, 0.5),
-    0 0 16px rgba(134, 16, 16, 0.6),
-    0 0 24px rgba(134, 16, 16, 0.7);
-
-    --hover-back-button:#520a0a;
+    --back-button-shadow: 0 0 8px rgba(134, 16, 16, 0.5),
+                          0 0 16px rgba(134, 16, 16, 0.6),
+                          0 0 24px rgba(134, 16, 16, 0.7);
+    --hover-back-button: #520a0a;
+    --container-bg: #132D46;
+    --text-primary: #FFF;
+    --text-secondary: #CCC;
+    --accent-color: #01C38E;
+    --shadow-glow: 0 0 20px rgba(0, 223, 154, 0.3),
+                   0 0 80px rgba(0, 223, 154, 0.4);
 }
 
 * {
     margin: 0;
-    padding: 0px;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -36,14 +40,13 @@ body {
 
 .top-nav-bar a {
     float: right;
-    color: rgb(69, 68, 68);
+    color: white;
     text-align: center;
     padding: 20px 20px;
     text-decoration: none;
     font-family: "Lexend Tera", sans-serif;
     font-size: 20px;
     margin-right: 0;
-    color: white;
 }
 
 .icon img {
@@ -60,7 +63,6 @@ body {
     margin-left: 7%;
     font-family: "Lexend Tera", sans-serif;
     color: white;
-
 }
 
 a {
@@ -72,7 +74,7 @@ a {
     font-size: 15px;
     padding: 7px;
     width: 100px;
-    border: solid 0px;
+    border: none;
     background-color: #861010;
     color: white;
     border-radius: 50px;
@@ -95,7 +97,7 @@ a {
 
 .deposit-customer-border {
     margin-top: 7%;
-    border: solid 0px;
+    border: none;
     width: 507px;
     height: 380px;
     background-color: #132D46;
@@ -117,10 +119,10 @@ a {
 
 #account_id, 
 #deposit_amount {
-    margin-top: 5%;
+    margin-top: 1%;
     width: 60%;
-    height: 15px;
-    padding: 5px;
+    height: 40px;
+    padding: 10px;
     border-radius: 8px;
 }
 
@@ -130,24 +132,10 @@ a {
     margin-left: -36%;
 }
 
-#account_id {
-    margin-top: 1%;
-    width: 60%;
-    height: 15px;
-    padding: 5px;
-}
-
 .deposit-amount-label {
     color: white;
     font-family: "Lexend Tera", sans-serif;
     margin-left: -27%;
-}
-
-#deposit_amount {
-    margin-top: 1%;
-    width: 60%;
-    height: 15px;
-    padding: 5px;
 }
 
 .button-container {
@@ -159,19 +147,19 @@ a {
 }
 
 #cancel {
-    border: solid 0px;
+    border: none;
     padding: 10px;
     width: 25%;
     color: white;
+    background-color: #861010;
     font-family: "Lexend Tera", sans-serif;
     border-radius: 50px;
     box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
     cursor: pointer;
-    background-color: #861010;
 }
 
 #deposit {
-    border: solid 0px;
+    border: none;
     padding: 10px;
     width: 25%;
     background-color: #01C38E;
@@ -184,7 +172,6 @@ a {
 
 #cancel:hover {
     transform: translateY(-3px);
-    cursor: pointer;
     font-weight: bold;
     background-color: var(--hover-back-button);
     box-shadow: var(--back-button-shadow);
@@ -194,9 +181,177 @@ a {
     cursor: pointer;
     transform: translateY(-2px);
     font-weight: bold;
-    background-color: var(--hover-button); 
+    background-color: var(--hover-button);
     box-shadow: var(--button-shadow);
-    transform: translateY(-2px); 
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.7);
+    background: var(--container-bg);
+    border-radius: 20px;
+    box-shadow: var(--shadow-glow), 0 25px 50px rgba(0, 0, 0, 0.5);
+    min-width: 420px;
+    max-width: 90vw;
+    z-index: 1001;
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(1, 195, 142, 0.2);
+}
+
+.modal-overlay.show .modal {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-title {
+    font-family: 'Lexend Tera', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    transform: scale(1.1);
+}
+
+.modal-body {
+    padding: 30px;
+    text-align: center;
+}
+
+.modal-icon {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.modal-icon.success {
+    color: var(--accent-color);
+    filter: drop-shadow(0 0 10px rgba(1, 195, 142, 0.5));
+}
+
+.modal-icon.error {
+    color: #FF4757;
+    filter: drop-shadow(0 0 10px rgba(255, 71, 87, 0.5));
+}
+
+.modal-icon.warning {
+    color: #FFA502;
+    filter: drop-shadow(0 0 10px rgba(255, 165, 2, 0.5));
+}
+
+.modal-icon.info {
+    color: #3742FA;
+    filter: drop-shadow(0 0 10px rgba(55, 66, 250, 0.5));
+}
+
+.modal-message {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    font-family: 'IBM Plex Mono', monospace;
+    margin-bottom: 25px;
+    white-space: pre-line;
+}
+
+.modal-footer {
+    padding: 0 30px 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.modal-button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+.modal-button.primary {
+    background: linear-gradient(135deg, var(--accent-color), #00B377);
+    color: var(--text-primary);
+}
+
+.modal-button.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(1, 195, 142, 0.4);
+}
+
+.modal-button.secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.modal-button.secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--text-primary);
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
 
 @media (max-width: 600px) {
@@ -205,7 +360,7 @@ a {
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        padding: 10px 8px;
+        padding: 10px;
         gap: 0;
     }
 
@@ -217,8 +372,8 @@ a {
     }
 
     .icon img {
-        width: 36px;
-        height: 36px;
+        width: 40px;
+        height: 40px;
         margin: 0;
         position: static;
     }
@@ -233,8 +388,6 @@ a {
         float: none;
         padding: 0;
         margin: 0;
-        display: flex;
-        align-items: center;
     }
 
     .deposit-customer-container {
@@ -290,5 +443,42 @@ a {
         width: 100%;
         font-size: 1em;
         padding: 12px;
+    }
+
+    .modal {
+        min-width: 350px;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .modal-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-nav-bar {
+        padding: 10px;
+    }
+
+    .top-nav-bar a {
+        padding: 10px 12px;
+        font-size: 16px;
+    }
+
+    .icon img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .icon h4 {
+        font-size: 14px;
+    }
+
+    .modal {
+        min-width: 300px;
     }
 }

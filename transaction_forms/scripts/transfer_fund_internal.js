@@ -63,7 +63,7 @@ function showModal(message, type = 'info', title = 'Transaction Internal') {
         if (closeButton) {
             closeButton.focus();
         }
-    }, 1000);
+    }, 3000);
 }
 
 function closeModal() {

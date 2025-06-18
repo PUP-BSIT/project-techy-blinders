@@ -16,17 +16,6 @@ function showModal(message, type = 'info', title = 'Transaction External') {
     const modalMessage = document.getElementById('modal_message');
     const modalIcon = document.getElementById('modal_icon');
     
-    if (!modal || !modalTitle || !modalMessage || !modalIcon) {
-        console.error('Modal elements not found:', {
-            modal: !!modal,
-            modalTitle: !!modalTitle,
-            modalMessage: !!modalMessage,
-            modalIcon: !!modalIcon
-        });
-        alert(message);
-        return;
-    }
-    
     modalTitle.textContent = title;
     modalMessage.textContent = message;
     
@@ -66,7 +55,7 @@ function showModal(message, type = 'info', title = 'Transaction External') {
         if (closeButton) {
             closeButton.focus();
         }
-    }, 100);
+    }, 1000);
 }
 
 function closeModal() {
@@ -77,7 +66,7 @@ function closeModal() {
     
     setTimeout(() => {
         modal.style.display = 'none';
-    }, 300);
+    }, 3000);
 }
 
 // Function to fetch and update balance

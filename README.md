@@ -18,6 +18,14 @@ A secure and user-friendly web application designed to serve both bank tellers a
 ---
 
 ## 🌐 WebHosting Link
-## IS THIS DYNAMIC ##
-Visit [Blinders Vault](https://darkorange-cormorant-406076.hostingersite.com/) now!
+
+Visit [Blinders Vault](https://blindvault.site/) now!
+
+# Account for Holder #
+Account Holder ID - 2193425582
+Password - kirbyconsultado
+
+# Account for Teller #
+Teller ID - 1214567897
+Password - chris143
 </div>

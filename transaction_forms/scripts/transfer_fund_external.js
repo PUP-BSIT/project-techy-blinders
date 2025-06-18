@@ -66,7 +66,7 @@ function showModal(message, type = 'info', title = 'Transaction External') {
         if (closeButton) {
             closeButton.focus();
         }
-    }, 1000);
+    }, 100);
 }
 
 function closeModal() {
@@ -77,7 +77,7 @@ function closeModal() {
     
     setTimeout(() => {
         modal.style.display = 'none';
-    }, 3000);
+    }, 300);
 }
 
 // Function to fetch and update balance

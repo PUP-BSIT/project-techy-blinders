@@ -237,7 +237,8 @@ function verifyOTP() {
             source_account_no: String(pendingTransfer.senderId),
             source_bank_code: 'Blind Vault',
             recipient_account_no: String(pendingTransfer.recipientId),
-            otp_code: String(otpCode)
+            otp_code: String(otpCode),
+            external_bank_code: pendingTransfer.bankCode
         };
         // Check for missing required fields
         const requiredFields = ['transaction_amount', 'source_account_no', 'source_bank_code', 'recipient_account_no', 'otp_code'];

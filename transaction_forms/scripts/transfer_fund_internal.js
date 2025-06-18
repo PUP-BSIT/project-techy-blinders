@@ -229,6 +229,7 @@ function submitUser() {
 
     if (accountHolderId.length < 10 || accountHolderId > 10){
         showModal("Account ID Should be exact 10");
+        return;
     }
     
     if (!validateAmount(rawTransferAmount)) {

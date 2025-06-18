@@ -22,11 +22,12 @@ A secure and user-friendly web application designed to serve both bank tellers a
 Visit [Blinders Vault](https://blindvault.site/) now!
 
 # Account for Holder #
+Account Holder [Login Page](https://blindvault.site/account_holder/login_page_index.html)
 Account Holder ID - 2193425582
 Password - kirbyconsultado
 
 # Account for Teller #
-Bank Teller [Login Page](https://blindvault.site/bank_teller/login_page.html) now!
+Bank Teller [Login Page](https://blindvault.site/bank_teller/login_page.html)
 Teller ID - 1214567897
 Password - chris143
 </div>

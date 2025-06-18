@@ -15,6 +15,17 @@ function showModal(message, type = 'info', title = 'Transaction External') {
     const modalTitle = document.getElementById('modal_title');
     const modalMessage = document.getElementById('modal_message');
     const modalIcon = document.getElementById('modal_icon');
+       
+    if (!modal || !modalTitle || !modalMessage || !modalIcon) {
+        console.error('Modal elements not found:', {
+            modal: !!modal,
+            modalTitle: !!modalTitle,
+            modalMessage: !!modalMessage,
+            modalIcon: !!modalIcon
+        });
+        alert(message);
+        return;
+    }
     
     modalTitle.textContent = title;
     modalMessage.textContent = message;
@@ -226,6 +237,10 @@ function submitTransfer(event) {
     // Prevent default form submission if this is a form button
     if (event) {
         event.preventDefault();
+    }
+    // Guard: If button is disabled, do nothing
+    if (submitButton && submitButton.disabled) {
+        return;
     }
     
     if (!transferAmountExternal || !recipientId || !selectBank) {

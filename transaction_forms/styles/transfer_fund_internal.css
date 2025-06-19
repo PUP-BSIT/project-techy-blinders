@@ -488,3 +488,39 @@ a {
         margin-top: 25px;
     }
 }
+
+.balance {
+    color: white;
+    font-family: "Lexend Tera", sans-serif;
+    margin-top: 3%;
+    font-size: 20px;
+}
+
+.total-balance-internal {
+    color: white;
+    font-size: 40px;
+    font-family: "IBM Plex Mono", monospace;
+}
+
+.total-balance-internal-border {
+    margin-top: 3%;
+    border: solid 0px;
+    width: 70%;
+    margin-left: 13%;
+    margin-right: 13%;
+    padding: 10px;
+    background-color: #102436;
+    border-radius: 15px;
+}
+
+@media (max-width: 600px) {
+    .total-balance-internal-border {
+        width: 95%;
+        max-width: 340px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 8px;
+        box-sizing: border-box;
+        overflow-x: auto;
+    }
+}

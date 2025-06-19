@@ -11,7 +11,6 @@
           0 0 24px rgba(0, 223, 154, 0.7);
   --hover-button: #0b3f34;
   --accent: #01C38E;
-
 }
 
 * {
@@ -31,10 +30,11 @@ body {
 }
 
 .top-nav-bar {
-  background-color: transparent ;
+  background-color: transparent;
   overflow: hidden;
   font-style: "sans-serif";
-  height: 80px; 
+  height: 80px;
+  position: relative;
 }
 
 .top-nav-bar a {
@@ -93,6 +93,99 @@ body {
   transition: all 0.3s ease;
 }
 
+.desktop-nav {
+  display: block;
+}
+
+.hamburger-menu {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  z-index: 1001;
+  position: relative;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background-color: var(--text);
+  margin: 3px 0;
+  transition: 0.3s;
+  border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 250px;
+  height: 100vh;
+  background: linear-gradient(135deg, #1A2235 0%, #2A3F5F 100%);
+  backdrop-filter: blur(10px);
+  transition: right 0.3s ease;
+  z-index: 1000;
+  padding-top: 80px;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-nav.active {
+  right: 0;
+}
+
+.mobile-nav a {
+  display: block;
+  padding: 20px 30px;
+  text-decoration: none;
+  color: var(--text);
+  font-family: "Lexend Tera", sans-serif;
+  font-size: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  float: none;
+  text-align: left;
+}
+
+.mobile-nav a:hover {
+  background-color: rgba(1, 195, 142, 0.1);
+  color: var(--accent);
+  transform: translateX(10px);
+}
+
+.mobile-nav a:last-child {
+  background-color: var(--accent);
+  color: white;
+  border-radius: 25px;
+  margin: 20px;
+  text-align: center;
+  border: none;
+  font-weight: bold;
+}
+
+.mobile-nav a:last-child:hover {
+  background-color: var(--hover-button);
+  transform: translateX(0);
+  box-shadow: var(--button-shadow);
+}
+
 .content {
   display: flex;
   justify-content: space-between;
@@ -132,7 +225,7 @@ body {
   border: none;
   border-radius: 30px;
   cursor: pointer;
-  transition: transform 0.2 ease, box-shadow 0.2 ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #get_started:hover {
@@ -172,4 +265,62 @@ body {
   width: 280px;
   height: auto;
   border-radius: 12px;
+}
+
+@media screen and (max-width: 768px) {
+  .desktop-nav {
+    display: none;
+  }
+  
+  .hamburger-menu {
+    display: block;
+  }
+  
+  .icon img {
+    width: 20%;
+    height: auto;
+  }
+  
+  .icon h4 {
+    margin-left: 15%;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  .content {
+    flex-direction: column;
+    padding: 20px;
+    margin-left: 0;
+  }
+  
+  .text-content {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .text-content h1 {
+    font-size: 32px;
+  }
+  
+  .dashboard-image {
+    order: 2;
+  }
+  
+  .floating-image {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .text-content h1 {
+    font-size: 28px;
+  }
+  
+  .text-content p {
+    font-size: 12px;
+  }
+  
+  #get_started {
+    margin-left: 0;
+  }
 }

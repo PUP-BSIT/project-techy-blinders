@@ -256,6 +256,12 @@ body {
   box-shadow: var(--back-button-shadow);
 }
 
+.captcha-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+}
 
 .modal-overlay.show {
     opacity: 1;

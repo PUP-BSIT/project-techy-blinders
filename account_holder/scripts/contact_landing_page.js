@@ -122,11 +122,21 @@ function submitContactForm() {
             full_name: nameInput,
             email: emailInput,
             phone_number: numberInput,
-            message: textInput
+            message: textInput,
+            'g-recaptcha-response': captchaResponse
         })
     })
     .then(response => response.json())
     .then(data => {
+        let captchaResponse = '';
+        
+        if (typeof grecaptcha !== 'undefined') {
+            captchaResponse = grecaptcha.getResponse();
+        } else {
+            showModal("reCAPTCHA not loaded. Please refresh the page and try again.", 'error', 'Captcha Error');
+            return;
+        }
+        
         if (data.success) {
             showModal('Thank you for your message. We will get back to you soon!');
             clearForm();

@@ -227,7 +227,7 @@ function submitUser() {
     console.log('Parsed current balance:', currentBalance, 'Type:', typeof currentBalance);
     console.log('Logged in user ID:', loggedInUserId);
 
-    if (accountHolderId.length < 10 || accountHolderId > 10){
+    if (accountHolderId.length !== 10) {
         showModal("Account ID Should be exact 10");
         return;
     }

@@ -122,7 +122,8 @@ function submitContactForm() {
             full_name: nameInput,
             email: emailInput,
             phone_number: numberInput,
-            message: textInput
+            message: textInput,
+            'g-recaptcha-response': captchaResponse
         })
     })
     .then(response => response.json())

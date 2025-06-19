@@ -5,7 +5,7 @@ let transferAmountInput = document.getElementById("transfer_amount");
 let accountIdInput = document.getElementById("account_id");
 let transferButton = document.getElementById("transfer");
 let cancelButtonElem = document.getElementById("cancel");
-let totalBalanceElement = document.querySelector(".total-balance");
+let totalBalanceElement = document.querySelector(".total-balance-internal");
 
 function showModal(message, type = 'info', title = 'Transaction Internal') {
     const modal = document.getElementById('custom_modal');

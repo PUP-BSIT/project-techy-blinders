@@ -1,34 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <title>Landing Page | Blinders Vault</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Blinders Vault</title>
         <link rel="stylesheet" href="./account_holder/styles/landing_page.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Lexend+Tera:wght@100..900&display=swap" rel="stylesheet">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-        <link rel="icon" type="image/png" href="../assets/logo-removebg-preview.png">
+        <link href="https://fonts.googleapis.com/css2?family=Lexend+Tera:wght@100..900&family=IBM+Plex+Mono:wght@100..700&display=swap" rel="stylesheet">
     </head>
     <body>
-         <div class="container">
+        <div class="container">
             <div class="top-nav-bar">
                 <div class="icon">
-                    <img src="./assets/logo.png">
+                    <img src="./assets/logo.png" alt="Blinders Vault Icon">
                     <h4>Blinders Vault</h4>
                 </div>
-                
-                <a href="./account_holder/login_page_index.html">
-                    <button type="button" 
-                            id="login_button">Login</button>
-                </a>
-                <a class="contact" 
-                   href="./account_holder/about_landing_page.html">About us
-                </a>
-                <a class="about" 
-                    href="./account_holder/contact_landing_page.html">Contact us
-                </a>
+
+                <div class="desktop-nav">
+                    <a href="./account_holder/login_page_index.html">
+                        <button type="button" id="login_button">Login</button>
+                    </a>
+                    <a class="contact" href="./account_holder/about_landing_page.html">About us</a>
+                    <a class="about" href="./account_holder/contact_landing_page.html">Contact us</a>
+                </div>
+
+                <div class="hamburger-menu">
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="mobile-nav" id="mobile-nav">
+                        <a href="./account_holder/about_landing_page.html">
+                            About us
+                        </a>
+                        <a href="./account_holder/contact_landing_page.html">
+                            Contact us
+                        </a>
+                        <a href="./account_holder/login_page_index.html">
+                            Login
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <div class="content">
@@ -36,25 +48,28 @@
                     <h1>Bank Smarter</h1>
                     <h1>Live Better</h1>
                     <p>
-                        Experience seamless, secure 
-                        digital banking designed to 
+                        Experience seamless, secure digital banking designed to 
                         simplify your life.
                     </p>
                     <a href="./account_holder/sign_up_index.html">
-                        <button type="button"
-                                id="get_started">Get Started</button>
+                        <button type="button" id="get_started">
+                            Get Started
+                        </button>
                     </a>
                 </div>
 
                 <div class="dashboard-image">
                     <img src="./assets/account_holder/landing_page/ac_home_page.png" 
-                         alt="Banking Dashboard"/>
+                            alt="Banking Dashboard"/>
                 </div>
 
                 <div class="floating-image">
-                    <img src="../assets/account_holder/landing_page/people-1.png" alt="human-image">
+                    <img src="../assets/account_holder/landing_page/people-1.png" 
+                            alt="human-image">
                 </div>
             </div>
         </div>
+
+        <script src="./account_holder/scripts/landing_page.js"></script>
     </body>
 </html>

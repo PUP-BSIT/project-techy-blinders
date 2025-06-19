@@ -144,6 +144,7 @@ function tellerUser() {
     });
 }
 
+// Close modal when clicking outside of it
 document.addEventListener('click', function(event) {
     const modal = document.getElementById('custom_modal');
     if (event.target === modal) {

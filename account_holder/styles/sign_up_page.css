@@ -259,6 +259,13 @@ a {
   border-radius: 12px;
 }
 
+.captcha-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+}
+
 .modal-overlay.show {
     opacity: 1;
 }

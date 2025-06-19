@@ -1,5 +1,17 @@
 let API_URL = "https://blindvault.site/php/process_registration.php";
 
+function getFormData() {
+    return {
+        firstName: document.getElementById("first_name")?.value?.trim() || '',
+        lastName: document.getElementById("last_name")?.value?.trim() || '',
+        middleName: document.getElementById("middle_name")?.value?.trim() || '',
+        phoneNumber: document.getElementById("phone_number")?.value?.trim() || '',
+        email: document.getElementById("email")?.value?.trim() || '',
+        password: document.getElementById("password")?.value || '',
+        confirmPassword: document.getElementById("confirm_password")?.value || ''
+    };
+}
+
 function showModal(message, type = 'info', title = 'Alert') {
     const modal = document.getElementById('custom_modal');
     const modalTitle = document.getElementById('modal_title');
@@ -43,7 +55,6 @@ function showModal(message, type = 'info', title = 'Alert') {
     }
     
     modal.classList.remove('show');
-    
     modal.style.display = 'block';
     modal.offsetHeight; 
     
@@ -80,23 +91,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    const firstName = document.getElementById("first_name");
-    const lastName = document.getElementById("last_name");
-    const middleName = document.getElementById("middle_name");
-    const phoneNumber = document.getElementById("phone_number");
-    const email = document.getElementById("email");
-    const password = document.getElementById("password");
-    const confirmPassword = document.getElementById("confirm_password");
-
-    if (firstName && lastName && middleName && phoneNumber && email && password && confirmPassword) {
-        firstName.addEventListener('input', validateForm);
-        lastName.addEventListener('input', validateForm);
-        middleName.addEventListener('input', validateForm);
-        phoneNumber.addEventListener('input', validateForm);
-        email.addEventListener('input', validateForm);
-        password.addEventListener('input', validateForm);
-        confirmPassword.addEventListener('input', validateForm);
-
+    const fieldIds = ["first_name", "last_name", "middle_name", "phone_number", "email", "password", "confirm_password"];
+    const allFieldsExist = fieldIds.every(id => document.getElementById(id));
+    
+    if (allFieldsExist) {
+        fieldIds.forEach(id => {
+            const field = document.getElementById(id);
+            if (field) {
+                field.addEventListener('input', validateForm);
+            }
+        });
         validateForm();
     }
 });
@@ -108,20 +112,14 @@ document.addEventListener('keydown', function(e) {
 });
 
 function validateForm() {
-    const firstName = document.getElementById("first_name")?.value || '';
-    const lastName = document.getElementById("last_name")?.value || '';
-    const middleName = document.getElementById("middle_name")?.value || '';
-    const phoneNumber = document.getElementById("phone_number")?.value || '';
-    const email = document.getElementById("email")?.value || '';
-    const password = document.getElementById("password")?.value || '';
-    const confirmPassword = document.getElementById("confirm_password")?.value || '';
-    let createAccount = document.querySelector('.create');
+    const formData = getFormData();
+    const createAccount = document.querySelector('.create');
     
     if (!createAccount) return;
     
-    if(firstName.length && lastName.length && middleName.length &&
-        phoneNumber.length && email.length && password.length
-        && confirmPassword.length ){
+    const allFieldsFilled = Object.values(formData).every(value => value.length > 0);
+    
+    if (allFieldsFilled) {
         createAccount.disabled = false;
         createAccount.style.cursor = 'pointer';
     } else {
@@ -131,41 +129,48 @@ function validateForm() {
 }
 
 function submitUser() {
-    let firstName = document.getElementById("first_name")?.value || '';
-    let lastName = document.getElementById("last_name")?.value || '';
-    let middleInitial = document.getElementById("middle_name")?.value || '';
-    let phoneNumber = document.getElementById("phone_number")?.value || '';
-    let email = document.getElementById("email")?.value || '';
-    let password = document.getElementById("password")?.value || '';
-    let confirmationPassword = document.getElementById("confirm_password")?.value || '';
+    const formData = getFormData();
     
+    let captchaResponse = '';
+    if (typeof grecaptcha !== 'undefined') {
+        captchaResponse = grecaptcha.getResponse();
+    } else {
+        showModal("reCAPTCHA not loaded. Please refresh the page and try again.", 'error', 'Captcha Error');
+        return;
+    }
+
     const phonePattern = /^[0-9]{10,15}$/;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
     validateForm();
     
-    if (!firstName || !lastName || !middleInitial) {
-        showModal("Please complete the form.", 'warning', 'Missing Information');
+    if (!formData.firstName || !formData.lastName || !formData.middleName) {
+        showModal("Please complete all required fields.", 'warning', 'Missing Information');
         return;
     }
 
-    if (!phonePattern.test(phoneNumber)) {
+    if (!phonePattern.test(formData.phoneNumber)) {
         showModal("Phone number must be 10–15 digits.", 'warning', 'Invalid Phone Number');
         return;
     }
 
-    if (!emailPattern.test(email)) {
+    if (!emailPattern.test(formData.email)) {
         showModal("Please enter a valid email address.", 'warning', 'Invalid Email');
         return;
     }
 
-    if (password.length < 6) {
+    if (formData.password.length < 6) {
         showModal("Password must be at least 6 characters.", 'warning', 'Password Too Short');
         return;
     }
 
-    if (password !== confirmationPassword) {
+    if (formData.password !== formData.confirmPassword) {
         showModal("Passwords do not match.", 'warning', 'Password Mismatch');
+        return;
+    }
+
+    if (captchaResponse.length === 0) {
+        showModal("Please verify the CAPTCHA before proceeding.", "error", "CAPTCHA Required");
         return;
     }
 
@@ -175,19 +180,29 @@ function submitUser() {
         submitButton.innerHTML = '<span class="loading-spinner"></span>Creating Account...';
     }
 
+    const formPayload = new URLSearchParams({
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        middle_name: formData.middleName,
+        phone_number: formData.phoneNumber,
+        email: formData.email,
+        password: formData.password,
+        'g-recaptcha-response': captchaResponse
+    });
+
     fetch(API_URL, {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: "first_name=" + encodeURIComponent(firstName) + "&" +
-              "last_name=" + encodeURIComponent(lastName) + "&" +
-              "middle_name=" + encodeURIComponent(middleInitial) + "&" +
-              "phone_number=" + encodeURIComponent(phoneNumber) + "&" +
-              "email=" + encodeURIComponent(email) + "&" +
-              "password=" + encodeURIComponent(password)
+        body: formPayload.toString()
     })
-    .then((response) => response.text())
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.text();
+    })
     .then((responseText) => {
         console.log("Server response:", responseText);
         
@@ -200,27 +215,36 @@ function submitUser() {
             if (accountId) {
                 showModal(`Account successfully created! Your Account ID is: ${accountId}\n\nPlease save this ID as you will need it to log in.`, 'success', 'Account Created');
             } else {
-                showModal("Account successfully created! Please check the server response for your Account ID.", 'success', 'Account Created');
+                showModal("Account successfully created! Please check your email for your Account ID.", 'success', 'Account Created');
             }
             
             clearForm();
             
             setTimeout(() => {
-                window.location.href = "login_page_index.html?account_successfully_created=true&account_id=" + (accountId || '');
+                window.location.href = "login_page_index.html?account_successfully_created=true" + (accountId ? "&account_id=" + encodeURIComponent(accountId) : '');
             }, 3000);
             
         } else {
-            showModal(responseText, 'error', 'Registration Failed');
+            try {
+                const errorData = JSON.parse(responseText);
+                showModal(errorData.message || errorData.error || responseText, 'error', 'Registration Failed');
+            } catch (e) {
+                showModal(responseText, 'error', 'Registration Failed');
+            }
         }
     })
     .catch((error) => {
         console.error("Error submitting user:", error);
-        showModal("An error occurred. Please try again.", 'error', 'Network Error');
+        showModal("A network error occurred. Please check your connection and try again.", 'error', 'Network Error');
     })
     .finally(() => {
         if (submitButton) {
             submitButton.disabled = false;
             submitButton.innerHTML = 'Create Account';
+        }
+        
+        if (typeof grecaptcha !== 'undefined') {
+            grecaptcha.reset();
         }
     });
 }
@@ -232,11 +256,6 @@ function extractAccountId(responseText) {
             return jsonData.account_id || jsonData.accountId || jsonData.id;
         }
     } catch (e) {
-    }
-    
-    const numberMatches = responseText.match(/\b\d{6,}\b/g);
-    if (numberMatches && numberMatches.length > 0) {
-        return numberMatches[0]; 
     }
     
     const patterns = [
@@ -252,6 +271,11 @@ function extractAccountId(responseText) {
         }
     }
     
+    const numberMatches = responseText.match(/\b\d{6,}\b/g);
+    if (numberMatches && numberMatches.length > 0) {
+        return numberMatches[0]; 
+    }
+    
     return null; 
 }
 
@@ -260,5 +284,10 @@ function clearForm() {
     if (form) {
         form.reset();
     }
+    
+    if (typeof grecaptcha !== 'undefined') {
+        grecaptcha.reset();
+    }
+    
     validateForm();
 }

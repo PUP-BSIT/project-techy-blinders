@@ -16,6 +16,86 @@ document.addEventListener('DOMContentLoaded', function () {
     validateForm();
 });
 
+let modalCallback = null;
+
+function showModal(message, type = 'info', title = 'Alert', callback = null, showCancel = false) {
+    const modal = document.getElementById('custom_modal');
+    const modalTitle = document.getElementById('modal_title');
+    const modalMessage = document.getElementById('modal_message');
+    const modalIcon = document.getElementById('modal_icon');
+    const modalCancel = document.getElementById('modal_cancel');
+    const modalOk = document.getElementById('modal_ok');
+    
+    if (!modal || !modalTitle || !modalMessage || !modalIcon || !modalCancel || !modalOk) {
+        console.error('Modal elements not found');
+        alert(message);
+        return;
+    }
+    
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+    modalCallback = callback;
+    modalCancel.style.display = showCancel ? 'inline-block' : 'none';
+    
+    modalIcon.className = 'modal-icon';
+    
+    switch(type) {
+        case 'success':
+            modalIcon.className += ' success fas fa-check-circle';
+            modalTitle.textContent = title || 'Success';
+            break;
+        case 'error':
+            modalIcon.className += ' error fas fa-times-circle';
+            modalTitle.textContent = title || 'Error';
+            break;
+        case 'warning':
+            modalIcon.className += ' warning fas fa-exclamation-triangle';
+            modalTitle.textContent = title || 'Warning';
+            break;
+        case 'confirm':
+            modalIcon.className += ' info fas fa-question-circle';
+            modalTitle.textContent = title || 'Confirm';
+            modalCancel.style.display = 'inline-block';
+            break;
+        default:
+            modalIcon.className += ' info fas fa-info-circle';
+    }
+    
+    modal.classList.remove('show');
+    
+    modal.style.display = 'block';
+    modal.offsetHeight; 
+    
+    requestAnimationFrame(() => {
+        modal.classList.add('show');
+    });
+    
+    setTimeout(() => {
+        modalOk.focus();
+    }, 100);
+}
+
+function closeModal() {
+    const modal = document.getElementById('custom_modal');
+    const modalCancel = document.getElementById('modal_cancel');
+    if (!modal || !modalCancel) return;
+    
+    modal.classList.remove('show');
+    modalCancel.style.display = 'none';
+    
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
+}
+
+function handleModalOk() {
+    if (modalCallback) {
+        modalCallback(true);
+    } else {
+        closeModal();
+    }
+}
+
 function validateForm() {
     const accountId = document.getElementById('account_id').value.trim();
     const withdrawAmount = document.getElementById('withdraw_ammount').value.trim();
@@ -37,28 +117,39 @@ function handleCancel() {
     document.getElementById('withdraw_ammount').value = '';
     validateForm();
 
-    if (confirm('Are you sure you want to cancel? All entered data will be lost.')) {
-        window.location.href = '../bank_teller/bank_teller_homepage.html';
-    }
+    showModal('Are you sure you want to cancel? All entered data will be lost.', 'confirm', 'Cancel Confirmation', (confirmed) => {
+        if (confirmed) {
+            window.location.href = '../bank_teller/bank_teller_homepage.html';
+        }
+        closeModal();
+    });
+}
+
+function resetWithdrawButton(withdrawButton, originalText) {
+    withdrawButton.disabled = false;
+    withdrawButton.textContent = originalText;
+    console.log('Button reset to:', withdrawButton.textContent, 'disabled:', withdrawButton.disabled);
 }
 
 async function handleWithdraw() {
     const accountId = document.getElementById('account_id').value.trim();
     const withdrawAmountInput = document.getElementById('withdraw_ammount').value.trim();
+    const withdrawButton = document.getElementById('withdraw');
+    const originalText = withdrawButton.textContent;
 
     if (!accountId || !withdrawAmountInput) {
-        alert('Please fill in all required fields');
+        showModal('Please fill in all required fields', 'error', 'Error');
+        resetWithdrawButton(withdrawButton, originalText);
         return;
     }
 
     const withdrawal = parseFloat(withdrawAmountInput.replace(/[^0-9.]/g, ''));
     if (isNaN(withdrawal) || withdrawal <= 0) {
-        alert('Please enter a valid positive withdrawal amount');
+        showModal('Please enter a valid positive withdrawal amount', 'error', 'Error');
+        resetWithdrawButton(withdrawButton, originalText);
         return;
     }
 
-    const withdrawButton = document.getElementById('withdraw');
-    const originalText = withdrawButton.textContent;
     withdrawButton.disabled = true;
     withdrawButton.textContent = 'Processing...';
 
@@ -75,13 +166,15 @@ async function handleWithdraw() {
         console.log("Raw accountData:", accountData);
 
         if (!accountData.success) {
-            alert('Account verification failed: ' + accountData.message);
+            showModal('Account verification failed: ' + accountData.message, 'error', 'Error');
+            resetWithdrawButton(withdrawButton, originalText);
             return;
         }
 
         const currentBalance = parseFloat(accountData.current_balance.toString().replace(/[^0-9.]/g, ''));
         if (isNaN(currentBalance)) {
-            alert('Invalid balance data received. Please try again.');
+            showModal('Invalid balance data received. Please try again.', 'error', 'Error');
+            resetWithdrawButton(withdrawButton, originalText);
             return;
         }
 
@@ -89,54 +182,56 @@ async function handleWithdraw() {
         console.log("DEBUG - withdrawal:", withdrawal);
 
         if (withdrawal > currentBalance) {
-            alert("Not enough balance to withdraw that amount.");
+            showModal("Not enough balance to withdraw that amount.", 'error', 'Error');
+            resetWithdrawButton(withdrawButton, originalText);
             return;
         }
 
         const confirmMessage = `Account Details:\nName: ${accountData.account_name}\nCurrent Balance: $${currentBalance}\n\nWithdraw Amount: $${withdrawal}\n\nProceed with withdrawal?`;
-        if (!confirm(confirmMessage)) {
-            return;
-        }
-
-        const tellerTransactionId = 'WTH' + Date.now() + Math.random().toString(36).substr(2, 5).toUpperCase();
-
-        const withdrawResponse = await fetch(API_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                account_id: accountId,
-                withdraw_amount: withdrawal,
-                teller_transaction_id: tellerTransactionId,
-                withdraw_type: 'teller_withdrawal'
-            })
-        });
-
-        const withdrawData = await withdrawResponse.json();
-
-        if (withdrawData.success) {
-            alert(`Withdrawal Successful!\n\nTransaction Details:\nTransaction ID: ${tellerTransactionId}\nAccount: ${withdrawData.account_name}\nWithdrawn Amount: $${withdrawData.withdrawn_amount}\nNew Balance: $${withdrawData.new_balance}`);
-            document.getElementById('account_id').value = '';
-            document.getElementById('withdraw_ammount').value = '';
-            validateForm();
-
-            if (confirm('Withdrawal completed successfully. Would you like to process another withdrawal?')) {
-                window.location.href = 'withdraw_funds.html?teller_transactionsuccess=true&' + tellerTransactionId;
-            } else {
+        showModal(confirmMessage, 'confirm', 'Confirm Withdrawal', (confirmed) => {
+            if (!confirmed) {
                 window.location.href = '../bank_teller/bank_teller_homepage.html';
+                return;
             }
-        } else {
-            alert('Withdrawal Failed: ' + withdrawData.message);
-            window.location.href = '../bank_teller/bank_teller_homepage.html';
-        }
 
+            const tellerTransactionId = 'WTH' + Date.now() + Math.random().toString(36).substr(2, 5).toUpperCase();
+
+            fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    account_id: accountId,
+                    withdraw_amount: withdrawal,
+                    teller_transaction_id: tellerTransactionId,
+                    withdraw_type: 'teller_withdrawal'
+                })
+            })
+            .then(withdrawResponse => withdrawResponse.json())
+            .then(withdrawData => {
+                if (withdrawData.success) {
+                    showModal(`Withdrawal Successful!\n\nTransaction Details:\nTransaction ID: ${tellerTransactionId}\nAccount: ${withdrawData.account_name}\nWithdrawn Amount: $${withdrawData.withdrawn_amount}\nNew Balance: $${withdrawData.new_balance}`, 'success', 'Success', () => {
+                        document.getElementById('account_id').value = '';
+                        document.getElementById('withdraw_ammount').value = '';
+                        validateForm();
+                        window.location.href = '../bank_teller/bank_teller_homepage.html';
+                    }, false);
+                } else {
+                    showModal('Withdrawal Failed: ' + withdrawData.message, 'error', 'Error');
+                    resetWithdrawButton(withdrawButton, originalText);
+                    window.location.href = '../bank_teller/bank_teller_homepage.html';
+                }
+            })
+            .catch(error => {
+                console.error('Error processing withdrawal:', error);
+                showModal('An error occurred while processing the withdrawal. Please try again.', 'error', 'Error');
+                resetWithdrawButton(withdrawButton, originalText);
+            });
+        });
     } catch (error) {
         console.error('Error processing withdrawal:', error);
-        alert('An error occurred while processing the withdrawal. Please try again.');
-    } finally {
-        withdrawButton.disabled = false;
-        withdrawButton.textContent = originalText;
-        validateForm();
+        showModal('An error occurred while processing the withdrawal. Please try again.', 'error', 'Error');
+        resetWithdrawButton(withdrawButton, originalText);
     }
 }

@@ -8,6 +8,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Lexend+Tera:wght@100..900&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link rel="icon" type="image/png" href="../assets/logo-removebg-preview.png">
     </head>
     <body>
@@ -48,6 +49,25 @@
                 </div>
             </div>
         </div>
+
+        <!-- Custom Modal -->
+        <div id="custom_modal" class="modal-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <div id="modal_title" class="modal-title">Alert</div>
+                    <button class="modal-close" onclick="closeModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <i id="modal_icon" class="modal-icon"></i>
+                    <div id="modal_message" class="modal-message"></div>
+                </div>
+                <div class="modal-footer">
+                    <button id="modal_cancel" class="modal-button secondary" style="display: none;" onclick="closeModal()">Cancel</button>
+                    <button id="modal_ok" class="modal-button primary" onclick="handleModalOk()">OK</button>
+                </div>
+            </div>
+        </div>
+
         <script src="./scripts/close_account_form.js"></script>
     </body>
 </html>

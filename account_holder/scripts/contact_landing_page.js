@@ -13,7 +13,7 @@ function showModal(message, type = 'info', title = 'Thank You') {
             modalMessage: !!modalMessage,
             modalIcon: !!modalIcon
         });
-        showModal(message);
+        alert(message); // Fallback to alert if modal elements are missing
         return;
     }
     
@@ -81,7 +81,13 @@ document.addEventListener('DOMContentLoaded', function() {
     emailInput.addEventListener('input', validateForm);
     numberInput.addEventListener('input', validateForm);
     textInput.addEventListener('input', validateForm);
-    submitButton.addEventListener('click', submitContactForm);
+    
+    // Prevent default form submission and use our custom handler
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        submitContactForm();
+    });
 
     validateForm();
 });
@@ -110,9 +116,26 @@ function submitContactForm() {
     const textInput = document.getElementById("comment_input").value;
     const submitButton = document.getElementById("submit_button");
 
+    // Get reCAPTCHA response
+    let captchaResponse = '';
+    
+    if (typeof grecaptcha !== 'undefined') {
+        captchaResponse = grecaptcha.getResponse();
+        
+        if (!captchaResponse) {
+            showModal("Please complete the reCAPTCHA verification.", 'warning', 'Verification Required');
+            return;
+        }
+    } else {
+        showModal("reCAPTCHA not loaded. Please refresh the page and try again.", 'error', 'Captcha Error');
+        return;
+    }
+
+    // Disable submit button and show loading state
     submitButton.disabled = true;
     submitButton.textContent = "Sending...";
 
+    // Send the form data
     fetch(API_URL, {
         method: 'POST',
         headers: {
@@ -126,29 +149,30 @@ function submitContactForm() {
             'g-recaptcha-response': captchaResponse
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        let captchaResponse = '';
-        
-        if (typeof grecaptcha !== 'undefined') {
-            captchaResponse = grecaptcha.getResponse();
-        } else {
-            showModal("reCAPTCHA not loaded. Please refresh the page and try again.", 'error', 'Captcha Error');
-            return;
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+        return response.json();
+    })
+    .then(data => {
         if (data.success) {
-            showModal('Thank you for your message. We will get back to you soon!');
+            showModal(data.message || 'Thank you for your message. We will get back to you soon!', 'success', 'Message Sent');
             clearForm();
+            // Reset reCAPTCHA
+            if (typeof grecaptcha !== 'undefined') {
+                grecaptcha.reset();
+            }
         } else {
-            showModal('Error: ' + data.message);
+            showModal(data.message || 'An error occurred while sending your message.', 'error', 'Error');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        showModal('An error occurred while sending your message.');
+        showModal('An error occurred while sending your message. Please try again later.', 'error', 'Connection Error');
     })
     .finally(() => {
+        // Re-enable submit button
         submitButton.disabled = false;
         submitButton.textContent = "Submit";
         validateForm();

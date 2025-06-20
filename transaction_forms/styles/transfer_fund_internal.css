@@ -64,27 +64,6 @@ a {
     text-decoration: none;
 }
 
-#back_button {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 15px;
-    padding: 10px 20px;
-    border: none;
-    background-color: #861010;
-    color: white;
-    border-radius: 50px;
-    transition: all 0.3s ease;
-    margin-top: 20%;
-    margin-right: 10px;
-}
-
-#back_button:hover {
-    transform: translateY(-3px);
-    cursor: pointer;
-    font-weight: bold;
-    background-color: var(--hover-back-button);
-    box-shadow: var(--back-button-shadow);
-}
-
 .transfer-customer-container {
     display: flex;
     justify-content: center;

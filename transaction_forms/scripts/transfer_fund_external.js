@@ -256,7 +256,7 @@ function submitTransfer(event) {
             submitButton.disabled = false;
             submitButton.textContent = 'Submit';
         }
-        return;
+        return; // Halt submission if validation fails
     }
 
     if (recipient === loggedInUserId) {
@@ -273,6 +273,7 @@ function submitTransfer(event) {
         submitButton.textContent = 'Processing...';
     }
 
+    // Store transfer details for confirmation page
     const params = new URLSearchParams({
         transferType: 'external',
         accountHolderId: recipient,
@@ -281,7 +282,13 @@ function submitTransfer(event) {
         bankName: bankName,
         senderId: loggedInUserId
     });
-    window.location.href = `confirmation_form.html?${params.toString()}`;
+    setTimeout(() => {
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Submit';
+        }
+        window.location.href = `confirmation_form.html?${params.toString()}`;
+    }, 1000); // Delay to simulate processing
 }
 
 function cancelTransfer(event) {

@@ -208,7 +208,10 @@ document.getElementById('send_otp').addEventListener('click', async function() {
         const data = await response.json();
         if (data.success) {
             localStorage.setItem('pendingTransfer', JSON.stringify(pendingTransfer));
-            showModal('OTP has been sent successfully!', 'success', 'Success');
+            showModal('OTP has been sent!', 'success', 'Success');
+            setTimeout(() => {
+                window.location.href = "otp_confirmation_page.html";
+            }, 2000); // Delay redirect to allow user to see the modal
         } else {
             showModal('Error sending OTP: ' + data.message);
         }
@@ -228,22 +231,4 @@ document.getElementById('back_button').addEventListener('click', function(e) {
     e.preventDefault();
     const transferType = localStorage.getItem('pendingTransferType') || 'internal';
     window.location.href = transferType === 'external' ? "transfer_fund_external.html" : "transfer_fund_internal.html";
-});
-
-// Handle redirect after modal close
-function handleModalOk() {
-    const modalMessage = document.getElementById('modal_message').textContent;
-    if (modalMessage === 'OTP has been sent successfully!') {
-        window.location.href = "otp_confirmation_page.html";
-    } else {
-        closeModal();
-    }
-}
-
-// Add event listener to the OK button
-document.addEventListener('DOMContentLoaded', function() {
-    const okButton = document.querySelector('.modal-button.primary');
-    if (okButton) {
-        okButton.addEventListener('click', handleModalOk);
-    }
 });

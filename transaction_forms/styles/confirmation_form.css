@@ -5,6 +5,15 @@
     --accent-color: #01C38E;
     --shadow-glow: 0 0 20px rgba(0, 223, 154, 0.3),
                    0 0 80px rgba(0, 223, 154, 0.4);
+    --back-button-shadow:
+    0 0 8px rgba(134, 16, 16, 0.5),
+    0 0 16px rgba(134, 16, 16, 0.6),
+    0 0 24px rgba(134, 16, 16, 0.7);
+    --hover-back-button:#520a0a;
+    --button-shadow: 0 0 8px rgba(0, 223, 154, 0.5),
+           0 0 16px rgba(0, 223, 154, 0.6),
+           0 0 24px rgba(0, 223, 154, 0.7);
+    --hover-button: #0b3f34;
 }
 
 * {
@@ -52,18 +61,6 @@ body {
 
 a {
     text-decoration: none;
-}
-
-#back_button {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 15px;
-    padding: 7px;
-    width: 100px;
-    border: solid 0px;
-    background-color: #01C38E;
-    color: white;
-    border-radius: 50px;
-    cursor: pointer;
 }
 
 .confirmation-container {
@@ -126,12 +123,20 @@ a {
     border: solid 0px;
     padding: 10px;
     width: 25%;
-    background-color: #E73115;
+    background-color: #861010;
     color: white;
     font-family: "Lexend Tera", sans-serif;
     border-radius: 50px;
     box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
     cursor: pointer;
+}
+
+#cancel:hover {
+    transform: translateY(-3px);
+    font-weight: bold;
+    background-color: var(--hover-back-button);
+    box-shadow: var(--back-button-shadow);
+    transition: all 0.3s ease;
 }
 
 #send_otp {
@@ -144,6 +149,14 @@ a {
     border-radius: 50px;
     box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
     cursor: pointer;
+}
+
+#send_otp:hover {
+    font-weight: bold;
+    background-color: var(--hover-button);
+    box-shadow: var(--button-shadow);
+    outline: #017A5E;
+    transition: all 0.3s ease;
 }
 
 .modal-overlay.show {
@@ -303,7 +316,6 @@ a {
     border-color: rgba(255, 255, 255, 0.5);
 }
 
-/* Loading animation */
 .loading-spinner {
     display: inline-block;
     width: 16px;
@@ -319,7 +331,6 @@ a {
     to { transform: rotate(360deg); }
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
     .container {
         grid-template-columns: 1fr;
@@ -335,7 +346,6 @@ a {
     }
 }
 
-/* Mobile Responsiveness */
 @media screen and (max-width: 768px) {
     .top-nav-bar a {
         font-size: 16px;
@@ -407,12 +417,6 @@ a {
     .icon h4 {
         font-size: 12px;
         margin-left: 10%;
-    }
-    
-    #back_button {
-        font-size: 12px;
-        padding: 6px 12px;
-        width: 80px;
     }
     
     .confirmation-container {

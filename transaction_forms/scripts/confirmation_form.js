@@ -240,5 +240,10 @@ function handleModalOk() {
     }
 }
 
-// Override the default closeModal behavior for OK button
-document.queryHandleModalOk = handleModalOk;
+// Add event listener to the OK button
+document.addEventListener('DOMContentLoaded', function() {
+    const okButton = document.querySelector('.modal-button.primary');
+    if (okButton) {
+        okButton.addEventListener('click', handleModalOk);
+    }
+});

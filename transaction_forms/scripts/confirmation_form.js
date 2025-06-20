@@ -208,7 +208,10 @@ document.getElementById('send_otp').addEventListener('click', async function() {
         const data = await response.json();
         if (data.success) {
             localStorage.setItem('pendingTransfer', JSON.stringify(pendingTransfer));
-            window.location.href = "otp_confirmation_page.html";
+            showModal('OTP has been sent!', 'success', 'Success');
+            setTimeout(() => {
+                window.location.href = "otp_confirmation_page.html";
+            }, 2000); // Delay redirect to allow user to see the modal
         } else {
             showModal('Error sending OTP: ' + data.message);
         }

@@ -42,7 +42,7 @@ function showModal(message, type = 'info', title = 'Transaction External') {
             modalTitle.textContent = title || 'Error';
             break;
         case 'warning':
-            modalIcon.className += ' warning fa fa-exclamation-triangle';
+            modalIcon.className += ' warning fas fa-exclamation-triangle';
             modalTitle.textContent = title || 'Warning';
             break;
         case 'info':
@@ -102,9 +102,7 @@ function loadCurrentBalance() {
                     const balance = parseFloat(data.account_balance.replace(/,/g, ''));
                     if (!isNaN(balance)) {
                         localStorage.setItem("currentBalance", balance.toString());
-                        if (totalBalanceElement) {
-                            totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
-                        }
+                        if (totalBalanceElement) totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
                         console.log('Initial balance stored:', balance);
                     }
                 }
@@ -168,9 +166,7 @@ function fetchBalance(userId) {
                 return;
             }
             localStorage.setItem("currentBalance", balance.toString());
-            if (totalBalanceElement) {
-                totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
-            }
+            if (totalBalanceElement) totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
             console.log('Balance updated:', balance);
         } else {
             console.error("Failed to load balance:", data.message);
@@ -246,6 +242,12 @@ function submitTransfer(event) {
     const bankName = selectBank.value;
     const loggedInUserId = localStorage.getItem("loggedInId");
 
+    console.log('Raw transfer amount:', amount);
+    console.log('Parsed transfer amount:', parseFloat(amount), 'Type:', typeof parseFloat(amount));
+    console.log('Raw current balance:', localStorage.getItem("currentBalance"));
+    console.log('Parsed current balance:', parseFloat(localStorage.getItem("currentBalance")), 'Type:', typeof parseFloat(localStorage.getItem("currentBalance")));
+    console.log('Logged in user ID:', loggedInUserId);
+
     if (!amount || !recipient || !bankName || bankName === "default") {
         showModal("Please fill in all required fields", 'error');
         return;
@@ -256,7 +258,7 @@ function submitTransfer(event) {
             submitButton.disabled = false;
             submitButton.textContent = 'Submit';
         }
-        return; // Halt submission if validation fails
+        return;
     }
 
     if (recipient === loggedInUserId) {
@@ -268,6 +270,7 @@ function submitTransfer(event) {
         return;
     }
 
+    // Disable submit button and show loading state
     if (submitButton) {
         submitButton.disabled = true;
         submitButton.textContent = 'Processing...';

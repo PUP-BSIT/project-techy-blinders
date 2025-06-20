@@ -99,6 +99,14 @@ window.onload = async function() {
         // Add more mappings as needed
     };
     
+    // Hide or show Recipient Name row based on transfer type
+    const recipientRow = document.querySelector('#display_account_name')?.closest('.detail-row');
+    if (transferType === 'external' && recipientRow) {
+        recipientRow.style.display = 'none';
+    } else if (recipientRow) {
+        recipientRow.style.display = '';
+    }
+    
     if (transferType === 'external' && bankName) {
         bankName = bankNameMap[bankName] || bankName;
     }

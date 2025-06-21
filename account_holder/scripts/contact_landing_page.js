@@ -1,5 +1,35 @@
 const API_URL = "https://blindvault.site/php/process_contact.php";
 
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+  const closeMenu = () => {
+    hamburger.classList.remove('active');
+    mobileNav.classList.remove('active');
+  };
+
+  hamburger.onclick = () => {
+    hamburger.classList.toggle('active');
+    mobileNav.classList.toggle('active');
+  };
+
+  document.onclick = e => {
+    if (
+      mobileNav.classList.contains('active') &&
+      !mobileNav.contains(e.target) &&
+      !hamburger.contains(e.target)
+    ) closeMenu();
+  };
+
+  mobileNav.querySelectorAll('a').forEach(link =>
+    link.onclick = closeMenu
+  );
+
+  window.onresize = () => {
+    if (window.innerWidth > 768) closeMenu();
+  };
+});
+
 function showModal(message, type = 'info', title = 'Thank You') {
     const modal = document.getElementById('custom_modal');
     const modalTitle = document.getElementById('modal_title');

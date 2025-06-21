@@ -97,25 +97,24 @@ body {
   border-bottom: 2px solid;
 }
 
-#login_button {
+#back_button {
   font-family: "IBM Plex Mono", monospace;
   font-size: 15px;
   padding: 7px 20px;
   border: none;
-  background-color: var(--accent);
+  background-color: #6b0d0d;
   color: var(--text);
   border-radius: 50px;
   transition: transform 0.2s ease;
   margin-top: -13%;
 }
 
-#login_button:hover{
+#back_button:hover{
   transform: translateY(-3px);
   cursor: pointer;
   font-weight: bold;
-  background-color: #017A5E;
-  background-color: var(--hover-button); 
-  box-shadow: var(--button-shadow);
+  background-color: var(--hover-back-button);
+  box-shadow: var(--back-button-shadow);
 }
 
 .contact-form-container {

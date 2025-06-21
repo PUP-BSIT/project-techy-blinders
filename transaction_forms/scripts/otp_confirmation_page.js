@@ -19,7 +19,7 @@ let cancelButton = document.getElementById("cancel");
 let otpAlertShown = false;
 let resendButton = document.getElementById("resend_otp");
 
-function showModal(message, type = 'info', title = 'Transaction External', callback = null) {
+function showModal(message, type = 'success', title = 'Transaction External', callback = null) {
     const modal = document.getElementById('custom_modal');
     const modalTitle = document.getElementById('modal_title');
     const modalMessage = document.getElementById('modal_message');
@@ -71,6 +71,7 @@ function showModal(message, type = 'info', title = 'Transaction External', callb
         modal.classList.add('show');
     });
     
+    // Add delay before focusing and setting up callback for slower display
     setTimeout(() => {
         const closeButton = modal.querySelector('.modal-button.primary');
         if (closeButton) {
@@ -83,7 +84,7 @@ function showModal(message, type = 'info', title = 'Transaction External', callb
                 };
             }
         }
-    }, 100);
+    }, 300); // Increased delay from 100ms to 300ms for slower display
 }
 
 function closeModal() {
@@ -278,10 +279,18 @@ function verifyOTP() {
         .then(response => response.json())
         .then(result => {
             if (result.success) {
-                showModal('Transfer Successful!');
-                localStorage.removeItem('pendingTransfer');
-                localStorage.removeItem('pendingTransferType');
-                window.location.href = '../account_holder/account_holder_home_page.html';
+                // Show success modal with callback to redirect to thank you page (same as internal)
+                showModal(
+                    'Transaction Successful!', 
+                    'success', 
+                    'Transaction External',
+                    function() {
+                        // This callback will execute when the modal is closed
+                        localStorage.removeItem('pendingTransfer');
+                        localStorage.removeItem('pendingTransferType');
+                        window.location.href = `thank_you_message.html`;
+                    }
+                );
             } else {
                 showModal('Transfer failed: ' + result.message);
                 verifyButton.disabled = false;

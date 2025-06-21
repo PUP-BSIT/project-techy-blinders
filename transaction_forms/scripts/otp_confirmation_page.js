@@ -19,7 +19,7 @@ let cancelButton = document.getElementById("cancel");
 let otpAlertShown = false;
 let resendButton = document.getElementById("resend_otp");
 
-function showModal(message, type = 'info', title = 'Transaction Internal', callback = null) {
+function showModal(message, type = 'info', title = 'Transaction External', callback = null) {
     const modal = document.getElementById('custom_modal');
     const modalTitle = document.getElementById('modal_title');
     const modalMessage = document.getElementById('modal_message');
@@ -278,7 +278,7 @@ function verifyOTP() {
         .then(response => response.json())
         .then(result => {
             if (result.success) {
-                showModal('Transfer completed successfully!');
+                showModal('Transfer Successful!');
                 localStorage.removeItem('pendingTransfer');
                 localStorage.removeItem('pendingTransferType');
                 window.location.href = '../account_holder/account_holder_home_page.html';
@@ -319,7 +319,7 @@ function verifyOTP() {
             showModal(
                 'Transaction Successful!', 
                 'success', 
-                'Transaction Completed',
+                'Transaction Internal',
                 function() {
                     // This callback will execute when the modal is closed
                     localStorage.removeItem('pendingTransfer');

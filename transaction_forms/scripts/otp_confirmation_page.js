@@ -19,7 +19,7 @@ let cancelButton = document.getElementById("cancel");
 let otpAlertShown = false;
 let resendButton = document.getElementById("resend_otp");
 
-function showModal(message, type = 'info', title = 'Transaction Internal') {
+function showModal(message, type = 'info', title = 'Transaction Internal', callback = null) {
     const modal = document.getElementById('custom_modal');
     const modalTitle = document.getElementById('modal_title');
     const modalMessage = document.getElementById('modal_message');
@@ -33,6 +33,7 @@ function showModal(message, type = 'info', title = 'Transaction Internal') {
             modalIcon: !!modalIcon
         });
         alert(message);
+        if (callback) callback();
         return;
     }
     
@@ -51,7 +52,7 @@ function showModal(message, type = 'info', title = 'Transaction Internal') {
             modalTitle.textContent = title || 'Error';
             break;
         case 'warning':
-            modalIcon.className += ' warning fa fa-exclamation-triangle';
+            modalIcon.className += ' warning fas fa-exclamation-triangle';
             modalTitle.textContent = title || 'Warning';
             break;
         case 'info':
@@ -74,6 +75,13 @@ function showModal(message, type = 'info', title = 'Transaction Internal') {
         const closeButton = modal.querySelector('.modal-button.primary');
         if (closeButton) {
             closeButton.focus();
+            // Add callback to close button if provided
+            if (callback) {
+                closeButton.onclick = function() {
+                    closeModal();
+                    callback();
+                };
+            }
         }
     }, 100);
 }
@@ -86,18 +94,15 @@ function closeModal() {
     
     setTimeout(() => {
         modal.style.display = 'none';
+        // Reset close button onclick to default
+        const closeButton = modal.querySelector('.modal-button.primary');
+        if (closeButton) {
+            closeButton.onclick = closeModal;
+        }
     }, 300);
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Optionally update UI for transfer type
-    if (transferType === 'external') {
-        const title = document.querySelector('h2');
-        if (title) title.textContent = 'Enter OTP for External Transfer';
-    }
-
-    
-    // --- REMOVE automatic OTP GENERATION FOR INTERNAL TRANSFER ---
+   // --- REMOVE automatic OTP GENERATION FOR INTERNAL TRANSFER ---
     // if (transferType === 'internal') {
     //     const pendingTransfer = JSON.parse(localStorage.getItem('pendingTransfer'));
     //     if (pendingTransfer) {
@@ -131,6 +136,13 @@ document.addEventListener('DOMContentLoaded', function() {
     //         });
     //     }
     // }
+    
+document.addEventListener('DOMContentLoaded', function() {
+    // Optionally update UI for transfer type
+    if (transferType === 'external') {
+        const title = document.querySelector('h2');
+        if (title) title.textContent = 'Enter OTP for External Transfer';
+    }
 
     // Add event listeners
     otpVerification.addEventListener("input", validateForm);
@@ -266,12 +278,10 @@ function verifyOTP() {
         .then(response => response.json())
         .then(result => {
             if (result.success) {
-                showModal('Transaction Successful!', 'success');
+                showModal('Transfer completed successfully!');
                 localStorage.removeItem('pendingTransfer');
                 localStorage.removeItem('pendingTransferType');
-                setTimeout(() => {
-                    window.location.href = 'thank_you_message.html';
-                }, 2000); // Delay to show success modal for 2 seconds
+                window.location.href = '../account_holder/account_holder_home_page.html';
             } else {
                 showModal('Transfer failed: ' + result.message);
                 verifyButton.disabled = false;
@@ -305,12 +315,18 @@ function verifyOTP() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            showModal('Transaction Successful!', 'success');
-            localStorage.removeItem('pendingTransfer');
-            localStorage.removeItem('pendingTransferType');
-            setTimeout(() => {
-                window.location.href = 'thank_you_message.html';
-            }, 2000); // Delay to show success modal for 2 seconds
+            // Show success modal with callback to redirect to thank you page
+            showModal(
+                'Transaction Successful!', 
+                'success', 
+                'Transaction Completed',
+                function() {
+                    // This callback will execute when the modal is closed
+                    localStorage.removeItem('pendingTransfer');
+                    localStorage.removeItem('pendingTransferType');
+                    window.location.href = `thank_you_message.html`;
+                }
+            );
         } else {
             showModal('Verification failed: ' + data.message);
             verifyButton.disabled = false;
@@ -339,5 +355,6 @@ function cancelTransfer() {
         }
     }
 }
+
 // Initialize form validation on page load
 validateForm();

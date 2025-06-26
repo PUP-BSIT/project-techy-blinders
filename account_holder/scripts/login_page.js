@@ -1,5 +1,21 @@
 const API_URL = "https://blindvault.site/php/login_page.php";
 
+document.addEventListener("DOMContentLoaded", function () {
+    const passwordInput = document.getElementById("password");
+    const togglePasswordBtn = document.getElementById("toggle_password");
+    const toggleIcon = document.getElementById("toggle_password_icon");
+
+    if (passwordInput && togglePasswordBtn && toggleIcon) {
+        togglePasswordBtn.addEventListener("click", () => {
+            const isHidden = passwordInput.type === "password";
+            passwordInput.type = isHidden ? "text" : "password";
+            toggleIcon.classList.toggle("fa-eye");
+            toggleIcon.classList.toggle("fa-eye-slash");
+        });
+    }
+});
+
+
  function showModal(message, type = 'info', title = 'Login') {
     const modal = document.getElementById('custom_modal');
     const modalTitle = document.getElementById('modal_title');

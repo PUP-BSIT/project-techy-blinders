@@ -196,6 +196,28 @@ body {
     transform: translateY(-2px);
 }
 
+.password-input {
+    width: 100%;
+    padding-right: 40px; 
+}
+
+.toggle-password-btn {
+    position: absolute;
+    right: 8%;
+    top: 55%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    font-size: 1.5rem;
+    padding: 0;
+}
+
+.toggle-password-btn:hover {
+    color: #000;
+}
+
 .signup-container {
     font-family: "Inter", monospace;
     text-align: center;

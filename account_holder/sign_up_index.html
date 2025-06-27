@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign Up | Blinders Vault</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/sign_up_page.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,21 +16,39 @@
 
 <body>
     <div class="container">
+
         <div class="top-nav-bar">
             <div class="icon">
-                <img src="../assets/logo.png" alt="Logo">
+                <img src="../assets/logo.png" alt="Blinders Vault Icon">
                 <h4>Blinders Vault</h4>
             </div>
-            
-            <a href="./login_page_index.html">
-                <button type="button" id="login_button">Login</button>
-            </a>
-            <a href="./contact_landing_page.html" 
-               class="contact">Contact us</a>
-            <a href="./about_landing_page.html" class="about">About us</a>
-            <a href="../index.html" class="home">Home</a>
+
+            <div class="desktop-nav">
+                <a href="./account_holder/login_page_index.html">
+                    <button type="button" id="login_button">Login</button>
+                </a>
+                <a class="contact" href="./about_landing_page.html">About us</a>
+                <a class="about" href="./contact_landing_page.html">Contact us</a>
+                <a class="home" href="../index.html">Home</a>
+            </div>
+
+            <div class="hamburger-menu">
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <div class="mobile-nav" id="mobile-nav">
+                    <a href="../index.html">Home</a>
+                    <a href="./about_landing_page.html">About us</a>
+                    <a href="./contact_landing_page.html">Contact us</a>
+                    <a href="./login_page_index.html">Login</a>
+                </div>
+            </div>
         </div>
 
+        
         <div class="main">
             <div class="form-container">
                 <h1>Sign up</h1>

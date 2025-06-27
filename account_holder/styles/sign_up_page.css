@@ -54,6 +54,9 @@ body {
   background-color: transparent;
   overflow: hidden;
   font-style: "sans-serif";
+  height: 80px;
+  position: relative;
+  z-index: 999;
 }
 
 .top-nav-bar a {
@@ -79,7 +82,7 @@ body {
   margin-top: -2.4%;
   position: absolute;
   width: 13%;
-  height: 9.375rem;
+  height: 150px;
   margin-left: -2%;
 }
 
@@ -89,10 +92,6 @@ body {
   margin-left: 7%;
   font-family: "Lexend Tera", sans-serif;
   color: var(--text);
-}
-
-a {
-  text-decoration: none;
 }
 
 #login_button {
@@ -108,11 +107,105 @@ a {
 }
 
 #login_button:hover {
+  font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 0 20px #01C38E;
-  background-color:  #0b3f34;
-  transform: translateY(-3px);
+  background-color: var(--hover-button);
+  box-shadow: var(--button-shadow);
+  outline: #017A5E;
   transition: all 0.3s ease;
+}
+
+.desktop-nav {
+  display: block;
+}
+
+.hamburger-menu {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  z-index: 1001;
+  position: relative;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background-color: var(--text);
+  margin: 3px 0;
+  transition: 0.3s;
+  border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 250px;
+  height: 100vh;
+  background: linear-gradient(135deg, #1A2235 0%, #2A3F5F 100%);
+  backdrop-filter: blur(10px);
+  transition: right 0.3s ease;
+  z-index: 1000;
+  padding-top: 80px;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-nav.active {
+  right: 0;
+}
+
+.mobile-nav a {
+  display: block;
+  padding: 20px 30px;
+  text-decoration: none;
+  color: var(--text);
+  font-family: "Lexend Tera", sans-serif;
+  font-size: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  float: none;
+  text-align: left;
+}
+
+.mobile-nav a:hover {
+  background-color: rgba(1, 195, 142, 0.1);
+  color: var(--accent);
+  transform: translateX(10px);
+}
+
+.mobile-nav a:last-child {
+  background-color: var(--accent);
+  color: white;
+  border-radius: 25px;
+  margin: 20px;
+  text-align: center;
+  border: none;
+  font-weight: bold;
+}
+
+.mobile-nav a:last-child:hover {
+  background-color: var(--hover-button);
+  transform: translateX(0);
+  box-shadow: var(--button-shadow);
 }
 
 .main {
@@ -468,16 +561,98 @@ a {
 
 /* Responsive design */
 @media (max-width: 768px) {
-    .container {
-        grid-template-columns: 1fr;
-        padding: 20px;
-    }
-    
-    .modal {
-        min-width: 350px;
-    }
-    
-    .bank-name {
-        font-size: 2.5rem;
-    }
+  .container {
+      grid-template-columns: 1fr;
+      padding: 20px;
+  }
+  
+  .modal {
+      min-width: 350px;
+  }
+  
+  .bank-name {
+      font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+  grid-template-columns: 1fr;
+  padding: 20px;
+  }
+
+  .form-container {
+    width: 100vw;
+    max-width: 100vw;
+    min-width: 0;
+    margin: 0;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    box-sizing: border-box;
+    height: auto;
+    max-height: none;
+  }
+
+  .top-nav-bar {
+    height: 10%;
+  }
+
+  .modal {
+  min-width: 350px;
+  }
+
+  .bank-name {
+  font-size: 2.5rem;
+  }
+
+  .desktop-nav {
+  display: none;
+  }
+
+  .hamburger-menu {
+  display: block;
+  margin-top: -0.8%;
+  }
+
+  .icon img {
+  margin-top: -6%;
+  margin-left: -3%;
+  width: 25%;
+  height: auto;
+  }
+
+  .icon h4 {
+  margin-left: 15%;
+  margin-top: 10px;
+  font-size: 14px;
+  }
+  .contact-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  }
+
+  .logo-design-container {
+  display: none;
+  }
+
+  .g-recaptcha {
+  width: 100% !important;
+  min-width: 180px;
+  max-width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(0.65);
+  }
+
+  .floating-image, .visual {
+    display: none;
+  }
+
+  .form-container {
+    width: 90%;
+    margin: 0;
+  }
 }

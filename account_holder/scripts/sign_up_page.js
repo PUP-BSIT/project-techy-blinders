@@ -34,6 +34,34 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Passwords do not match!");
         }
     });
+
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+    const closeMenu = () => {
+        hamburger.classList.remove('active');
+        mobileNav.classList.remove('active');
+    };
+
+    hamburger.onclick = () => {
+        hamburger.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+    };
+
+    document.onclick = e => {
+        if (
+        mobileNav.classList.contains('active') &&
+        !mobileNav.contains(e.target) &&
+        !hamburger.contains(e.target)
+        ) closeMenu();
+    };
+
+    mobileNav.querySelectorAll('a').forEach(link =>
+        link.onclick = closeMenu
+    );
+
+    window.onresize = () => {
+        if (window.innerWidth > 768) closeMenu();
+    };
 });
 
 function getFormData() {

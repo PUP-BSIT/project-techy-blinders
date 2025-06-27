@@ -53,6 +53,7 @@ body {
   font-style: "sans-serif";
   height: 80px;
   position: relative;
+  z-index: 999;
 }
 
 .top-nav-bar a {

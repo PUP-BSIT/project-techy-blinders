@@ -69,7 +69,7 @@ body {
   transition: all 0.3s ease;
 }
 
-.contact:hover, .about:hover {
+.contact:hover, .about:hover, .home:hover {
   transform: translateY(-3px);
   color: var(--accent);
   border-bottom: 2px solid;

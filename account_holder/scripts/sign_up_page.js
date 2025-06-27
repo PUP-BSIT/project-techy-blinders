@@ -66,7 +66,7 @@ function showModal(message, type = 'info', title = 'Alert') {
     }
     
     modalTitle.textContent = title;
-    modalMessage.textContent = message;
+    modalMessage.innerHTML = message;
     
     modalIcon.className = 'modal-icon';
     

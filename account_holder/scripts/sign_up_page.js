@@ -1,5 +1,41 @@
 let API_URL = "https://blindvault.site/php/process_registration.php";
 
+document.addEventListener("DOMContentLoaded", function () {
+    const passwordInput = document.getElementById("password");
+    const togglePasswordBtn = document.getElementById("toggle_password");
+    const togglePasswordIcon = document.getElementById("toggle_password_icon");
+
+    if (passwordInput && togglePasswordBtn && togglePasswordIcon) {
+        togglePasswordBtn.addEventListener("click", () => {
+            const isHidden = passwordInput.type === "password";
+            passwordInput.type = isHidden ? "text" : "password";
+            togglePasswordIcon.classList.toggle("fa-eye");
+            togglePasswordIcon.classList.toggle("fa-eye-slash");
+        });
+    }
+
+    const confirmPasswordInput = document.getElementById("confirm_password");
+    const toggleConfirmBtn = document.getElementById("toggle_confirm_password");
+    const toggleConfirmIcon = document.getElementById("toggle_confirm_password_icon");
+
+    if (confirmPasswordInput && toggleConfirmBtn && toggleConfirmIcon) {
+        toggleConfirmBtn.addEventListener("click", () => {
+            const isHidden = confirmPasswordInput.type === "password";
+            confirmPasswordInput.type = isHidden ? "text" : "password";
+            toggleConfirmIcon.classList.toggle("fa-eye");
+            toggleConfirmIcon.classList.toggle("fa-eye-slash");
+        });
+    }
+
+    const form = document.querySelector("form");
+    form.addEventListener("submit", function (e) {
+        if (passwordInput.value !== confirmPasswordInput.value) {
+            e.preventDefault(); // Stop form from submitting
+            alert("Passwords do not match!");
+        }
+    });
+});
+
 function getFormData() {
     return {
         firstName: document.getElementById("first_name")?.value?.trim() || '',

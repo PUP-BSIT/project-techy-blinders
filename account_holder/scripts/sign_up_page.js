@@ -117,6 +117,18 @@ function closeModal() {
     }, 300);
 }
 
+function copyAccountId() {
+    const input = document.getElementById("accountIdInput");
+    input.select();
+    input.setSelectionRange(0, 99999); 
+
+    navigator.clipboard.writeText(input.value).then(() => {
+        showModal("Account ID copied to clipboard!");
+    }).catch(err => {
+        console.error("Failed to copy:", err);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const customModal = document.getElementById('custom_modal');
     if (customModal) {
@@ -249,7 +261,15 @@ function submitUser() {
             let accountId = extractAccountId(responseText);
             
             if (accountId) {
-                showModal(`Account successfully created! Your Account ID is: ${accountId}\n\nPlease save this ID as you will need it to log in.`, 'success', 'Account Created');
+                showModal(`
+                    <p>Account successfully created!</p>
+                    <p>Your Account ID is:</p>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <input type="text" id="accountIdInput" value="${accountId}" readonly style="padding: 5px; font-weight: bold; width: 200px;" />
+                        <button onclick="copyAccountId()">Copy</button>
+                    </div>
+                    <p>Please save this ID as you will need it to log in.</p>
+                `, 'success', 'Account Created');
             } else {
                 showModal("Account successfully created! Please check your email for your Account ID.", 'success', 'Account Created');
             }

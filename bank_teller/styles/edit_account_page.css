@@ -10,50 +10,52 @@
             0 0 16px rgba(0, 223, 154, 0.6),
             0 0 24px rgba(0, 223, 154, 0.7);
     --hover-button: #0b3f34;
+
     --back-button-shadow:
     0 0 8px rgba(134, 16, 16, 0.5),
     0 0 16px rgba(134, 16, 16, 0.6),
     0 0 24px rgba(134, 16, 16, 0.7);
-    --hover-back-button: #520a0a;
-    --container-bg: #132D46;
-    --text-primary: #FFF;
-    --text-secondary: #CCC;
-    --accent-color: #01C38E;
-    --shadow-glow: 0 0 20px rgba(0, 223, 154, 0.3),
-                   0 0 80px rgba(0, 223, 154, 0.4);
+
+    --hover-back-button:#520a0a;
 }
 
 * {
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    padding: 0px;
 }
-
 body {
-    background-color: #1A2235;
-    overflow-x: hidden;
+    background: linear-gradient(135deg, #1A2235 0%, #2D4A4A 50%, 
+    #1A2235 100%);
+    min-height: 100vh;
 }
-
 .top-nav-bar {
     background-color: #1A1E29;
     overflow: hidden;
     font-style: "sans-serif";
-    position: relative;
-    min-height: 70px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 15px 20px;
 }
 
-.top-nav-bar a {
-    color: white;
-    text-align: center;
-    padding: 15px 20px;
-    text-decoration: none;
-    font-family: "Lexend Tera", sans-serif;
-    font-size: 18px;
-    display: inline-block;
+.nav-left {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin: 0 40px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .icon {
@@ -65,14 +67,12 @@ body {
 .icon img {
     width: 50px;
     height: 50px;
-    flex-shrink: 0;
 }
 
 .icon h4 {
     font-family: "Lexend Tera", sans-serif;
     color: white;
-    font-size: 18px;
-    white-space: nowrap;
+    margin: 0;
 }
 
 a {

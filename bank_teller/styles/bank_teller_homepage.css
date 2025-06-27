@@ -16,11 +16,13 @@
     margin: 0;
     padding: 0px;
 }
+
 body {
     background: linear-gradient(135deg, #1A2235 0%, #2D4A4A 50%, 
     #1A2235 100%);
     min-height: 100vh;
 }
+
 .top-nav-bar {
     background-color: #1A1E29;
     overflow: hidden;

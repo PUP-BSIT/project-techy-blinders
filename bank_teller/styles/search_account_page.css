@@ -22,14 +22,12 @@
 * {
     margin: 0;
     padding: 0px;
-    box-sizing: border-box;
 }
-
 body {
-    background-color: #1A2235;
-    overflow-x: hidden;
+    background: linear-gradient(135deg, #1A2235 0%, #2D4A4A 50%, 
+    #1A2235 100%);
+    min-height: 100vh;
 }
-
 .top-nav-bar {
     background-color: #1A1E29;
     overflow: hidden;
@@ -37,31 +35,38 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
-    height: 80px;
-    position: relative;
+    padding: 15px 20px;
 }
 
-.top-nav-bar a {
-    color: white;
-    text-align: center;
-    padding: 20px 15px;
-    text-decoration: none;
-    font-family: "Lexend Tera", sans-serif;
-    font-size: 20px;
-    white-space: nowrap;
+.nav-left {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin: 0 40px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .icon {
     display: flex;
     align-items: center;
-    flex-shrink: 0;
+    gap: 15px;
 }
 
 .icon img {
-    width: 60px;
-    height: 60px;
-    margin-right: 15px;
+    width: 50px;
+    height: 50px;
 }
 
 .icon h4 {

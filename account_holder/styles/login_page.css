@@ -449,18 +449,150 @@ body {
     to { transform: rotate(360deg); }
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
     .container {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         padding: 20px;
+        align-items: center;
     }
-    
+
+    .content-container {
+        margin-top: -20%;
+    }
+
+    .logo-display {
+        margin-top: -40%;
+    }
+
+    .login-form-container {
+        margin: 0 auto;
+        max-width: 100%;
+        min-width: 0;
+        width: 100%;
+        align-items: center;
+        padding: 1.5rem;
+    }
+
+    .logo-design-container {
+        align-items: center;
+        justify-content: center;
+        margin-left: 0;
+        margin-top: 0;
+        display: flex;
+    }
+
+    .logo-container {
+        justify-content: center;
+        display: flex;
+    }
+
+    .logo-display {
+        margin-bottom: 0;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .slogan-container, .slogan {
+        text-align: center ;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+
     .modal {
         min-width: 350px;
     }
-    
+
     .bank-name {
         font-size: 2.5rem;
+    }
+    
+    .toggle-password-btn {
+        right: 15px;
+        margin-top: 25px;
+        margin-right: 0;
+    }
+
+    .account-id-input, .password-input {
+        width: 100%;
+        min-width: 250px;
+        max-width: 100%;
+        font-size: clamp(14px, 3.5vw, 16px);
+        padding: 0 12px;
+        height: clamp(40px, 8vw, 50px);
+        margin: 0;
+    }
+
+    .password-input {
+        padding-right: 45px;
+    }
+
+    .account-id-container,
+    .password-container {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .password-input-wrapper {
+        position: relative;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 1rem;
+    }
+
+    .login-form-container {
+        padding: 1rem;
+        border-radius: 20px;
+    }
+
+    .account-id-input, 
+    .password-input {
+        width: 100%;
+        min-width: 200px;
+        font-size: clamp(14px, 4vw, 16px);
+        height: clamp(38px, 9vw, 48px);
+        padding: 0 10px;
+    }
+
+    .password-input {
+        padding-right: 40px;
+    }
+
+    .toggle-password-btn {
+        right: 10px;
+        font-size: 1.2rem;
+    }
+
+    .button {
+        width: 100%;
+        max-width: 200px;
+        font-size: clamp(14px, 3.5vw, 16px);
+    }
+}
+
+@media (max-width: 320px) {
+    .account-id-input, 
+    .password-input {
+        width: 100%;
+        min-width: 180px;
+        font-size: 14px;
+        height: 40px;
+        padding: 0 8px;
+    }
+
+    .password-input {
+        padding-right: 35px;
+    }
+
+    .toggle-password-btn {
+        right: 8px;
+        font-size: 1.1rem;
     }
 }

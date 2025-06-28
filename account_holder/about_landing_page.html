@@ -16,25 +16,32 @@
          <div class="container-nav">
             <div class="top-nav-bar">
                 <div class="icon">
-                    <img src="../assets/logo-removebg-preview.png">
+                    <img src="../assets/logo.png" alt="Blinders Vault Icon">
                     <h4>Blinders Vault</h4>
                 </div>
-                
-                <div class="nav-links">
-                    <a class="home" href="../index.html">
-                        Home
-                    </a>
-                    <a class="about" href="./contact_landing_page.html">
-                        Contact us
-                    </a>
-                    <a class="contact" href="./about_landing_page.html">
-                        About us
-                    </a>
+
+                <div class="desktop-nav">
                     <a href="./login_page_index.html">
-                        <button type="button" id="login_button">
-                            Login
-                        </button>
+                        <button type="button" id="login_button">Login</button>
                     </a>
+                    <a class="contact" href="./about_landing_page.html">About us</a>
+                    <a class="about" href="./contact_landing_page.html">Contact us</a>
+                    <a class="home" href="../index.html">Home</a>
+                </div>
+
+                <div class="hamburger-menu">
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                    <div class="mobile-nav" id="mobile-nav">
+                        <a href="../index.html">Home</a>
+                        <a href="./about_landing_page.html">About us</a>
+                        <a href="./contact_landing_page.html">Contact us</a>
+                        <a href="./login_page_index.html">Login</a>
+                    </div>
                 </div>
             </div>
 
@@ -82,5 +89,6 @@
                 </div>
             </div>
         </div>
+        <script src="./scripts/about_landing_page.js"></script>
     </body>
 </html>

@@ -204,7 +204,7 @@ body {
 .toggle-password-btn {
     position: absolute;
     right: 8%;
-    top: 55%;
+    margin-top: 25px;
     transform: translateY(-50%);
     background: none;
     border: none;
@@ -224,6 +224,21 @@ body {
     margin-top: auto;
 }
 
+.forgot-password-container p {
+    color: white;
+}
+
+.forgot-password-container {
+    font-family: "Inter", monospace;
+    text-align: center;
+    margin-top: auto
+}
+
+.forgot-password-link {
+    color: var(--text);
+    font-size: 0.9rem;
+}
+
 .signup-link {
     color: var(--text);
     font-size: 0.9rem;
@@ -232,10 +247,23 @@ body {
 .hyper-link {
     text-decoration: none;
     color: green;
-    font-weight: 500;
+    font-weight: bold;
 }
 
 .hyper-link:hover {
+    color: #01C38E;
+    text-shadow: 0 0 30px #065b44;
+    transition: all 0.3s ease;
+}
+
+.hyper-link-password {
+    text-decoration: none;
+    color: rgb(241, 243, 241);
+    font-size: 0.9rem;
+    font-weight: bold
+}
+
+.hyper-link-password:hover {
     color: #01C38E;
     text-shadow: 0 0 30px #065b44;
     transition: all 0.3s ease;

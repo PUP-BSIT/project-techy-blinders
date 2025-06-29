@@ -14,6 +14,12 @@
            0 0 24px rgba(0, 223, 154, 0.7);
     --card: #041a2f;
     --hover-button: #0b3f34;
+    --back-button-shadow:
+        0 0 8px rgba(134, 16, 16, 0.5),
+        0 0 16px rgba(134, 16, 16, 0.6),
+        0 0 24px rgba(134, 16, 16, 0.7);
+
+    --hover-back-button:#520a0a;
 }
 
 * {
@@ -22,79 +28,173 @@
     box-sizing: border-box;
 }
 
+a {
+    text-decoration: none;
+}
+
 body {
     background-color: #041524;
 }
 
 .top-nav-bar {
-    background-color: #1A1E29;
-    overflow: hidden;
-    font-style: "sans-serif";
-    height: 65px;
+  background-color: transparent;
+  overflow: hidden;
+  font-style: "sans-serif";
+  height: 80px;
+  position: relative;
+  z-index: 999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
 }
 
 .top-nav-bar a {
-    float: right;
-    color: rgb(69, 68, 68);
-    text-align: center;
-    padding: 20px 10px;
-    text-decoration: none;
-    font-family: "Lexend Tera", sans-serif;
-    font-size: 15px;
-    margin-right: 0;
-    color: white;
-    transition: all 0.3s ease;
+  float: right;
+  color: rgb(69, 68, 68);
+  text-align: center;
+  padding: 20px 10px;
+  text-decoration: none;
+  font-family: "Lexend Tera", sans-serif;
+  font-size: 15px;
+  margin-right: 0;
+  color: white;
+  transition: all 0.3s ease;
 }
 
 .contact:hover, .about:hover, .home:hover {
-    transform: translateY(-3px);
-    color: var(--accent);
-    border-bottom: 2px solid;
+  transform: translateY(-3px);
+  color: var(--accent);
+  border-bottom: 2px solid;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 
 .icon img {
-    margin-top: 5px;
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    margin-left: 2%;
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
 }
 
 .icon h4 {
-    position: absolute;
-    margin-top: 1.5%;
-    margin-left: 7%;
-    font-family: "Lexend Tera", sans-serif;
-    color: var(--text);
-}
-
-a {
-    text-decoration: none;
+  font-family: "Lexend Tera", sans-serif;
+  color: var(--text);
+  font-size: 16px;
+  margin: 0;
 }
 
 #logout_button {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 15px;
-    padding: 7px;
-    width: 100px;
-    border: solid 0px;
-    background-color: #01C38E;
-    color: white;
-    border-radius: 50px;
-    cursor: pointer;
-    
-    float: right;
-    margin: 20px 10px;
-    margin-top: 15px; 
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 15px;
+  padding: 7px;
+  width: 100px;
+  border: solid 0px;
+  background-color: #b11414;
+  color: white;
+  border-radius: 50px;
 }
 
 #logout_button:hover {
-    font-weight: bold;
-    cursor: pointer;
-    background-color: var(--hover-button);
-    box-shadow: var(--button-shadow);
-    outline: #017A5E;
-    transition: all 0.3s ease;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: var(--hover-back-button);
+  box-shadow: var(--back-button-shadow);
+  transition: all 0.3s ease;
+}
+
+.desktop-nav {
+  display: flex;
+  align-items: center;
+}
+
+.hamburger-menu {
+  display: none;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  z-index: 1001;
+  position: relative;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background-color: var(--text);
+  margin: 3px 0;
+  transition: 0.3s;
+  border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 250px;
+  height: 100vh;
+  background: linear-gradient(135deg, #1A2235 0%, #2A3F5F 100%);
+  backdrop-filter: blur(10px);
+  transition: right 0.3s ease;
+  z-index: 1000;
+  padding-top: 80px;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-nav.active {
+  right: 0;
+}
+
+.mobile-nav a {
+  display: block;
+  padding: 20px 30px;
+  text-decoration: none;
+  color: var(--text);
+  font-family: "Lexend Tera", sans-serif;
+  font-size: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  float: none;
+  text-align: left;
+}
+
+.mobile-nav a:hover {
+  background-color: rgba(1, 195, 142, 0.1);
+  color: var(--accent);
+  transform: translateX(10px);
+}
+
+.mobile-nav a:last-child {
+  background-color: var(--accent);
+  color: white;
+  border-radius: 25px;
+  margin: 20px;
+  text-align: center;
+  border: none;
+  font-weight: bold;
+}
+
+.mobile-nav a:last-child:hover {
+  background-color: var(--hover-button);
+  transform: translateX(0);
+  box-shadow: var(--button-shadow);
 }
 
 #logout_button:disabled {
@@ -292,48 +392,61 @@ a {
     transition: width 0.3s ease;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
     .top-nav-bar {
-        height: auto;
+        height: 10%;
+        padding: 10px 20px;
         display: flex;
-        flex-direction: column;
+        justify-content: space-between;
         align-items: center;
-        padding-bottom: 10px;
     }
     
+    .modal {
+        min-width: 350px;
+    }
+
+    .bank-name {
+        font-size: 2.5rem;
+    }
+
+    .desktop-nav {
+        display: none;
+    }
+
+    .hamburger-menu {
+        display: block;
+    }
+
     .icon {
         display: flex;
         align-items: center;
-        justify-content: center;
-        width: 100%;
-        margin-top: 10px;
-        margin-bottom: 10px;
     }
 
     .icon img {
-        position: static;
-        width: 45px;
-        height: 45px;
-        margin: 0 8px 0 0;
+        width: 40px;
+        height: 40px;
+        margin-right: 8px;
     }
 
     .icon h4 {
-        position: static;
+        font-size: 14px;
         margin: 0;
-        font-size: 18px;
-        color: white;
-        font-family: "Lexend Tera", sans-serif;
     }
 
-    .top-nav-bar a, #logout_button {
-        float: none;
-        display: block;
-        width: 90%;
-        text-align: center;
-        padding: 10px 0;
-        font-size: 16px;
-        margin: 0 auto;
-        flex-direction: column-reverse;
+    .contact-form-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .logo-design-container {
+        display: none;
     }
 
     .account-details-border {
@@ -414,13 +527,13 @@ a {
         margin-top: 10px;
     }
 
-    .transfer-funds-internal button,
-    .transfer-funds-external button {
-        width: 90%;
+    .transfer-funds-internal button, .transfer-funds-external button {
+        width: 100%;
         max-width: unset;
         min-width: 100px;
         font-size: 16px;
-        padding: 10px 0;
+        padding-top: 10px;
+        padding-bottom: 10px;
         margin-top: 10px;
         margin-left: auto;
         margin-right: auto;

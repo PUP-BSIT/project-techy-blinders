@@ -3,7 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title>Contact us | Blinders Vault</title>
-        <link rel="stylesheet" href="./styles/contact_landing.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./styles/contact_us.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Lexend+Tera:wght@100..900&display=swap" rel="stylesheet">
@@ -16,20 +17,32 @@
         <div class="container">
             <div class="top-nav-bar">
                 <div class="icon">
-                    <img src="../assets/logo.png" alt="Logo">
+                    <img src="../assets/logo.png" alt="Blinders Vault Icon">
                     <h4>Blinders Vault</h4>
                 </div>
 
-                <div class="nav-links">
-                    <a href="./account_holder_home_page.html">
-                        <button type="button" id="back_button">Back</button>
+                <div class="desktop-nav">
+                    <a class="home" href="./account_holder_home_page.html">Home</a>
+                    <a class="about" href="./contact_us_page.html">Contact us</a>
+                    <a class="contact" href="./about_us_page.html">About us</a>
+                    <a href="./login_page_index.html">
+                        <button type="button" id="logout_button">Logout</button>
                     </a>
-                    <a href="./about_landing_page.html" 
-                            class="about">About us
-                    </a>
-                    <a href="./account_holder_home_page.html"
-                            class="contact">Contact us
-                    <a class="home" href="../index.html">Home</a>
+                </div>
+
+                <div class="hamburger-menu">
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                    <div class="mobile-nav" id="mobile-nav">
+                        <a href="./account_holder_home_page.html">Home</a>
+                        <a href="./about_us_page.html">About us</a>
+                        <a href="./contact_us_page.html">Contact us</a>
+                        <a href="./login_page_index.html">Logout</a>
+                    </div>
                 </div>
             </div>
 

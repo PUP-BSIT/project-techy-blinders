@@ -1,5 +1,156 @@
 const API_URL = "https://blindvault.site/php/password_reset.php";
 
+function showModal(message, type = 'info', title = 'Login') {
+    const modal = document.getElementById('custom_modal');
+    const modalTitle = document.getElementById('modal_title');
+    const modalMessage = document.getElementById('modal_message');
+    const modalIcon = document.getElementById('modal_icon');
+    
+    if (!modal || !modalTitle || !modalMessage || !modalIcon) {
+        console.error('Modal elements not found:', {
+            modal: !!modal,
+            modalTitle: !!modalTitle,
+            modalMessage: !!modalMessage,
+            modalIcon: !!modalIcon
+        });
+        alert(message);
+        return;
+    }
+    
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+    
+    modalIcon.className = 'modal-icon';
+    
+    switch(type) {
+        case 'success':
+            modalIcon.className += ' success fas fa-check-circle';
+            modalTitle.textContent = title || 'Success';
+            break;
+        case 'error':
+            modalIcon.className += ' error fas fa-times-circle';
+            modalTitle.textContent = title || 'Error';
+            break;
+        case 'warning':
+            modalIcon.className += ' warning fas fa-exclamation-triangle';
+            modalTitle.textContent = title || 'Warning';
+            break;
+        case 'info':
+            modalIcon.className += ' info fas fa-info-circle';
+            break;
+        default:
+            modalIcon.className += ' info fas fa-info-circle';
+    }
+    
+    modal.classList.remove('show');
+    
+    modal.style.display = 'block';
+    modal.offsetHeight; 
+    
+    requestAnimationFrame(() => {
+        modal.classList.add('show');
+    });
+    
+    setTimeout(() => {
+        const closeButton = modal.querySelector('.modal-button.primary');
+        if (closeButton) {
+            closeButton.focus();
+        }
+    }, 100);
+}
+
+function closeModal() {
+    const modal = document.getElementById('custom_modal');
+    if (!modal) return;
+    
+    modal.classList.remove('show');
+    
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
+}
+
+async function resetPasswordFunction(accountId, newPassword, confirmPassword) {
+    const submitButton = document.getElementById('submit_button');
+    const accountIdInput = document.getElementById('account_id');
+    const newPasswordInput = document.getElementById('new_password');
+    const confirmPasswordInput = document.getElementById('confirm_password');
+    
+    // Validate form
+    if (!accountId || !newPassword || !confirmPassword) {
+        showModal('Please fill in all fields.', 'error');
+        return false;
+    }
+
+    if (!/^\d+$/.test(accountId)) {
+        showModal('Account number must contain only numbers.', 'error');
+        return false;
+    }
+
+    if (newPassword.length < 8) {
+        showModal('Password must be at least 8 characters long.', 'error');
+        return false;
+    }
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
+    if (!passwordRegex.test(newPassword)) {
+        showModal('Password must contain at least one uppercase letter, one lowercase letter, and one number.', 'error');
+        return false;
+    }
+
+    if (newPassword !== confirmPassword) {
+        showModal('Passwords do not match.', 'error');
+        return false;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = 'Submitting...';
+
+    try {
+        const formData = new FormData();
+        formData.append('account_holder_id', accountId.trim());
+        formData.append('new_password', newPassword);
+        formData.append('confirm_password', confirmPassword);
+
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            showModal('Password reset successful! You can now login with your new password.', 'success');
+            
+            accountIdInput.value = '';
+            newPasswordInput.value = '';
+            confirmPasswordInput.value = '';
+            
+            setTimeout(() => {
+                const modal = document.getElementById('custom_modal');
+                const modalButton = modal.querySelector('.modal-button');
+                modalButton.onclick = function() {
+                    closeModal();
+                    window.location.href = './login_page_index.html';
+                };
+            }, 100);
+            
+            return true;
+        } else {
+            showModal(result.message || 'Password reset failed. Please try again.', 'error');
+            return false;
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showModal('An error occurred. Please try again later.', 'error');
+        return false;
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Submit';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const accountIdInput = document.getElementById('account_id');
     const newPasswordInput = document.getElementById('new_password');
@@ -32,64 +183,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function validateForm() {
-        const accountId = accountIdInput.value.trim();
-        const newPassword = newPasswordInput.value;
-        const confirmPassword = confirmPasswordInput.value;
-
-        if (!accountId || !newPassword || !confirmPassword) {
-            showMessage('Please fill in all fields.', 'error');
-            return false;
-        }
-
-        if (!/^\d+$/.test(accountId)) {
-            showMessage('Account number must contain only numbers.', 'error');
-            return false;
-        }
-
-        if (newPassword.length < 8) {
-            showMessage('Password must be at least 8 characters long.', 'error');
-            return false;
-        }
-
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
-        if (!passwordRegex.test(newPassword)) {
-            showMessage('Password must contain at least one uppercase letter, one lowercase letter, and one number.', 'error');
-            return false;
-        }
-
-        if (newPassword !== confirmPassword) {
-            showMessage('Passwords do not match.', 'error');
-            return false;
-        }
-
-        return true;
-    }
-
-    function showMessage(message, type) {
-        const modal = document.getElementById('custom_modal');
-        const modalTitle = document.getElementById('modal_title');
-        const modalIcon = document.getElementById('modal_icon');
-        const modalMessage = document.getElementById('modal_message');
-        
-        if (type === 'error') {
-            modalTitle.textContent = 'Error';
-            modalIcon.className = 'modal-icon fas fa-exclamation-circle';
-            modalIcon.style.color = '#c62828';
-        } else if (type === 'success') {
-            modalTitle.textContent = 'Success';
-            modalIcon.className = 'modal-icon fas fa-check-circle';
-            modalIcon.style.color = '#2e7d32';
-        } else {
-            modalTitle.textContent = 'Alert';
-            modalIcon.className = 'modal-icon fas fa-info-circle';
-            modalIcon.style.color = '#1976d2';
-        }
-        
-        modalMessage.textContent = message;
-        modal.style.display = 'flex';
-    }
-
     window.closeModal = function() {
         const modal = document.getElementById('custom_modal');
         modal.style.display = 'none';
@@ -101,55 +194,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    window.resetPassword = async function() {
+        const accountId = accountIdInput.value.trim();
+        const newPassword = newPasswordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        
+        await resetPasswordFunction(accountId, newPassword, confirmPassword);
+    };
+
     submitButton.addEventListener('click', async function(e) {
         e.preventDefault();
         
-        if (!validateForm()) {
-            return;
-        }
-
-        submitButton.disabled = true;
-        submitButton.textContent = 'Submitting...';
-
-        try {
-            const formData = new FormData();
-            formData.append('account_holder_id', accountIdInput.value.trim());
-            formData.append('new_password', newPasswordInput.value);
-            formData.append('confirm_password', confirmPasswordInput.value);
-
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                body: formData,
-                credentials: 'include'
-            });
-
-            const result = await response.json();
-
-            if (result.success) {
-                showMessage('Password reset successful! You can now login with your new password.', 'success');
-                
-                accountIdInput.value = '';
-                newPasswordInput.value = '';
-                confirmPasswordInput.value = '';
-                
-                setTimeout(() => {
-                    const modal = document.getElementById('custom_modal');
-                    const modalButton = modal.querySelector('.modal-button');
-                    modalButton.onclick = function() {
-                        closeModal();
-                        window.location.href = './login_page_index.html';
-                    };
-                }, 100);
-            } else {
-                showMessage(result.message || 'Password reset failed. Please try again.', 'error');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            showMessage('An error occurred. Please try again later.', 'error');
-        } finally {
-            submitButton.disabled = false;
-            submitButton.textContent = 'Submit';
-        }
+        const accountId = accountIdInput.value.trim();
+        const newPassword = newPasswordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        
+        await resetPasswordFunction(accountId, newPassword, confirmPassword);
     });
 
     document.addEventListener('keypress', function(e) {

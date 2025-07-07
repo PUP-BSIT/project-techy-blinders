@@ -36,6 +36,8 @@ body {
     background-color: #1A1E29;
     overflow: hidden;
     font-style: "sans-serif";
+    position: relative;
+    min-height: 70px;
 }
 
 .top-nav-bar a {

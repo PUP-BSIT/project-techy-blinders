@@ -7,27 +7,28 @@ let transferButton = document.getElementById("transfer");
 let cancelButtonElem = document.getElementById("cancel");
 let totalBalanceElement = document.querySelector(".total-balance-internal");
 
-function showModal(message, type = 'info', title = 'Transaction Internal') {
+let modalCallback = null;
+
+function showModal(message, type = 'info', title = 'Transaction Internal', callback = null) {
     const modal = document.getElementById('custom_modal');
     const modalTitle = document.getElementById('modal_title');
     const modalMessage = document.getElementById('modal_message');
     const modalIcon = document.getElementById('modal_icon');
+    const modalCancel = document.getElementById('modal_cancel');
+    const modalOk = document.getElementById('modal_ok');
     
-    if (!modal || !modalTitle || !modalMessage || !modalIcon) {
-        console.error('Modal elements not found:', {
-            modal: !!modal,
-            modalTitle: !!modalTitle,
-            modalMessage: !!modalMessage,
-            modalIcon: !!modalIcon
-        });
+    if (!modal || !modalTitle || !modalMessage || !modalIcon || !modalCancel || !modalOk) {
+        console.error('Modal elements not found');
         alert(message);
         return;
     }
     
     modalTitle.textContent = title;
     modalMessage.textContent = message;
+    modalCallback = callback;
     
     modalIcon.className = 'modal-icon';
+    modalCancel.style.display = 'none';
     
     switch(type) {
         case 'success':
@@ -42,8 +43,10 @@ function showModal(message, type = 'info', title = 'Transaction Internal') {
             modalIcon.className += ' warning fas fa-exclamation-triangle';
             modalTitle.textContent = title || 'Warning';
             break;
-        case 'info':
-            modalIcon.className += ' info fas fa-info-circle';
+        case 'confirm':
+            modalIcon.className += ' info fas fa-question-circle';
+            modalTitle.textContent = title || 'Confirm';
+            modalCancel.style.display = 'inline-block';
             break;
         default:
             modalIcon.className += ' info fas fa-info-circle';
@@ -59,22 +62,29 @@ function showModal(message, type = 'info', title = 'Transaction Internal') {
     });
     
     setTimeout(() => {
-        const closeButton = modal.querySelector('.modal-button.primary');
-        if (closeButton) {
-            closeButton.focus();
-        }
-    }, 3000);
+        modalOk.focus();
+    }, 100);
 }
 
 function closeModal() {
     const modal = document.getElementById('custom_modal');
-    if (!modal) return;
+    const modalCancel = document.getElementById('modal_cancel');
+    if (!modal || !modalCancel) return;
     
     modal.classList.remove('show');
+    modalCancel.style.display = 'none';
     
     setTimeout(() => {
         modal.style.display = 'none';
-    }, 3000);
+    }, 300);
+}
+
+function handleModalOk() {
+    if (modalCallback) {
+        modalCallback(true);
+    } else {
+        closeModal();
+    }
 }
 
 // Function to fetch and update balance
@@ -277,7 +287,12 @@ function submitUser() {
 }
 
 function cancelButton() {
-    window.location.href = "../account_holder/account_holder_home_page.html";
+    showModal('Are you sure you want to cancel this transfer?', 'confirm', 'Cancel Transfer', (confirmed) => {
+        if (confirmed) {
+            window.location.href = "../account_holder/account_holder_home_page.html";
+        }
+        closeModal();
+    });
 }
 
 function backButton() {

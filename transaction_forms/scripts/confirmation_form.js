@@ -14,28 +14,29 @@ function maskAccountName(fullName) {
     return maskedParts.join(' ');
 }
 
-function showModal(message, type = 'info', title = 'Confirmation Receipt') {
+let modalCallback = null;
+
+function showModal(message, type = 'info', title = 'Confirmation Receipt', callback = null) {
     const modal = document.getElementById('custom_modal');
     const modalTitle = document.getElementById('modal_title');
     const modalMessage = document.getElementById('modal_message');
     const modalIcon = document.getElementById('modal_icon');
-    
-    if (!modal || !modalTitle || !modalMessage || !modalIcon) {
-        console.error('Modal elements not found:', {
-            modal: !!modal,
-            modalTitle: !!modalTitle,
-            modalMessage: !!modalMessage,
-            modalIcon: !!modalIcon
-        });
+    const modalCancel = document.getElementById('modal_cancel');
+    const modalOk = document.getElementById('modal_ok');
+
+    if (!modal || !modalTitle || !modalMessage || !modalIcon || !modalCancel || !modalOk) {
+        console.error('Modal elements not found');
         alert(message);
         return;
     }
-    
+
     modalTitle.textContent = title;
     modalMessage.textContent = message;
-    
+    modalCallback = callback;
+
     modalIcon.className = 'modal-icon';
-    
+    modalCancel.style.display = 'none';
+
     switch(type) {
         case 'success':
             modalIcon.className += ' success fas fa-check-circle';
@@ -49,39 +50,43 @@ function showModal(message, type = 'info', title = 'Confirmation Receipt') {
             modalIcon.className += ' warning fas fa-exclamation-triangle';
             modalTitle.textContent = title || 'Warning';
             break;
-        case 'info':
-            modalIcon.className += ' info fas fa-info-circle';
+        case 'confirm':
+            modalIcon.className += ' info fas fa-question-circle';
+            modalTitle.textContent = title || 'Confirm';
+            modalCancel.style.display = 'inline-block';
             break;
         default:
             modalIcon.className += ' info fas fa-info-circle';
     }
-    
+
     modal.classList.remove('show');
-    
     modal.style.display = 'block';
-    modal.offsetHeight; 
-    
+    modal.offsetHeight;
     requestAnimationFrame(() => {
         modal.classList.add('show');
     });
-    
     setTimeout(() => {
-        const closeButton = modal.querySelector('.modal-button.primary');
-        if (closeButton) {
-            closeButton.focus();
-        }
+        modalOk.focus();
     }, 100);
 }
 
 function closeModal() {
     const modal = document.getElementById('custom_modal');
-    if (!modal) return;
-    
+    const modalCancel = document.getElementById('modal_cancel');
+    if (!modal || !modalCancel) return;
     modal.classList.remove('show');
-    
+    modalCancel.style.display = 'none';
     setTimeout(() => {
         modal.style.display = 'none';
     }, 300);
+}
+
+function handleModalOk() {
+    if (modalCallback) {
+        modalCallback(true);
+        modalCallback = null;
+    }
+    closeModal();
 }
 
 window.onload = async function() {

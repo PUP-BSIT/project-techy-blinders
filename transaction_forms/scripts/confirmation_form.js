@@ -227,9 +227,11 @@ document.getElementById('send_otp').addEventListener('click', async function() {
 
 document.getElementById('cancel').addEventListener('click', function() {
     const transferType = localStorage.getItem('pendingTransferType') || 'internal';
-    if (confirm("Are you sure you want to cancel this transfer?")) {
-        window.location.href = transferType === 'external' ? "transfer_fund_external.html" : "transfer_fund_internal.html";
-    }
+    showModal('Are you sure you want to cancel this transfer?', 'confirm', 'Cancel Transfer', (confirmed) => {
+        if (confirmed) {
+            window.location.href = transferType === 'external' ? "transfer_fund_external.html" : "transfer_fund_internal.html";
+        }
+    });
 });
 
 document.getElementById('back_button').addEventListener('click', function(e) {

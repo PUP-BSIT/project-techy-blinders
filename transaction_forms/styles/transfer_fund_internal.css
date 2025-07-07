@@ -109,13 +109,13 @@ a {
 .account-id-label {
     color: white;
     font-family: "Lexend Tera", sans-serif;
-    margin-left: -36%;
+    text-align: center;
 }
 
 .transfer-amount-label {
     color: white;
     font-family: "Lexend Tera", sans-serif;
-    margin-left: -27%;
+    text-align: center;
 }
 
 .button-container {

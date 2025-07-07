@@ -108,7 +108,7 @@ function showModal(message, type = 'info', title = 'Alert') {
             modalTitle.textContent = title || 'Error';
             break;
         case 'warning':
-            modalIcon.className += ' warning fas fa-exclamation-triangle';
+            modalIcon.className += ' warning fa fa-exclamation-triangle';
             modalTitle.textContent = title || 'Warning';
             break;
         case 'info':
@@ -151,7 +151,7 @@ function copyAccountId() {
     input.setSelectionRange(0, 99999); 
 
     navigator.clipboard.writeText(input.value).then(() => {
-        showModal("Account ID copied to clipboard!");
+        showModal("<p style='font-family: \"Lexend Tera\", sans-serif; color: var(--accent-color); font-weight: bold; text-align: center;'>Account ID copied to clipboard!</p>", 'success', 'Success');
     }).catch(err => {
         console.error("Failed to copy:", err);
     });
@@ -290,13 +290,13 @@ function submitUser() {
             
             if (accountId) {
                 showModal(`
-                    <p>Account successfully created!</p>
-                    <p>Your Account ID is:</p>
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <input type="text" id="accountIdInput" value="${accountId}" readonly style="padding: 5px; font-weight: bold; width: 200px;" />
-                        <button onclick="copyAccountId()">Copy</button>
+                    <p style='font-family: "Lexend Tera", sans-serif; color: var(--text-primary); font-size: 1.1rem; text-align: center;'>Account successfully created!</p>
+                    <p style='font-family: "IBM Plex Mono", monospace; color: var(--text-secondary); font-size: 0.9rem; text-align: center;'>Your Account ID is:</p>
+                    <div style='display: flex; align-items: center; justify-content: center; gap: 10px; margin: 1rem 0;'>
+                        <input type='text' id='accountIdInput' value='${accountId}' readonly style='padding: 0.5rem; font-family: "IBM Plex Mono", monospace; font-weight: bold; font-size: 1rem; width: 200px; border-radius: 0.3125rem; border: none; background-color: var(--form-bg); color: var(--text-primary); box-shadow: var(--dark-shadow);' />
+                        <button onclick='copyAccountId()' style='padding: 0.5rem 1rem; font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 0.875rem; border: none; background-color: var(--accent); color: var(--text-primary); border-radius: 1.5625rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);'>Copy</button>
                     </div>
-                    <p>Please save this ID as you will need it to log in.</p>
+                    <p style='font-family: "IBM Plex Mono", monospace; color: var(--text-secondary); font-size: 0.9rem; text-align: center;'>Please save this ID as you will need it to log in.</p>
                 `, 'success', 'Account Created');
             } else {
                 showModal("Account successfully created! Please check your email for your Account ID.", 'success', 'Account Created');
@@ -306,7 +306,7 @@ function submitUser() {
             
             setTimeout(() => {
                 window.location.href = "login_page_index.html?account_successfully_created=true" + (accountId ? "&account_id=" + encodeURIComponent(accountId) : '');
-            }, 3000);
+            }, 7000);
             
         } else {
             try {

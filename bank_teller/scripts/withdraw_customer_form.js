@@ -117,7 +117,7 @@ function handleCancel() {
     document.getElementById('withdraw_ammount').value = '';
     validateForm();
 
-    showModal('Are you sure you want to cancel? All entered data will be lost.', 'confirm', 'Cancel Confirmation', (confirmed) => {
+    showModal('Are you sure you want to cancel this withdraw?', 'confirm', 'Cancel Withdraw', (confirmed) => {
         if (confirmed) {
             window.location.href = '../bank_teller/bank_teller_homepage.html';
         }

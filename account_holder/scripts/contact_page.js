@@ -117,6 +117,19 @@ function submitContactForm() {
     const message = document.getElementById("comment_input").value.trim();
     const submitButton = document.getElementById("submit_button");
 
+    // Email and phone validation (copied from sign up page logic)
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phonePattern = /^[0-9]{10,15}$/;
+
+    if (!emailPattern.test(email)) {
+        showModal("Please enter a valid email address.", 'warning', 'Invalid Email');
+        return;
+    }
+    if (!phonePattern.test(phone)) {
+        showModal("Phone number must be 10–15 digits.", 'warning', 'Invalid Phone Number');
+        return;
+    }
+
     let captchaResponse = typeof grecaptcha !== 'undefined' ? grecaptcha.getResponse() : '';
 
     if (!captchaResponse) {

@@ -278,9 +278,10 @@ a {
 
 .modal-footer {
     display: flex;
-    justify-content: flex-end;
-    gap: 10px;
+    justify-content: center;
+    gap: 15px;
     margin-top: 20px;
+    padding: 0 30px 30px;
 }
 
 .modal-button {

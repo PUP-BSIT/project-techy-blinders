@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 let modalCallback = null;
+let withdrawPending = false;
+let withdrawButtonRef = null;
+let withdrawOriginalText = '';
 
 function showModal(message, type = 'info', title = 'Alert', callback = null, showCancel = false) {
     const modal = document.getElementById('custom_modal');
@@ -73,12 +76,27 @@ function showModal(message, type = 'info', title = 'Alert', callback = null, sho
     setTimeout(() => {
         modalOk.focus();
     }, 100);
+
+    // Track if this is a withdraw confirmation modal
+    if (type === 'confirm' && title === 'Confirm Withdrawal') {
+        withdrawPending = true;
+    } else {
+        withdrawPending = false;
+    }
 }
 
 function closeModal() {
     const modal = document.getElementById('custom_modal');
     const modalCancel = document.getElementById('modal_cancel');
     if (!modal || !modalCancel) return;
+    
+    // If withdraw confirmation was pending, reset the button
+    if (withdrawPending && withdrawButtonRef) {
+        resetWithdrawButton(withdrawButtonRef, withdrawOriginalText);
+        withdrawPending = false;
+        withdrawButtonRef = null;
+        withdrawOriginalText = '';
+    }
     
     modal.classList.remove('show');
     modalCancel.style.display = 'none';
@@ -128,6 +146,8 @@ function handleCancel() {
 function resetWithdrawButton(withdrawButton, originalText) {
     withdrawButton.disabled = false;
     withdrawButton.textContent = originalText;
+    withdrawButton.style.opacity = '1';
+    withdrawButton.style.cursor = 'pointer';
     console.log('Button reset to:', withdrawButton.textContent, 'disabled:', withdrawButton.disabled);
 }
 
@@ -136,6 +156,10 @@ async function handleWithdraw() {
     const withdrawAmountInput = document.getElementById('withdraw_ammount').value.trim();
     const withdrawButton = document.getElementById('withdraw');
     const originalText = withdrawButton.textContent;
+
+    // Store references for modal close reset
+    withdrawButtonRef = withdrawButton;
+    withdrawOriginalText = originalText;
 
     if (!accountId || !withdrawAmountInput) {
         showModal('Please fill in all required fields', 'error', 'Error');
@@ -190,7 +214,7 @@ async function handleWithdraw() {
         const confirmMessage = `Account Details:\nName: ${accountData.account_name}\nCurrent Balance: $${currentBalance}\n\nWithdraw Amount: $${withdrawal}\n\nProceed with withdrawal?`;
         showModal(confirmMessage, 'confirm', 'Confirm Withdrawal', (confirmed) => {
             if (!confirmed) {
-                window.location.href = '../bank_teller/bank_teller_homepage.html';
+                resetWithdrawButton(withdrawButton, originalText);
                 return;
             }
 

@@ -186,14 +186,20 @@ a {
     border: none;
     padding: 10px;
     width: 25%;
-    min-width: 100px;
     background-color: #01C38E;
     color: white;
     font-family: "Lexend Tera", sans-serif;
     border-radius: 50px;
     box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
     cursor: pointer;
-    transition: all 0.3s ease;
+}
+
+#withdraw:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+    font-weight: bold;
+    background-color: var(--hover-button);
+    box-shadow: var(--button-shadow);
 }
 
 #cancel:hover {
@@ -202,12 +208,6 @@ a {
     font-weight: bold;
     background-color: var(--hover-back-button);
     box-shadow: var(--back-button-shadow);
-}
-
-#withdraw:hover {
-    cursor: pointer;
-    box-shadow: 0 0 20px #01C38E;
-    background-color: #076b51;
 }
 
 .modal-overlay {
@@ -362,6 +362,21 @@ a {
 .modal-button.secondary:hover {
     background: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.5);
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--text-primary);
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
 
 @media screen and (max-width: 768px) {

@@ -13,7 +13,7 @@
     --back-button-shadow: 0 0 8px rgba(134, 16, 16, 0.5),
                           0 0 16px rgba(134, 16, 16, 0.6),
                           0 0 24px rgba(134, 16, 16, 0.7);
-    --hover-back-button:#520a0a;
+    --hover-back-button: #520a0a;
     --container-bg: #132D46;
     --text-primary: #FFF;
     --text-secondary: #CCC;
@@ -37,25 +37,43 @@ body {
     overflow: hidden;
     font-style: "sans-serif";
     position: relative;
-    height: 70px;
+    min-height: 70px;
 }
 
 .top-nav-bar a {
     float: right;
+    color: white;
+    text-align: center;
+    padding: 20px 20px;
+    text-decoration: none;
+    font-family: "Lexend Tera", sans-serif;
+    font-size: 20px;
+    margin-right: 0;
+}
+
+.icon a {
+    display: inline-block;
+    margin-top: -5px;
+    position: absolute;
+}
+
+.icon a img {
+    width: 50px;
+    height: 50px;
+    margin: 0; 
 }
 
 .icon img {
+    margin-top: 4px;
     position: absolute;
-    margin-top: 5px;
     width: 60px;
     height: 60px;
-    margin-left: 2%;
 }
 
 .icon h4 {
     position: absolute;
-    margin-top: 1.5%;
-    margin-left: 7%;
+    margin-top: 2%;
+    margin-left: 5.6%;
     font-family: "Lexend Tera", sans-serif;
     color: white;
 }

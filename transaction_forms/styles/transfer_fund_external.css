@@ -7,14 +7,13 @@
     --shadow: 0 0 20px rgba(0, 223, 154, 0.3),
               0 0 80px rgba(0, 223, 154, 0.4);
     --button-shadow: 0 0 8px rgba(0, 223, 154, 0.5),
-            0 0 16px rgba(0, 223, 154, 0.6),
-            0 0 24px rgba(0, 223, 154, 0.7);
+                     0 0 16px rgba(0, 223, 154, 0.6),
+                     0 0 24px rgba(0, 223, 154, 0.7);
     --hover-button: #0b3f34;
-    --back-button-shadow:
-    0 0 8px rgba(134, 16, 16, 0.5),
-    0 0 16px rgba(134, 16, 16, 0.6),
-    0 0 24px rgba(134, 16, 16, 0.7);
-    --hover-back-button:#520a0a;
+    --back-button-shadow: 0 0 8px rgba(134, 16, 16, 0.5),
+                          0 0 16px rgba(134, 16, 16, 0.6),
+                          0 0 24px rgba(134, 16, 16, 0.7);
+    --hover-back-button: #520a0a;
     --container-bg: #132D46;
     --text-primary: #FFF;
     --text-secondary: #CCC;
@@ -25,35 +24,58 @@
 
 * {
     margin: 0;
-    padding: 0px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1A2235;
 }
 
 .top-nav-bar {
     background-color: #1A1E29;
     overflow: hidden;
     font-style: "sans-serif";
-    height: 70px;
+    position: relative;
+    min-height: 70px;
 }
 
 .top-nav-bar a {
     float: right;
+    color: white;
+    text-align: center;
+    padding: 20px 20px;
+    text-decoration: none;
+    font-family: "Lexend Tera", sans-serif;
+    font-size: 20px;
+    margin-right: 0;
+}
+
+.icon a {
+    display: inline-block;
+    margin-top: -5px;
+    position: absolute;
+}
+
+.icon a img {
+    width: 50px;
+    height: 50px;
+    margin: 0; 
 }
 
 .icon img {
-    margin-top: 5px;
+    margin-top: 4px;
     position: absolute;
     width: 60px;
     height: 60px;
-    margin-left: 2%;
 }
 
 .icon h4 {
     position: absolute;
     margin-top: 2%;
-    margin-left: 7%;
+    margin-left: 5.6%;
     font-family: "Lexend Tera", sans-serif;
     color: white;
-
 }
 
 a {

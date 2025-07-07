@@ -80,8 +80,9 @@ function handleModalOk() {
     if (modalCallback) {
         modalCallback(true);
         modalCallback = null;
+    } else {
+        closeModal();
     }
-    closeModal();
 }
 
 // Function to fetch and update balance

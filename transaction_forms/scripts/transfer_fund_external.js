@@ -291,11 +291,14 @@ function submitTransfer(event) {
 }
 
 function cancelTransfer(event) {
-    // Prevent default form submission if this is a form button
     if (event) {
         event.preventDefault();
     }
-    window.location.href = "../account_holder/account_holder_home_page.html";
+    showModal('Are you sure you want to cancel this transfer?', 'confirm', 'Cancel Transfer', (confirmed) => {
+        if (confirmed) {
+            window.location.href = "../account_holder/account_holder_home_page.html";
+        }
+    });
 }
 
 // Check session validity on page load

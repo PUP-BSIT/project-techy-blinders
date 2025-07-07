@@ -54,8 +54,7 @@
         <div id="custom_modal" class="modal-overlay">
             <div class="modal">
                 <div class="modal-header">
-                    <div id="modal_title" class="modal-title">Alert</div>
-                    <button class="modal-close" onclick="closeModal()">&times;</button>
+                    <div id="modal_title" class="modal-title">Edit Account</div>
                 </div>
                 <div class="modal-body">
                     <i id="modal_icon" class="modal-icon"></i>
@@ -71,7 +70,6 @@
             <div class="modal">
                 <div class="modal-header">
                     <div class="modal-title">Update Email</div>
-                    <button class="modal-close" onclick="closeEmailModal()">×</button>
                 </div>
                 <div class="modal-body">
                     <div class="modal-message">Do you want to edit the email address?</div>
@@ -85,9 +83,9 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="modal-button secondary" onclick="closeEmailModal()">Cancel</button>
-                    <button class="modal-button secondary" onclick="skipEmail()">Skip</button>
-                    <button class="modal-button primary" onclick="submitEmail()">Update Email</button>
+                    <button class="modal-button secondary site-red" onclick="closeEmailModal()">Cancel</button>
+                    <button class="modal-button site-green" onclick="skipEmail()">Skip</button>
+                    <button class="modal-button primary site-green" onclick="submitEmail()">Update Email</button>
                 </div>
             </div>
         </div>
@@ -96,7 +94,6 @@
             <div class="modal">
                 <div class="modal-header">
                     <div class="modal-title">Update Phone Number</div>
-                    <button class="modal-close" onclick="closePhoneModal()">×</button>
                 </div>
                 <div class="modal-body">
                     <div class="modal-message">Do you want to edit the phone number?</div>
@@ -110,9 +107,9 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="modal-button secondary" onclick="closePhoneModal()">Cancel</button>
-                    <button class="modal-button secondary" onclick="submitChanges()">Skip</button>
-                    <button class="modal-button primary" onclick="submitPhone()">Update Phone</button>
+                    <button class="modal-button secondary site-red" onclick="closePhoneModal()">Cancel</button>
+                    <button class="modal-button site-green" onclick="skipPhone()">Skip</button>
+                    <button class="modal-button primary site-green" onclick="submitPhone()">Update Phone Number</button>
                 </div>
             </div>
         </div>

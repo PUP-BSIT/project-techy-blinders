@@ -16,7 +16,7 @@
     0 0 16px rgba(134, 16, 16, 0.6),
     0 0 24px rgba(134, 16, 16, 0.7);
 
-    --hover-back-button:#520a0a;
+    --hover-back-button: #520a0a;
 }
 
 * {
@@ -206,8 +206,7 @@ a {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.8); /* Solid dark overlay */
     z-index: 1000;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -222,9 +221,9 @@ a {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.7);
-    background: var(--container-bg);
+    background: var(--container2); /* Solid background for modal */
     border-radius: 20px;
-    box-shadow: var(--shadow-glow), 0 25px 50px rgba(0, 0, 0, 0.5);
+    box-shadow: var(--shadow), 0 25px 50px rgba(0, 0, 0, 0.5);
     min-width: 420px;
     max-width: 90vw;
     z-index: 1001;
@@ -248,13 +247,13 @@ a {
     font-family: 'Lexend Tera', sans-serif;
     font-size: 1.4rem;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--text);
 }
 
 .modal-close {
     background: none;
     border: none;
-    color: var(--text-secondary);
+    color: var(--text);
     font-size: 1.8rem;
     cursor: pointer;
     padding: 5px;
@@ -269,13 +268,21 @@ a {
 
 .modal-close:hover {
     background: rgba(255, 255, 255, 0.1);
-    color: var(--text-primary);
+    color: var(--text);
     transform: scale(1.1);
 }
 
 .modal-body {
-    padding: 30px;
+    padding: 53px;
     text-align: center;
+    background: var(--container2); /* Ensure body has same background */
+}
+
+.choice-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Space between Update Email and Update Phone Number buttons */
+    margin-top: 20px;
 }
 
 .modal-icon {
@@ -285,7 +292,7 @@ a {
 }
 
 .modal-icon.success {
-    color: var(--accent-color);
+    color: var(--accent);
     filter: drop-shadow(0 0 10px rgba(1, 195, 142, 0.5));
 }
 
@@ -305,7 +312,7 @@ a {
 }
 
 .modal-message {
-    color: var(--text-primary);
+    color: var(--text);
     font-size: 1.1rem;
     line-height: 1.6;
     font-family: 'IBM Plex Mono', monospace;
@@ -317,7 +324,8 @@ a {
     padding: 0 30px 30px;
     display: flex;
     justify-content: center;
-    gap: 15px;
+    background: var(--container2); /* Ensure footer has same background */
+    gap: 20px; /* Increased space between buttons */
 }
 
 .modal-button {
@@ -332,25 +340,61 @@ a {
     min-width: 120px;
 }
 
+.choice-button {
+    background: transparent;
+    color: var(--text);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.site-green {
+    background-color: #51bf7d; /* Green as specified */
+    color: white;
+}
+
+.site-green:hover {
+    background-color: #3fa06a; /* Slightly darker shade for hover */
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px var(--accent); /* Matches site accent shadow */
+}
+
+.site-red {
+    background-color: #861010; /* Red as specified */
+    color: white;
+}
+
+.site-red:hover {
+    background-color: var(--hover-back-button); /* Matches #back_button hover */
+    transform: translateY(-2px);
+    box-shadow: var(--back-button-shadow); /* Matches #back_button hover shadow */
+}
+
+.modal-button:hover {
+    transform: translateY(-2px);
+}
+
 .modal-button.primary {
-    background: linear-gradient(135deg, var(--accent-color), #00B377);
-    color: var(--text-primary);
+    background-color: #51bf7d;
+    color: white;
 }
 
 .modal-button.primary:hover {
-    transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(1, 195, 142, 0.4);
 }
 
+.modal-button.primary.site-red {
+    background-color: #861010;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
 .modal-button.secondary {
-    background: transparent;
-    color: var(--text-primary);
+    background-color: #861010;
+    color: white;
     border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .modal-button.secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 6px 20px rgba(1, 195, 142, 0.4);
 }
 
 .account-id-container,
@@ -398,7 +442,7 @@ a {
     height: 16px;
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 50%;
-    border-top-color: var(--text-primary);
+    border-top-color: var(--text);
     animation: spin 1s ease-in-out infinite;
     margin-right: 8px;
 }
@@ -463,6 +507,16 @@ a {
         font-size: 14px;
         padding: 8px 16px;
     }
+    
+    .choice-buttons {
+        gap: 10px;
+    }
+    
+    .modal-button,
+    .choice-button {
+        padding: 10px 20px;
+        min-width: 100px;
+    }
 }
 
 @media screen and (max-width: 480px) {
@@ -522,18 +576,16 @@ a {
         min-width: 300px;
     }
     
-    .modal-footer {
+    .choice-buttons {
         flex-direction: column;
         gap: 10px;
     }
     
-    .modal-button {
+    .modal-button,
+    .choice-button {
         width: 100%;
-    }
-    
-    #back_button {
-        font-size: 12px;
-        padding: 6px 12px;
+        padding: 8px 15px;
+        min-width: 0;
     }
 }
 
@@ -560,5 +612,14 @@ a {
     .edit-button {
         width: 45px;
         font-size: 10px;
+    }
+    
+    .choice-buttons {
+        gap: 8px;
+    }
+    
+    .modal-button,
+    .choice-button {
+        padding: 6px 10px;
     }
 }

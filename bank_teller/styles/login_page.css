@@ -168,6 +168,33 @@ body {
     box-shadow: 0 0 0 2px var(--accent);
 }
 
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-password-btn {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    font-size: 1.3em;
+    z-index: 2;
+    padding: 0 8px;
+}
+
+.toggle-password-btn:hover {
+    color: #000;
+}
+
+.password-input {
+    width: 100%;
+    padding-right: 40px;
+}
+
 .button-container {
     text-align: center;
     margin: 2rem 0;

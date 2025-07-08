@@ -176,4 +176,17 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    const passwordInput = document.getElementById("password");
+    const togglePasswordBtn = document.getElementById("toggle_password");
+    const toggleIcon = document.getElementById("toggle_password_icon");
+
+    if (passwordInput && togglePasswordBtn && toggleIcon) {
+        togglePasswordBtn.addEventListener("click", () => {
+            const isHidden = passwordInput.type === "password";
+            passwordInput.type = isHidden ? "text" : "password";
+            toggleIcon.classList.toggle("fa-eye");
+            toggleIcon.classList.toggle("fa-eye-slash");
+        });
+    }
 });

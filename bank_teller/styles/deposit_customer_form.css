@@ -181,6 +181,21 @@ a {
     border-radius: 50px;
     box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
     cursor: pointer;
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+#deposit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#deposit:hover:not(:disabled) {
+    cursor: pointer;
+    transform: translateY(-2px);
+    font-weight: bold;
+    background-color: var(--hover-button);
+    box-shadow: var(--button-shadow);
 }
 
 #cancel:hover {

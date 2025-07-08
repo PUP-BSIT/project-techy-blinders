@@ -76,7 +76,7 @@ function logoutSession() {
     const logoutBtn = document.getElementById('logout_button');
     if (logoutBtn) {
         logoutBtn.disabled = true;
-        logoutBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>Logging out...';
+        logoutBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging out...';
     }
 
     fetch("https://blindvault.site/php/logout_session.php", {
@@ -86,22 +86,23 @@ function logoutSession() {
     .then(response => response.json())
     .then(data => {
         console.log("Logout response:", data);
-        
-        // Clear any client-side storage
+
+        // Extra: Force clear session cookie in browser (just in case)
+        document.cookie.split(";").forEach((c) => {
+            document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/;domain=blindvault.site;Secure;SameSite=None");
+        });
+
         localStorage.clear();
         sessionStorage.clear();
-        
-        // Use replace instead of href to prevent back button issues
+
         window.location.replace("../index.html");
     })
     .catch(error => {
         console.error("Logout error:", error);
-        
-        // Clear storage even if logout request failed
+
         localStorage.clear();
         sessionStorage.clear();
-        
-        // Still redirect to login page
+
         window.location.replace("../index.html");
     });
 }

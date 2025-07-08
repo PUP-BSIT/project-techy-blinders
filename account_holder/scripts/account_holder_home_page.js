@@ -73,7 +73,6 @@ fetch(API_URL, {
     });
 
 function logoutSession() {
-    // Disable the logout button to prevent double-clicks
     const logoutBtn = document.getElementById('logout_button');
     if (logoutBtn) {
         logoutBtn.disabled = true;

@@ -1,6 +1,6 @@
 const API_URL = "https://blindvault.site/php/password_reset.php";
 
-function showModal(message, type = 'info', title = 'Login') {
+function showModal(message, type = 'info', title = 'Reset Password') {
     const modal = document.getElementById('custom_modal');
     const modalTitle = document.getElementById('modal_title');
     const modalMessage = document.getElementById('modal_message');
@@ -76,7 +76,6 @@ async function resetPasswordFunction(accountId, newPassword, confirmPassword) {
     const newPasswordInput = document.getElementById('new_password');
     const confirmPasswordInput = document.getElementById('confirm_password');
     
-    // Validate form
     if (!accountId || !newPassword || !confirmPassword) {
         showModal('Please fill in all fields.', 'error');
         return false;

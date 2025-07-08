@@ -1,25 +1,15 @@
 const API_URL = `https://blindvault.site/php/deposit_customer.php`;
 
 document.addEventListener('DOMContentLoaded', function() {
-    const accountIdInput = document.getElementById("account_id");
-    const depositAmountInput = document.getElementById("deposit_amount");
-    const depositButton = document.getElementById("deposit");
-    const cancelButton = document.getElementById("cancel");
-    const backButton = document.getElementById("back_button");
-    
+    const depositButton = document.getElementById('deposit');
+    const cancelButton = document.getElementById('cancel');
+    const accountIdInput = document.getElementById('account_id');
+    const depositAmountInput = document.getElementById('deposit_amount');
+
+    depositButton.addEventListener('click', handleDeposit);
+    cancelButton.addEventListener('click', handleCancel);
     accountIdInput.addEventListener('input', validateForm);
     depositAmountInput.addEventListener('input', validateForm);
-    
-    depositButton.addEventListener('click', submitDeposit);
-    cancelButton.addEventListener('click', handleCancel);
-    backButton.addEventListener('click', handleBack);
-    
-    depositAmountInput.addEventListener('blur', function() {
-        const value = this.value.trim();
-        if (!isNaN(value) && value !== "") {
-            // Do nothing to preserve input as-is
-        }
-    });
 
     validateForm();
 });
@@ -104,68 +94,76 @@ function handleModalOk() {
 }
 
 function validateForm() {
-    const accountHolderId = document.getElementById("account_id").value.trim();
-    const depositAmount = document.getElementById("deposit_amount").value.trim();
-    const depositButton = document.getElementById("deposit");
-    
-    const isValid = accountHolderId.length > 0 && 
-                   depositAmount.length > 0 && 
-                   !isNaN(parseFloat(depositAmount)) && 
-                   parseFloat(depositAmount) > 0;
-    
-    depositButton.disabled = !isValid;
-    depositButton.style.cursor = isValid ? 'pointer' : 'not-allowed';
+    const accountId = document.getElementById('account_id').value.trim();
+    const depositAmount = document.getElementById('deposit_amount').value.trim();
+    const depositButton = document.getElementById('deposit');
+
+    if (accountId && depositAmount) {
+        depositButton.disabled = false;
+        depositButton.style.opacity = '1';
+        depositButton.style.cursor = 'pointer';
+    } else {
+        depositButton.disabled = true;
+        depositButton.style.opacity = '0.6';
+        depositButton.style.cursor = 'not-allowed';
+    }
 }
 
-function submitDeposit() {
-    const accountHolderId = document.getElementById("account_id").value.trim();
-    const depositAmount = document.getElementById("deposit_amount").value.trim();
-    const depositButton = document.getElementById("deposit");
-    
-    if (!accountHolderId || !depositAmount) {
-        showModal("Please complete all fields", 'error', 'Error');
+function handleDeposit() {
+    const accountId = document.getElementById('account_id').value.trim();
+    const depositAmount = document.getElementById('deposit_amount').value.trim();
+    const depositButton = document.getElementById('deposit');
+    const originalText = depositButton.textContent;
+
+    if (!accountId || !depositAmount) {
+        showModal('Please fill in all required fields', 'error', 'Error');
+        resetDepositButton(depositButton, originalText);
         return;
     }
 
-    const amount = parseFloat(depositAmount);
+    const amount = parseFloat(depositAmount.replace(/[^0-9.]/g, ''));
     if (isNaN(amount) || amount <= 0) {
-        showModal("Please enter a valid positive amount", 'error', 'Error');
+        showModal('Please enter a valid positive deposit amount', 'error', 'Error');
+        resetDepositButton(depositButton, originalText);
         return;
     }
 
     depositButton.disabled = true;
-    depositButton.innerHTML = '<span class="loading-spinner"></span>Processing...';
+    depositButton.textContent = 'Processing...';
 
-    fetch(`https://blindvault.site/php/get_account_info.php`, {
+    fetch('https://blindvault.site/php/get_account_info.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-            account_holder_id: accountHolderId
-        })
+        body: JSON.stringify({ account_holder_id: accountId })
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
             const params = new URLSearchParams({
-                accountHolderId: accountHolderId,
+                accountHolderId: accountId,
                 accountName: data.account_name,
                 depositAmount: amount.toFixed(2)
             });
             window.location.href = "deposit_confirmation_page.html?" + params.toString();
         } else {
             showModal('Account not found: ' + data.message, 'error', 'Error');
-            depositButton.disabled = false;
-            depositButton.innerHTML = 'Deposit';
+            resetDepositButton(depositButton, originalText);
         }
     })
     .catch(error => {
         console.error('Error:', error);
         showModal('Error validating account. Please try again.', 'error', 'Error');
-        depositButton.disabled = false;
-        depositButton.innerHTML = 'Deposit';
+        resetDepositButton(depositButton, originalText);
     });
+}
+
+function resetDepositButton(depositButton, originalText) {
+    depositButton.disabled = false;
+    depositButton.textContent = originalText;
+    depositButton.style.opacity = '1';
+    depositButton.style.cursor = 'pointer';
 }
 
 function handleCancel() {

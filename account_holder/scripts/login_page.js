@@ -91,7 +91,7 @@ function loginUser() {
 
     const loginButton = document.querySelector('.button');
     let accountId = document.getElementById('account_id').value;
-    let password = document.getElementById('password').value;
+    let password = document.getElementById('password').value.trim();
     const captchaResponse = grecaptcha.getResponse();
 
     console.log("Account ID:", accountId, "Password length:", password.length);

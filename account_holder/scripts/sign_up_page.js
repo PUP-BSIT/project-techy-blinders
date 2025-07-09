@@ -71,8 +71,8 @@ function getFormData() {
         middleName: document.getElementById("middle_name")?.value?.trim() || '',
         phoneNumber: document.getElementById("phone_number")?.value?.trim() || '',
         email: document.getElementById("email")?.value?.trim() || '',
-        password: document.getElementById("password")?.value || '',
-        confirmPassword: document.getElementById("confirm_password")?.value || ''
+        password: document.getElementById("password")?.value.trim() || '',
+        confirmPassword: document.getElementById("confirmPassword")?.value.trim() || ''
     };
 }
 

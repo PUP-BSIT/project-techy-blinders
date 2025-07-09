@@ -127,7 +127,7 @@ function displayResults(data, searchType) {
                     </div>
                     <div class="info-item">
                         <span class="info-label">Account Balance:</span>
-                        <span class="info-value balance">$${parseFloat(data.bank_account.account_balance).toFixed(2)}</span>
+                        <span class="info-value balance">\u20B1${parseFloat(data.bank_account.account_balance).toFixed(2)}</span>
                     </div>
                     <div class="info-item">
                         <span class="info-label">Status:</span>

@@ -118,9 +118,8 @@ body {
 #logout_button:hover {
   font-weight: bold;
   cursor: pointer;
-  background-color: var(--back-button-shadow);
-  box-shadow: var(--button-shadow);
-  outline: #017A5E;
+  background-color: var(--hover-back-button);
+  box-shadow: var(--back-button-shadow);
   transition: all 0.3s ease;
 }
 

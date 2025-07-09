@@ -55,7 +55,7 @@ fetch(API_URL, {
             document.querySelector('.account-details h4:nth-of-type(2)').textContent = `Account Holder ID: ${maskAccountId(data.account_holder_id)}`;
 
             const balance = parseFloat(data.account_balance.replace(/,/g, ''));
-            document.querySelector('.balance-details h3').textContent = `$${balance.toLocaleString(undefined, {
+            document.querySelector('.balance-details h3').textContent = `₱${balance.toLocaleString(undefined, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             })}`;

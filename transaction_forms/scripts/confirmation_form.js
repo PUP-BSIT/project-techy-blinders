@@ -121,7 +121,7 @@ window.onload = async function() {
         document.getElementById('display_account_holder_id').textContent = accountHolderId;
         document.getElementById('account_holder_id').value = accountHolderId;
         document.getElementById('deposit_amount').value = transferAmount;
-        document.getElementById('display_deposit_amount').textContent = '$' + parseFloat(transferAmount).toFixed(2);
+        document.getElementById('display_deposit_amount').textContent = '₱' + parseFloat(transferAmount).toFixed(2);
         
         // Fetch recipient name from backend
         try {

@@ -256,7 +256,7 @@ function submitUser() {
     transferButton.textContent = 'Processing...';
 
     // Check if recipient account exists before proceeding
-    fetch("../../PHP/get_account_info.php", {
+    fetch("https://blindvault.site/php/get_account_info.php", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

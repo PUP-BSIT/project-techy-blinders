@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('display_account_holder_id').textContent = accountHolderId;
     document.getElementById('display_account_name').textContent = accountName;
-    document.getElementById('display_deposit_amount').textContent = '$' + depositAmount;
+    document.getElementById('display_deposit_amount').textContent = '\u20B1' + depositAmount;
 
     document.getElementById('confirm').addEventListener('click', handleConfirm);
     document.getElementById('cancel').addEventListener('click', handleCancel);
@@ -128,7 +128,7 @@ function handleConfirm() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            showModal(`Deposit successful!\nNew Balance: $${data.new_balance}`, 'success', 'Success', () => {
+            showModal(`Deposit successful!\nNew Balance: \u20B1${data.new_balance}`, 'success', 'Success', () => {
                 window.location.href = 'bank_teller_homepage.html';
             });
         } else {

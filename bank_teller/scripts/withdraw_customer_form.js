@@ -211,7 +211,7 @@ async function handleWithdraw() {
             return;
         }
 
-        const confirmMessage = `Account Details:\nName: ${accountData.account_name}\nCurrent Balance: $${currentBalance}\n\nWithdraw Amount: $${withdrawal}\n\nProceed with withdrawal?`;
+        const confirmMessage = `Account Details:\nName: ${accountData.account_name}\nCurrent Balance: \u20B1${currentBalance}\n\nWithdraw Amount: \u20B1${withdrawal}\n\nProceed with withdrawal?`;
         showModal(confirmMessage, 'confirm', 'Confirm Withdrawal', (confirmed) => {
             if (!confirmed) {
                 resetWithdrawButton(withdrawButton, originalText);
@@ -235,7 +235,7 @@ async function handleWithdraw() {
             .then(withdrawResponse => withdrawResponse.json())
             .then(withdrawData => {
                 if (withdrawData.success) {
-                    showModal(`Withdrawal Successful!\n\nTransaction Details:\nTransaction ID: ${tellerTransactionId}\nAccount: ${withdrawData.account_name}\nWithdrawn Amount: $${withdrawData.withdrawn_amount}\nNew Balance: $${withdrawData.new_balance}`, 'success', 'Success', () => {
+                    showModal(`Withdrawal Successful!\n\nTransaction Details:\nTransaction ID: ${tellerTransactionId}\nAccount: ${withdrawData.account_name}\nWithdrawn Amount: \u20B1${withdrawData.withdrawn_amount}\nNew Balance: \u20B1${withdrawData.new_balance}`, 'success', 'Success', () => {
                         document.getElementById('account_id').value = '';
                         document.getElementById('withdraw_ammount').value = '';
                         validateForm();

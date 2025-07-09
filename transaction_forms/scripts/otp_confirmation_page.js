@@ -24,24 +24,29 @@ function showModal(message, type = 'success', title = 'Transaction External', ca
     const modalTitle = document.getElementById('modal_title');
     const modalMessage = document.getElementById('modal_message');
     const modalIcon = document.getElementById('modal_icon');
-    
-    if (!modal || !modalTitle || !modalMessage || !modalIcon) {
+    const modalCancel = document.getElementById('modal_cancel');
+    const modalOk = modal.querySelector('.modal-button.primary');
+
+    if (!modal || !modalTitle || !modalMessage || !modalIcon || !modalOk || !modalCancel) {
         console.error('Modal elements not found:', {
             modal: !!modal,
             modalTitle: !!modalTitle,
             modalMessage: !!modalMessage,
-            modalIcon: !!modalIcon
+            modalIcon: !!modalIcon,
+            modalOk: !!modalOk,
+            modalCancel: !!modalCancel
         });
         alert(message);
         if (callback) callback();
         return;
     }
-    
+
     modalTitle.textContent = title;
     modalMessage.textContent = message;
-    
+
     modalIcon.className = 'modal-icon';
-    
+    modalCancel.style.display = 'none';
+
     switch(type) {
         case 'success':
             modalIcon.className += ' success fas fa-check-circle';
@@ -55,36 +60,49 @@ function showModal(message, type = 'success', title = 'Transaction External', ca
             modalIcon.className += ' warning fas fa-exclamation-triangle';
             modalTitle.textContent = title || 'Warning';
             break;
+        case 'confirm':
+            modalIcon.className += ' info fas fa-question-circle';
+            modalTitle.textContent = title || 'Confirm';
+            modalCancel.style.display = 'inline-block';
+            break;
         case 'info':
             modalIcon.className += ' info fas fa-info-circle';
             break;
         default:
             modalIcon.className += ' info fas fa-info-circle';
     }
-    
+
+    // Remove previous event listeners
+    modalOk.onclick = null;
+    modalCancel.onclick = null;
+
+    if (type === 'confirm' && callback) {
+        modalOk.onclick = function() {
+            closeModal();
+            callback(true);
+        };
+        modalCancel.onclick = function() {
+            closeModal();
+            callback(false);
+        };
+    } else if (callback) {
+        modalOk.onclick = function() {
+            closeModal();
+            callback();
+        };
+    } else {
+        modalOk.onclick = closeModal;
+    }
+
     modal.classList.remove('show');
-    
     modal.style.display = 'block';
-    modal.offsetHeight; 
-    
+    modal.offsetHeight;
     requestAnimationFrame(() => {
         modal.classList.add('show');
     });
-    
-    // Add delay before focusing and setting up callback for slower display
     setTimeout(() => {
-        const closeButton = modal.querySelector('.modal-button.primary');
-        if (closeButton) {
-            closeButton.focus();
-            // Add callback to close button if provided
-            if (callback) {
-                closeButton.onclick = function() {
-                    closeModal();
-                    callback();
-                };
-            }
-        }
-    }, 300); // Increased delay from 100ms to 300ms for slower display
+        modalOk.focus();
+    }, 100);
 }
 
 function closeModal() {
@@ -354,15 +372,17 @@ function verifyOTP() {
 }
 
 function cancelTransfer() {
-    if (confirm('Are you sure you want to cancel this transfer?')) {
-        localStorage.removeItem('pendingTransfer');
-        localStorage.removeItem('pendingTransferType');
-        if (transferType === 'external') {
-            window.location.href = 'transfer_fund_external.html';
-        } else {
-            window.location.href = 'transfer_fund_internal.html';
+    showModal('Are you sure you want to cancel this transfer?', 'confirm', 'Cancel Transfer', function(confirmed) {
+        if (confirmed) {
+            localStorage.removeItem('pendingTransfer');
+            localStorage.removeItem('pendingTransferType');
+            if (transferType === 'external') {
+                window.location.href = 'transfer_fund_external.html';
+            } else {
+                window.location.href = 'transfer_fund_internal.html';
+            }
         }
-    }
+    });
 }
 
 // Initialize form validation on page load

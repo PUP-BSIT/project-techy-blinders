@@ -255,25 +255,28 @@ function submitUser() {
     transferButton.disabled = true;
     transferButton.textContent = 'Processing...';
 
-    // Fetch account name first
-    fetch(`https://blindvault.site/php/account_holder_home_page.php`, {
-        method: 'GET',
-        credentials: 'include'
+    // Check if recipient account exists before proceeding
+    fetch("../../PHP/get_account_info.php", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ account_holder_id: accountHolderId })
     })
     .then(response => response.json())
     .then(data => {
-        if (data.success && data.name) {
+        if (data.success && data.account_name) {
             // Store transfer details for confirmation page
             const params = new URLSearchParams({
                 transferType: 'internal',
                 accountHolderId: accountHolderId,
-                accountName: data.name,
+                accountName: data.account_name,
                 transferAmount: transferAmount,
                 senderId: loggedInUserId
             });
             window.location.href = `confirmation_form.html?${params.toString()}`;
         } else {
-            showModal("Error: Could not verify recipient account. Please try again.");
+            showModal("Error: Recipient account does not exist or is inactive.");
             transferButton.disabled = false;
             transferButton.textContent = 'Transfer';
         }

@@ -47,7 +47,7 @@ function getAmountWithSign(transactionType, amount, isReceiver = false) {
         const numAmount = parseFloat(amount);
         if (isNaN(numAmount)) {
             historyDebugger.logError('getAmountWithSign', 'Invalid amount provided', { transactionType, amount });
-            return '$0.00';
+            return '₱0.00';
         }
 
         switch (transactionType.toLowerCase()) {
@@ -64,7 +64,7 @@ function getAmountWithSign(transactionType, amount, isReceiver = false) {
         }
     } catch (error) {
         historyDebugger.logError('getAmountWithSign', error, { transactionType, amount, isReceiver });
-        return '$0.00';
+        return '₱0.00';
     }
 }
 

@@ -111,7 +111,7 @@ function loadCurrentBalance() {
                     const balance = parseFloat(data.account_balance.replace(/,/g, ''));
                     if (!isNaN(balance)) {
                         localStorage.setItem("currentBalance", balance.toString());
-                        if (totalBalanceElement) totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
+                        if (totalBalanceElement) totalBalanceElement.textContent = `₱${balance.toFixed(2)}`;
                         console.log('Initial balance stored:', balance);
                     }
                 }
@@ -170,7 +170,7 @@ function fetchBalance(userId) {
                 return;
             }
             localStorage.setItem("currentBalance", balance.toString());
-            if (totalBalanceElement) totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
+            if (totalBalanceElement) totalBalanceElement.textContent = `₱${balance.toFixed(2)}`;
             console.log('Balance updated:', balance);
         } else {
             console.error("Failed to load balance:", data.message);
@@ -319,7 +319,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const balance = parseFloat(data.account_balance.replace(/,/g, ''));
                 if (!isNaN(balance)) {
                     localStorage.setItem("currentBalance", balance.toString());
-                    if (totalBalanceElement) totalBalanceElement.textContent = `$${balance.toFixed(2)}`;
+                    if (totalBalanceElement) totalBalanceElement.textContent = `₱${balance.toFixed(2)}`;
                 }
             }
         }

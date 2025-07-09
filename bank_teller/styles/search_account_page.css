@@ -327,6 +327,135 @@ a {
     100% { transform: rotate(360deg); }
 }
 
+/* Modal Styles */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+    display: block;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.7);
+    background: var(--container2);
+    border-radius: 20px;
+    box-shadow: var(--shadow), 0 25px 50px rgba(0, 0, 0, 0.5);
+    min-width: 420px;
+    max-width: 90vw;
+    z-index: 1001;
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(1, 195, 142, 0.2);
+}
+
+.modal-overlay.show .modal {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-title {
+    font-family: 'Lexend Tera', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text);
+    transform: scale(1.1);
+}
+
+.modal-body {
+    padding: 30px;
+    text-align: center;
+}
+
+.modal-icon {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.modal-icon.error {
+    color: #F44336;
+    filter: drop-shadow(0 0 10px rgba(244, 67, 54, 0.5));
+}
+
+.modal-message {
+    color: var(--text);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    font-family: 'IBM Plex Mono', monospace;
+    margin-bottom: 25px;
+}
+
+.modal-footer {
+    padding: 0 30px 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.modal-button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+.modal-button.primary {
+    background: linear-gradient(135deg, var(--accent), #00B377);
+    color: var(--text);
+}
+
+.modal-button.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(1, 195, 142, 0.4);
+}
+
 /* Mobile Responsive Styles */
 @media screen and (max-width: 768px) {
     .top-nav-bar {
@@ -428,6 +557,10 @@ a {
     .error-message p {
         font-size: 14px;
     }
+
+    .modal {
+        min-width: 350px;
+    }
 }
 
 /* Small Mobile Styles */
@@ -509,6 +642,10 @@ a {
     
     .balance {
         font-size: 14px;
+    }
+
+    .modal {
+        min-width: 300px;
     }
 }
 

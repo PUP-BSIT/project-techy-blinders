@@ -25,9 +25,8 @@ function performSearch() {
     const searchValue = searchInput.value.trim();
     
     if (!searchValue) {
-        const searchTypeText = searchType === 'account' ? 'Account Holder ID' : 
-            'Teller ID';
-        alert(`Please enter a ${searchTypeText}`);
+        const searchTypeText = searchType === 'account' ? 'Account Holder ID' : 'Teller ID';
+        showModal(`Please enter a ${searchTypeText}`, 'error', 'Error');
         return;
     }
     
@@ -243,4 +242,62 @@ function formatDate(dateString) {
         minute: '2-digit',
         second: '2-digit'
     });
+}
+
+function showModal(message, type = 'info', title = 'Alert') {
+    const modal = document.getElementById('custom_modal');
+    const modalTitle = document.getElementById('modal_title');
+    const modalMessage = document.getElementById('modal_message');
+    const modalIcon = document.getElementById('modal_icon');
+    
+    if (!modal || !modalTitle || !modalMessage || !modalIcon) {
+        console.error('Modal elements not found:', {
+            modal: !!modal,
+            modalTitle: !!modalTitle,
+            modalMessage: !!modalMessage,
+            modalIcon: !!modalIcon
+        });
+        alert(message);
+        return;
+    }
+    
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+    
+    modalIcon.className = 'modal-icon';
+    
+    switch(type) {
+        case 'error':
+            modalIcon.className += ' error fas fa-times-circle';
+            modalTitle.textContent = title || 'Error';
+            break;
+        default:
+            modalIcon.className += ' info fas fa-info-circle';
+    }
+    
+    modal.classList.remove('show');
+    modal.style.display = 'block';
+    modal.offsetHeight;
+    
+    requestAnimationFrame(() => {
+        modal.classList.add('show');
+    });
+    
+    setTimeout(() => {
+        const closeButton = modal.querySelector('.modal-button.primary');
+        if (closeButton) {
+            closeButton.focus();
+        }
+    }, 100);
+}
+
+function closeModal() {
+    const modal = document.getElementById('custom_modal');
+    if (!modal) return;
+    
+    modal.classList.remove('show');
+    
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
 }

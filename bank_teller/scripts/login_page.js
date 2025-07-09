@@ -75,7 +75,7 @@ function tellerUser() {
     
     const loginButton = document.querySelector('.button');
     let tellerId = document.getElementById('teller_id').value;
-    let password = document.getElementById('password').value;
+    let password = document.getElementById('password').value.trim().toLowerCase();
     
     console.log("Teller ID:", tellerId, "Password length:", password.length);
     

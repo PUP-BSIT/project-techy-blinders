@@ -114,23 +114,28 @@ a {
 }
 
 #logout_button {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 15px;
-    padding: 10px 20px;
-    border: solid 0px;
-    background-color: #01C38E;
-    color: white;
-    border-radius: 50px;
-    transition: all 0.3s ease;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 15px;
+  padding: 7px;
+  width: 100px;
+  border: solid 0px;
+  background-color: #b11414;
+  color: white;
+  border-radius: 50px;
 }
 
 #logout_button:hover {
-    transform: translateY(-3px);
-    cursor: pointer;
-    font-weight: bold;
-    background-color: var(--hover-button); 
-    box-shadow: var(--button-shadow);
-    transform: translateY(-2px); 
+  font-weight: bold;
+  cursor: pointer;
+  background-color: var(--hover-back-button);
+  box-shadow: var(--back-button-shadow);
+  transition: all 0.3s ease;
+}
+
+#logout_button:disabled {
+    background-color: #666;
+    cursor: not-allowed;
+    opacity: 0.7;
 }
 
 .history-icon {

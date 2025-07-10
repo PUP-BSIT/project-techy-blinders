@@ -71,8 +71,8 @@ function getFormData() {
         middleName: document.getElementById("middle_name")?.value?.trim() || '',
         phoneNumber: document.getElementById("phone_number")?.value?.trim() || '',
         email: document.getElementById("email")?.value?.trim() || '',
-        password: document.getElementById("password")?.value?.trim() || '',
-        confirmPassword: document.getElementById("confirm_password")?.value?.trim() || '' // Fixed: changed from "confirmPassword" to "confirm_password"
+        password: document.getElementById("password")?.value || '',
+        confirmPassword: document.getElementById("confirm_password")?.value || ''
     };
 }
 
@@ -198,11 +198,9 @@ function validateForm() {
     if (allFieldsFilled) {
         createAccount.disabled = false;
         createAccount.style.cursor = 'pointer';
-        createAccount.style.opacity = '1';
     } else {
         createAccount.disabled = true;
         createAccount.style.cursor = "not-allowed";
-        createAccount.style.opacity = '0.6';
     }
 }
 
@@ -377,5 +375,5 @@ function clearForm() {
         grecaptcha.reset();
     }
     
-    validateForm();
+    validateForm()
 }

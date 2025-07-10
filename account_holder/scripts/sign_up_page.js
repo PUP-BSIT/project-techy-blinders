@@ -314,7 +314,7 @@ function submitUser() {
             
             setTimeout(() => {
                 window.location.href = "login_page_index.html?account_successfully_created=true" + (accountId ? "&account_id=" + encodeURIComponent(accountId) : '');
-            }, 10000);
+            }, 5000);
 
         } else {
             // If it's neither a clear error nor success, show the message or fallback

@@ -118,11 +118,23 @@ a {
 }
 
 .transaction-type.deposit {
-  color: green;
+  color: var(--text);
 }
 
 .transaction-type.withdrawal {
-  color: red;
+  color: var(--text);
+}
+
+.transaction-type.transfer_in {
+  color: var(--text);
+}
+
+.transaction-type.transfer_out {
+  color: var(--text);
+}
+
+.transaction-type.transfer_external {
+  color: var(--text);
 }
 
 .transaction-header {
@@ -130,6 +142,31 @@ a {
   justify-content: space-between;
   margin-bottom: 8px;
   font-weight: bold;
+}
+
+.transaction-amount.positive {
+  color: #00ff00;
+  font-weight: bold;
+}
+
+.transaction-amount.negative {
+  color: #ff4444;
+  font-weight: bold;
+}
+
+.transaction-amount.neutral {
+  color: var(--text);
+  font-weight: bold;
+}
+
+.transaction-details {
+  margin-top: 8px;
+  font-size: 0.9em;
+  color: #cccccc;
+}
+
+.transaction-details p {
+  margin: 4px 0;
 }
 
 @media (max-width: 768px) {

@@ -23,10 +23,12 @@ const API_URL = "https://blindvault.site/php/history_page.php";
 function formatTransactionType(type) {
     try {
         switch (type.toLowerCase()) {
-            case 'transfer_internal':
-                return 'Transfer Out';
             case 'transfer_in':
                 return 'Transfer In';
+            case 'transfer_out':
+                return 'Transfer Out';
+            case 'transfer_internal':
+                return 'Transfer Out';
             case 'deposit':
                 return 'Deposit';
             case 'withdraw':
@@ -51,9 +53,11 @@ function getAmountWithSign(transactionType, amount, isReceiver = false) {
         }
 
         switch (transactionType.toLowerCase()) {
-            case 'transfer_internal':
-                return (isReceiver ? '+' : '-') + numAmount.toFixed(2);
             case 'transfer_in':
+                return '+' + numAmount.toFixed(2);
+            case 'transfer_out':
+            case 'transfer_internal':
+                return '-' + numAmount.toFixed(2);
             case 'deposit':
                 return '+' + numAmount.toFixed(2);
             case 'withdraw':
@@ -70,11 +74,11 @@ function getAmountWithSign(transactionType, amount, isReceiver = false) {
 
 function getTransactionClass(transactionType, isReceiver = false) {
     switch (transactionType.toLowerCase()) {
-        case 'transfer_internal':
-            return isReceiver ? 'positive' : 'negative';
         case 'transfer_in':
         case 'deposit':
             return 'positive';
+        case 'transfer_out':
+        case 'transfer_internal':
         case 'withdraw':
         case 'transfer_external':
             return 'negative';
@@ -111,6 +115,11 @@ function loadTransactions() {
         }
 
         if (data.success) {
+            // Log debug information if available
+            if (data.debug_info) {
+                historyDebugger.logWarning('loadTransactions', 'Debug info received', data.debug_info);
+            }
+            
             if (!data.transactions || data.transactions.length === 0) {
                 transactionsList.innerHTML = '<p>No transactions found.</p>';
                 return;
@@ -143,8 +152,8 @@ function loadTransactions() {
                     });
 
                     const formattedType = formatTransactionType(tx.transaction_type);
-                    const amountDisplay = getAmountWithSign(tx.transaction_type, tx.amount, tx.account_holder_id === tx.recipient_id);
-                    const amountClass = getTransactionClass(tx.transaction_type, tx.account_holder_id === tx.recipient_id);
+                    const amountDisplay = getAmountWithSign(tx.transaction_type, tx.amount);
+                    const amountClass = getTransactionClass(tx.transaction_type);
 
                     div.innerHTML = `
                         <div class="transaction-header">

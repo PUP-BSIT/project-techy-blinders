@@ -277,16 +277,22 @@ function submitUser() {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.text();
+        return response.json(); // Changed to .json() since PHP returns JSON
     })
-    .then((responseText) => {
-        console.log("Server response:", responseText);
+    .then((responseData) => {
+        console.log("Server response:", responseData);
         
-        if (responseText.toLowerCase().includes("success") || 
-            responseText.toLowerCase().includes("created") ||
-            responseText.toLowerCase().includes("registered")) {
-            
-            let accountId = extractAccountId(responseText);
+        // Check for error conditions first (based on your PHP structure)
+        if (responseData.success === false || responseData.error) {
+            // Handle error cases
+            const errorMessage = responseData.message || responseData.error || "Registration failed. Please try again.";
+            showModal(errorMessage, 'error', 'Registration Failed');
+            return;
+        }
+        
+        // Check for success
+        if (responseData.success === true) {
+            let accountId = responseData.accountId;
             
             if (accountId) {
                 showModal(`
@@ -311,12 +317,8 @@ function submitUser() {
             }, 20000);
             
         } else {
-            try {
-                const errorData = JSON.parse(responseText);
-                showModal(errorData.message || errorData.error || responseText, 'error', 'Registration Failed');
-            } catch (e) {
-                showModal(responseText, 'error', 'Registration Failed');
-            }
+            // If it's neither a clear error nor success, show the message or fallback
+            showModal(responseData.message || "Unexpected response from server. Please try again.", 'error', 'Registration Failed');
         }
     })
     .catch((error) => {
@@ -326,7 +328,7 @@ function submitUser() {
     .finally(() => {
         if (submitButton) {
             submitButton.disabled = false;
-            submitButton.innerHTML = 'Create Account';
+            submitButton.innerHTML = 'Create';
         }
         
         if (typeof grecaptcha !== 'undefined') {
@@ -375,5 +377,5 @@ function clearForm() {
         grecaptcha.reset();
     }
     
-    validateForm()
+    validateForm();
 }

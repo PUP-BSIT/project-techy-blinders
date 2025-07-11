@@ -153,8 +153,18 @@ img {
     margin: 10px;
     font-family: "Lexend Tera", sans-serif;
     font-size: 13px;
-    background-color: #132D46;
+    background: none;
+    border: none;
     color: green;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+#resend_otp:hover {
+    color: #01C38E;
+    text-shadow: 0 0 30px #065b44;
 }
 
 .button-container {

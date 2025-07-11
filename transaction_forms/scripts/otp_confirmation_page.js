@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .finally(() => {
                 resendButton.disabled = false;
-                resendButton.textContent = 'Resend OTP';
+                resendButton.textContent = 'Resend';
             });
         });
     }

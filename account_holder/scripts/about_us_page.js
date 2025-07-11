@@ -37,7 +37,7 @@ function logoutSession() {
     const logoutBtn = document.getElementById('logout_button');
     if (logoutBtn) {
         logoutBtn.disabled = true;
-        logoutBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>Logging out...';
+        logoutBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging out...';
     }
 
     fetch("https://blindvault.site/php/logout_session.php", {
@@ -47,18 +47,23 @@ function logoutSession() {
     .then(response => response.json())
     .then(data => {
         console.log("Logout response:", data);
-        
+
+        // Extra: Force clear session cookie in browser (just in case)
+        document.cookie.split(";").forEach((c) => {
+            document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/;domain=blindvault.site;Secure;SameSite=None");
+        });
+
         localStorage.clear();
         sessionStorage.clear();
-        
+
         window.location.replace("../index.html");
     })
     .catch(error => {
         console.error("Logout error:", error);
-        
+
         localStorage.clear();
         sessionStorage.clear();
-        
+
         window.location.replace("../index.html");
     });
 }

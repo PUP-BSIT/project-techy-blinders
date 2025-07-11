@@ -27,9 +27,7 @@
                     <a class="home" href="./account_holder_home_page.html">Home</a>
                     <a class="about" href="./contact_us_page.html">Contact us</a>
                     <a class="contact" href="./about_us_page.html">About us</a>
-                    <a href="./login_page_index.html">
-                        <button type="button" id="logout_button">Logout</button>
-                    </a>
+                    <button type="button" id="logout_button" onclick="logoutSession()">Logout</button>
                 </div>
 
                 <div class="hamburger-menu">
@@ -43,7 +41,7 @@
                         <a href="./account_holder_home_page.html">Home</a>
                         <a href="./about_us_page.html">About us</a>
                         <a href="./contact_us_page.html">Contact us</a>
-                        <a href="./login_page_index.html">Logout</a>
+                        <a href="#" onclick="logoutSession(); return false;">Logout</a>
                     </div>
                 </div>
             </div>
@@ -117,7 +115,7 @@
             </div>
         </div>
 
-            <div id="custom_modal" class="modal-overlay">
+        <div id="custom_modal" class="modal-overlay">
             <div class="modal">
                 <div class="modal-header">
                     <div id="modal_title" class="modal-title">Alert</div>

@@ -117,11 +117,11 @@ a {
     margin-top: 2%;
 }
 
-.transaction-type.deposit {
-  color: green;
+.transaction-type.deposit, .transaction-type.transfer_in {
+  color: #00FF00;
 }
 
-.transaction-type.withdrawal {
+.transaction-type.withdrawal, .transaction-type.transfer_out {
   color: red;
 }
 

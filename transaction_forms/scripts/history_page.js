@@ -25,11 +25,13 @@ function formatTransactionType(type) {
         switch (type.toLowerCase()) {
             case 'transfer_internal':
                 return 'Transfer Out';
+            case 'transfer_out':
+                return 'Transfer Out';
             case 'transfer_in':
                 return 'Transfer In';
             case 'deposit':
                 return 'Deposit';
-            case 'withdraw':
+            case 'withdrawal':
                 return 'Withdraw';
             case 'transfer_external':
                 return 'Transfer External';
@@ -53,10 +55,12 @@ function getAmountWithSign(transactionType, amount, isReceiver = false) {
         switch (transactionType.toLowerCase()) {
             case 'transfer_internal':
                 return (isReceiver ? '+' : '-') + numAmount.toFixed(2);
+            case 'transfer_out':
+                return '-' + numAmount.toFixed(2);
             case 'transfer_in':
             case 'deposit':
                 return '+' + numAmount.toFixed(2);
-            case 'withdraw':
+            case 'withdrawal':
             case 'transfer_external':
                 return '-' + numAmount.toFixed(2);
             default:
@@ -72,10 +76,12 @@ function getTransactionClass(transactionType, isReceiver = false) {
     switch (transactionType.toLowerCase()) {
         case 'transfer_internal':
             return isReceiver ? 'positive' : 'negative';
+        case 'transfer_out':
+            return 'negative';
         case 'transfer_in':
         case 'deposit':
             return 'positive';
-        case 'withdraw':
+        case 'withdrawal':
         case 'transfer_external':
             return 'negative';
         default:

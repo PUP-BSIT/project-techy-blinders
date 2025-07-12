@@ -178,7 +178,7 @@ body {
     width: 150px;
     height: 45px;
     border-radius: 20px;
-    background-color: var(--accent);
+    background-color: #00895f;
     color: var(--text);
     font-family: "Inter", monospace;
     cursor: pointer;

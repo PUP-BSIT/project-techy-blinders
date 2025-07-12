@@ -273,7 +273,7 @@ body {
   border-radius: 20px;
   padding: 10px 25px;
   font-size: large;
-  background-color: var(--accent);
+  background-color: #00895f;
   color: var(--text);
   display: block;
   margin: 20px auto 0;

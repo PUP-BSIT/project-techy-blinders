@@ -97,7 +97,7 @@ body {
   padding: 7px;
   width: 100px;
   border: solid 0px;
-  background-color: #01C38E;
+  background-color: #00895f;
   color: white;
   border-radius: 50px;
   margin-top: -10%;
@@ -262,7 +262,7 @@ body {
   border-radius: 20px;
   padding: 10px 25px;
   font-size: large;
-  background-color: var(--accent);
+  background-color: #00895f;
   color: var(--text);
   display: block;
   margin: 20px auto 0;

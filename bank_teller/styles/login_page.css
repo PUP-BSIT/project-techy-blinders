@@ -215,7 +215,7 @@ body {
     min-width: 120px;
     height: 45px;
     border-radius: 25px;
-    background-color: var(--accent);
+    background-color: #00895f;
     color: var(--text);
     border: none;
     font-family: "IBM Plex Mono", monospace;

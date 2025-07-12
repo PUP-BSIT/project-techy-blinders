@@ -345,7 +345,7 @@ body {
 
 .transfer-funds-internal button {
     font-family: "Lexend Tera", sans-serif;
-    background-color: #01C38E;
+    background-color: #00895f;
     margin-top: 5%;
     padding: 10px;
     width: 400px;
@@ -368,7 +368,7 @@ body {
 
 .transfer-funds-external button {
     font-family: "Lexend Tera", sans-serif;
-    background-color: #01C38E;
+    background-color: #00895f;
     margin-top: 5%;
     padding: 10px;
     width: 400px;
@@ -388,7 +388,7 @@ body {
     font-size: 20px;
     padding: 10px 0;
     border-radius: 15px;
-    background-color: var(--accent);
+    background-color: #00895f;
     font-family: "Lexend Tera", sans-serif;
     color: var(--text);
     border: solid 0px;

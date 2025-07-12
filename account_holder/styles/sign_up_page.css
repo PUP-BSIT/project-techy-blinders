@@ -100,7 +100,7 @@ body {
   padding: 7px;
   width: 100px;
   border: solid 0px;
-  background-color: #01C38E;
+  background-color: #00895f;
   color: white;
   border-radius: 50px;
   margin-top: -10%;
@@ -273,7 +273,7 @@ body {
   padding: 0.4375rem;
   width: 6.25rem;
   border: solid 0px;
-  background-color:var(--accent);
+  background-color:#00895f;
   color: var(--text);
   box-shadow: 0 5px 15px rgba(5, 1, 1, 0.4);
   border-radius: 3.125rem;

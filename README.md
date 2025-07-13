@@ -30,4 +30,9 @@ Password - Thenumber123
 Bank Teller [Login Page](https://blindvault.site/bank_teller/login_page.html)
 Teller ID - 1214567897
 Password - chris143
+
+## 🎥 Video Recording of our Presentation
+
+Banking System Final Defense | [Techy Blinders](https://www.youtube.com/watch?v=2i5TOPET_sI)
+
 </div>
